@@ -15,8 +15,6 @@ import { apiRoutes } from "./api/apiRoutes"
 const IndexPage = ({
   lolRates,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  console.log(lolRates)
-
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       <h1>Hello Next.js 👋</h1>
