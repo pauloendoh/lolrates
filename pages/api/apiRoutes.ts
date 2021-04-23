@@ -1,4 +1,4 @@
-import { apiURL, isProduction } from "../../config"
+import { apiURL } from "../../config"
 
 export const apiRoutes = {
   lolRates: apiURL + "/lolRates",
