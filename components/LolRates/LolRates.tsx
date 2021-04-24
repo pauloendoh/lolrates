@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   Table,
   TableBody,
   TableCell,
@@ -17,11 +15,14 @@ import { LolRateDto } from "../../interfaces/LolRateDto"
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP"
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
 
+type SortByDesc = "AvgPick" | "AvgWin" | "AvgAvg"
+
 const LolRates = ({ rates: lolRates }: Props) => {
   const [selectedRole, setSelectedRole] = useState<Roles>("TOP")
   const [filteredRates, setFilteredRates] = useState(lolRates)
 
   const [isOnly51, setIsOnly51] = useState(true)
+  const [sortByDesc, setSortByDesc] = useState<SortByDesc>("AvgAvg")
 
   useEffect(() => {
     let rates = lolRates
@@ -32,8 +33,29 @@ const LolRates = ({ rates: lolRates }: Props) => {
     if (isOnly51) {
       rates = rates.filter((r) => r.avgWin >= 51)
     }
+
+    if (sortByDesc === "AvgAvg") {
+      rates = rates.sort((a, b) => {
+        if (a.avgAvg < b.avgAvg) return 1
+        if (a.avgAvg > b.avgAvg) return -1
+        return 0
+      })
+    } else if (sortByDesc === "AvgPick") {
+      rates = rates.sort((a, b) => {
+        if (a.avgPick < b.avgPick) return 1
+        if (a.avgPick > b.avgPick) return -1
+        return 0
+      })
+    } else if (sortByDesc === "AvgWin") {
+      rates = rates.sort((a, b) => {
+        if (a.avgWin < b.avgWin) return 1
+        if (a.avgWin > b.avgWin) return -1
+        return 0
+      })
+    }
+
     setFilteredRates(rates)
-  }, [selectedRole, isOnly51])
+  }, [selectedRole, isOnly51, sortByDesc])
 
   return (
     <Box p={3}>
@@ -41,9 +63,7 @@ const LolRates = ({ rates: lolRates }: Props) => {
       <Box>
         <ul>
           <li>AvgPick = Average pick rate between OP.GG and LoLGraphs</li>
-          <li>AvgWin = Average win rate ... </li>
           <li>AvgAvg = Mean value between AvgPick and AvgWin</li>
-          <li>Sorting by AvgAvg descending</li>
         </ul>
         <label>
           <input
@@ -75,9 +95,45 @@ const LolRates = ({ rates: lolRates }: Props) => {
           <TableHead>
             <TableRow>
               <TableCell>Champion</TableCell>
-              <TableCell>AvgPick</TableCell>
-              <TableCell>AvgWin</TableCell>
-              <TableCell>AvgAvg</TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => {
+                    setSortByDesc("AvgPick")
+                  }}
+                  style={{
+                    textTransform: "none",
+                    fontWeight: sortByDesc === "AvgPick" ? "bold" : "normal",
+                  }}
+                >
+                  AvgPick
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => {
+                    setSortByDesc("AvgWin")
+                  }}
+                  style={{
+                    textTransform: "none",
+                    fontWeight: sortByDesc === "AvgWin" ? "bold" : "normal",
+                  }}
+                >
+                  AvgWin
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => {
+                    setSortByDesc("AvgAvg")
+                  }}
+                  style={{
+                    textTransform: "none",
+                    fontWeight: sortByDesc === "AvgAvg" ? "bold" : "normal",
+                  }}
+                >
+                  AvgAvg
+                </Button>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
