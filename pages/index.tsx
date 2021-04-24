@@ -7,8 +7,9 @@ import { apiRoutes } from "./api/apiRoutes"
 
 const IndexPage = ({
   rates,
+  updatedAt,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <LolRates rates={rates} />
+  return <LolRates rates={rates} updatedAt={updatedAt} />
 }
 
 export const getServerSideProps = async () => {
@@ -16,7 +17,7 @@ export const getServerSideProps = async () => {
   const result = await res.json()
   const rates = result.rates as LolRateDto[]
 
-  const updatedAt = result.updatedAt as LolRateUpdatedAtDto[]
+  const updatedAt = result.updatedAt as LolRateUpdatedAtDto
 
   return {
     props: {

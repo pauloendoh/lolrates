@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { LolRateDto } from "../../interfaces/LolRateDto"
+import { LolRateUpdatedAtDto } from "../../interfaces/LolRateUpdatedAtDto"
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP"
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
 
 type SortByDesc = "AvgPick" | "AvgWin" | "AvgAvg"
 
-const LolRates = ({ rates: lolRates }: Props) => {
+const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
   const [selectedRole, setSelectedRole] = useState<Roles>("TOP")
   const [filteredRates, setFilteredRates] = useState(lolRates)
 
@@ -75,7 +76,7 @@ const LolRates = ({ rates: lolRates }: Props) => {
           {"Only AvgWin >= 51%"}
         </label>
       </Box>
-      <Box flex my={2}>
+      <Box style={{ marginTop: 16, marginBottom: 16 }}>
         {rolesArr.map((role) => (
           <Button
             key={role}
@@ -232,12 +233,20 @@ const LolRates = ({ rates: lolRates }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box>
+        opgg updated at: {new Date(updatedAt.opggUpdatedAt).toLocaleString()}
+      </Box>
+      <Box>
+        lolgraphs updated at:{" "}
+        {new Date(updatedAt.lolgraphsUpdatedAt).toLocaleString()}
+      </Box>
     </Box>
   )
 }
 
 interface Props {
   rates: LolRateDto[]
+  updatedAt: LolRateUpdatedAtDto
 }
 
 export default LolRates
