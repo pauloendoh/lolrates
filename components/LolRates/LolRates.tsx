@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
@@ -140,23 +141,87 @@ const LolRates = ({ rates: lolRates }: Props) => {
             {filteredRates.map((rate, i) => (
               <TableRow key={i}>
                 <TableCell>
-                  <Box>
-                    <Box>{rate.championName}</Box>
+                  <Box style={{ display: "flex", alignItems: "center" }}>
                     <Box>
                       <img
                         src={rate.iconUrl}
                         style={{ width: 30, borderRadius: 100 }}
                       />
                     </Box>
+
+                    <Box style={{ marginLeft: 8 }}>
+                      <Box>{rate.championName}</Box>
+                      <Box style={{ fontSize: "smaller" }}>
+                        <i>{rate.role}</i>
+                      </Box>
+                    </Box>
                   </Box>
                 </TableCell>
 
                 <TableCell>
-                  {rate.avgPick > 0 ? rate.avgPick.toFixed(1) + "%" : ""}
+                  <Tooltip
+                    title={
+                      <>
+                        <a
+                          target="_blank"
+                          href={`https://www.op.gg/champion/${rate.championName}/statistics`}
+                        >
+                          opgg:{" "}
+                          {rate.opggPick > 0
+                            ? rate.opggPick.toFixed(1) + "%"
+                            : ""}{" "}
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href={`https://www.google.com/search?q=${rate.championName} lolgraphs`}
+                        >
+                          lolgraphs:{" "}
+                          {rate.lolgraphsPick > 0
+                            ? rate.lolgraphsPick.toFixed(1) + "%"
+                            : ""}{" "}
+                        </a>
+                      </>
+                    }
+                    interactive
+                  >
+                    <Button>
+                      {rate.avgPick > 0 ? rate.avgPick.toFixed(1) + "%" : ""}{" "}
+                    </Button>
+                  </Tooltip>
                 </TableCell>
 
                 <TableCell>
-                  {rate.avgWin > 0 ? rate.avgWin.toFixed(1) + "%" : ""}
+                  <Tooltip
+                    title={
+                      <>
+                        <a
+                          target="_blank"
+                          href={`https://www.op.gg/champion/${rate.championName}/statistics`}
+                        >
+                          opgg:{" "}
+                          {rate.opggWin > 0
+                            ? rate.opggWin.toFixed(1) + "%"
+                            : ""}{" "}
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href={`https://www.google.com/search?q=${rate.championName} lolgraphs`}
+                        >
+                          lolgraphs:{" "}
+                          {rate.lolgraphsWin > 0
+                            ? rate.lolgraphsWin.toFixed(1) + "%"
+                            : ""}{" "}
+                        </a>
+                      </>
+                    }
+                    interactive
+                  >
+                    <Button>
+                      {rate.avgWin > 0 ? rate.avgWin.toFixed(1) + "%" : ""}{" "}
+                    </Button>
+                  </Tooltip>
                 </TableCell>
 
                 <TableCell>
