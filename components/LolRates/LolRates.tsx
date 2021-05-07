@@ -21,7 +21,7 @@ const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
 type SortByDesc = "AvgPick" | "AvgWin" | "AvgAvg"
 
 const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
-  const [selectedRole, setSelectedRole] = useState<Roles>("TOP")
+  const [selectedRole, setSelectedRole] = useState<Roles>("ALL")
   const [filteredRates, setFilteredRates] = useState(lolRates)
 
   const [isOnly51, setIsOnly51] = useState(true)
