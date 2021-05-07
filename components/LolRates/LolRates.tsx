@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useState } from "react"
 import { LolRateDto } from "../../interfaces/LolRateDto"
 import { LolRateUpdatedAtDto } from "../../interfaces/LolRateUpdatedAtDto"
+import HelpIcon from "@material-ui/icons/Help"
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP"
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
@@ -64,8 +65,10 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
       <Typography variant="h3">LoL Rates</Typography>
       <Box>
         <ul>
-          <li>AvgPick = Average pick rate between OP.GG and LoLGraphs</li>
-          <li>AvgAvg = Mean value between AvgPick and AvgWin</li>
+          <li>
+            Average pick and win rates from OP.GG, LeagueOfGraphs and U.GG
+          </li>
+          <li>Global Platinum+</li>
         </ul>
         <label>
           <input
@@ -134,6 +137,9 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
                   }}
                 >
                   AvgAvg
+                  <Tooltip title="(AvgPick + AvgWin) / 2">
+                    <HelpIcon style={{ marginLeft: 4, height: "0.75em" }} />
+                  </Tooltip>
                 </Button>
               </TableCell>
             </TableRow>
@@ -167,7 +173,7 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
                           target="_blank"
                           href={`https://www.op.gg/champion/${rate.championName}/statistics`}
                         >
-                          opgg:{" "}
+                          op.gg:{" "}
                           {rate.opggPick > 0
                             ? rate.opggPick.toFixed(1) + "%"
                             : ""}{" "}
@@ -180,6 +186,16 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
                           lolgraphs:{" "}
                           {rate.lolgraphsPick > 0
                             ? rate.lolgraphsPick.toFixed(1) + "%"
+                            : ""}{" "}
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href={`https://u.gg/lol/champions/${rate.championName}`}
+                        >
+                          u.gg:{" "}
+                          {rate.uggPick > 0
+                            ? rate.uggPick.toFixed(1) + "%"
                             : ""}{" "}
                         </a>
                       </>
@@ -200,7 +216,7 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
                           target="_blank"
                           href={`https://www.op.gg/champion/${rate.championName}/statistics`}
                         >
-                          opgg:{" "}
+                          op.gg:{" "}
                           {rate.opggWin > 0
                             ? rate.opggWin.toFixed(1) + "%"
                             : ""}{" "}
@@ -214,6 +230,14 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
                           {rate.lolgraphsWin > 0
                             ? rate.lolgraphsWin.toFixed(1) + "%"
                             : ""}{" "}
+                        </a>
+                        <br />
+                        <a
+                          target="_blank"
+                          href={`https://u.gg/lol/champions/${rate.championName}`}
+                        >
+                          u.gg:{" "}
+                          {rate.uggWin > 0 ? rate.uggWin.toFixed(1) + "%" : ""}{" "}
                         </a>
                       </>
                     }
@@ -234,11 +258,14 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
         </Table>
       </TableContainer>
       <Box>
-        opgg updated at: {new Date(updatedAt.opggUpdatedAt).toLocaleString()}
+        OP.GG updated at: {new Date(updatedAt.opggUpdatedAt).toLocaleString()}
       </Box>
       <Box>
-        lolgraphs updated at:{" "}
+        LeagueOfGraphs updated at:{" "}
         {new Date(updatedAt.lolgraphsUpdatedAt).toLocaleString()}
+      </Box>
+      <Box>
+        U.GG updated at: {new Date(updatedAt.uggUpdatedAt).toLocaleString()}
       </Box>
     </Box>
   )
