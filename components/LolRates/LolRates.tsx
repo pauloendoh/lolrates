@@ -18,47 +18,43 @@ import HelpIcon from "@material-ui/icons/Help"
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP"
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
 
-type SortByDesc = "AvgPick" | "AvgWin" | "AvgAvg"
+type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg"
 
-const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
+const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
+  const [checked51, setChecked51] = useState(true)
+
+  // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL")
-  const [filteredRates, setFilteredRates] = useState(lolRates)
-
-  const [isOnly51, setIsOnly51] = useState(true)
-  const [sortByDesc, setSortByDesc] = useState<SortByDesc>("AvgAvg")
+  const [sortDescBy, setSortDescBy] = useState<SortDescBy>("AvgAvg")
+  const [filteredRates, setFilteredRates] = useState(allChampionRates)
 
   useEffect(() => {
-    let rates = lolRates
+    let filteredRates = [...allChampionRates]
+
+    // PE 1/3 - Separate into filterRates(rates, selectedRole, checked51, sortDescBy)
     if (selectedRole !== "ALL") {
-      rates = lolRates.filter((rate) => rate.role === selectedRole)
+      filteredRates = allChampionRates.filter(
+        (rate) => rate.role === selectedRole
+      )
     }
 
-    if (isOnly51) {
-      rates = rates.filter((r) => r.avgWin >= 51)
+    if (checked51) {
+      filteredRates = filteredRates.filter((r) => r.avgWin >= 51)
     }
 
-    if (sortByDesc === "AvgAvg") {
-      rates = rates.sort((a, b) => {
-        if (a.avgAvg < b.avgAvg) return 1
-        if (a.avgAvg > b.avgAvg) return -1
-        return 0
-      })
-    } else if (sortByDesc === "AvgPick") {
-      rates = rates.sort((a, b) => {
-        if (a.avgPick < b.avgPick) return 1
-        if (a.avgPick > b.avgPick) return -1
-        return 0
-      })
-    } else if (sortByDesc === "AvgWin") {
-      rates = rates.sort((a, b) => {
-        if (a.avgWin < b.avgWin) return 1
-        if (a.avgWin > b.avgWin) return -1
-        return 0
-      })
+    switch (sortDescBy) {
+      case "AvgAvg":
+        filteredRates = filteredRates.sort((a, b) => b.avgAvg - a.avgAvg)
+        break
+      case "AvgPick":
+        filteredRates = filteredRates.sort((a, b) => b.avgPick - a.avgPick)
+        break
+      case "AvgWin":
+        filteredRates = filteredRates.sort((a, b) => b.avgWin - a.avgWin)
     }
 
-    setFilteredRates(rates)
-  }, [selectedRole, isOnly51, sortByDesc])
+    setFilteredRates(filteredRates)
+  }, [selectedRole, checked51, sortDescBy])
 
   return (
     <Box p={3}>
@@ -73,8 +69,8 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
         <label>
           <input
             type="checkbox"
-            checked={isOnly51}
-            onChange={(e) => setIsOnly51(e.target.checked)}
+            checked={checked51}
+            onChange={(e) => setChecked51(e.target.checked)}
           />
           {"Only AvgWin >= 51%"}
         </label>
@@ -103,11 +99,11 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    setSortByDesc("AvgPick")
+                    setSortDescBy("AvgPick")
                   }}
                   style={{
                     textTransform: "none",
-                    fontWeight: sortByDesc === "AvgPick" ? "bold" : "normal",
+                    fontWeight: sortDescBy === "AvgPick" ? "bold" : "normal",
                   }}
                 >
                   AvgPick
@@ -116,11 +112,11 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    setSortByDesc("AvgWin")
+                    setSortDescBy("AvgWin")
                   }}
                   style={{
                     textTransform: "none",
-                    fontWeight: sortByDesc === "AvgWin" ? "bold" : "normal",
+                    fontWeight: sortDescBy === "AvgWin" ? "bold" : "normal",
                   }}
                 >
                   AvgWin
@@ -129,11 +125,11 @@ const LolRates = ({ rates: lolRates, updatedAt }: Props) => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    setSortByDesc("AvgAvg")
+                    setSortDescBy("AvgAvg")
                   }}
                   style={{
                     textTransform: "none",
-                    fontWeight: sortByDesc === "AvgAvg" ? "bold" : "normal",
+                    fontWeight: sortDescBy === "AvgAvg" ? "bold" : "normal",
                   }}
                 >
                   AvgAvg
