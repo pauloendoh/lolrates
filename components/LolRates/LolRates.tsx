@@ -21,7 +21,7 @@ const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"]
 type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg"
 
 const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
-  const [checked51, setChecked51] = useState(true)
+  const [checked51, setChecked51] = useState(false)
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL")
