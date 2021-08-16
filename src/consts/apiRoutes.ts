@@ -4,7 +4,6 @@ export const apiRoutes = {
     me: '/auth/me',
     login: 'auth/login',
     register: '/auth/register',
-
   },
   lolRates: "/lolRates",
 }

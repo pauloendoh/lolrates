@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { parseCookies } from "nookies";
 import React from "react";
 import Layout from "../src/components/Layout/Layout";
-import DraftSelector from "../src/components/pages/draft/DraftSelector";
+import DraftSelector from "../src/components/domain/draft/DraftSelector";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
 import useChampionsQuery from "../src/hooks/react-query/auth/useChampionsQuery";

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import myColors from "../../../consts/myColors";
 import {
   ChampionRoleType,
-  roles
+  roles,
 } from "../../../types/LolRate/ChampionRoleType";
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getEmptySelectedChampions } from "../../../types/LolRate/ISelectedChampions";
@@ -91,8 +91,8 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
 
                 {/* Showing champion icons */}
                 <Flex flexWrap="wrap">
-                  {getBestChampionsByRole(role).map((championRate) => (
-                    <Box mr={0.5} mb={1}>
+                  {getBestChampionsByRole(role).map((championRate, i) => (
+                    <Box mr={0.5} mb={1} key={i}>
                       <img
                         onClick={() =>
                           selectChampionForRole(championRate, role)
