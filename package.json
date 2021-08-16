@@ -4,17 +4,24 @@
   "scripts": {
     "dev": "next -p 8080",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "type-check": "tsc"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@types/next": "^9.0.0",
+    "axios": "^0.21.1",
+    "classnames": "^2.3.1",
     "dotenv": "^8.2.0",
+    "formik": "^2.2.9",
     "next": "latest",
+    "nookies": "^2.5.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-number-format": "^4.7.3",
+    "react-query": "^3.19.6",
+    "zustand": "^3.5.8"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
