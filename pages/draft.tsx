@@ -1,14 +1,24 @@
-import { Box, Container, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Container, makeStyles
+} from "@material-ui/core";
 import classNames from "classnames";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import React from "react";
-import Layout from "../src/components/Layout/Layout";
+import { QueryClient } from "react-query";
+import { dehydrate } from "react-query/hydration";
 import DraftSelector from "../src/components/domain/draft/DraftSelector";
+import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
-import useChampionsQuery from "../src/hooks/react-query/auth/useChampionsQuery";
+import { apiRoutes } from "../src/consts/apiRoutes";
+import useChampionsQuery, {
+  fetchChampions
+} from "../src/hooks/react-query/auth/useChampionsQuery";
+import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
+import myServerAxios from "../src/utils/axios/myServerAxios";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`
@@ -24,15 +34,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
+  const queryClient = new QueryClient();
 
+  await queryClient.prefetchQuery(apiRoutes.auth.me, () =>
+    fetchMe(myServerAxios(ctx))
+  );
+
+  await queryClient.prefetchQuery(apiRoutes.lolRates, () =>
+    fetchChampions(myServerAxios(ctx))
+  );
   return {
-    props: {},
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 
-const DraftPage = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+const DraftPage = () => {
   const classes = useStyles();
 
   const { sidebarIsOpen } = useSidebarStore();

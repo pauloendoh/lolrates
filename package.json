@@ -2,18 +2,20 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "dev": "next -p 8080",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next -p 8080",
     "build": "next build",
     "start": "next start -p 8080",
+    "build:start": "next build && next start -p 8080",
     "type-check": "tsc"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@types/next": "^9.0.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
-    "dotenv": "^8.2.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.6.0",
     "formik": "^2.2.9",
     "next": "latest",
     "nookies": "^2.5.2",
@@ -24,21 +26,21 @@
     "zustand": "^3.5.8"
   },
   "devDependencies": {
-    "@types/node": "^12.12.21",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
+    "@types/node": "^12.20.19",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
-    "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.2.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-react": "^7.23.2",
-    "prettier": "^2.2.1",
-    "typescript": "4.0"
+    "eslint-plugin-react": "^7.24.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.0.8"
   },
   "eslintConfig": {
     "extends": [

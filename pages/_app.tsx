@@ -1,48 +1,40 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { AppProps } from 'next/dist/shared/lib/router/router';
-import Head from 'next/head';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import myTheme from '../src/consts/myTheme';
-import { Hydrate } from 'react-query/hydration'
-import { myQueryClient } from '../src/consts/myQueryClient';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Hydrate } from "react-query/hydration";
+import theme from "../src/consts/theme";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
 
-    React.useEffect(() => {
-        // Remove the server-side injected CSS.
-        const jssStyles = document.querySelector('#jss-server-side');
-        if (jssStyles) {
-            jssStyles.parentElement?.removeChild(jssStyles);
-        }
-    }, []);
+  React.useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement!.removeChild(jssStyles);
+    }
+  }, []);
 
-    // const queryClient = new QueryClient()
+  // https://react-query.tanstack.com/guides/ssr
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({ defaultOptions: { queries: { staleTime: 20 * 1000 } } })
+  );
 
-    // const [queryClient] = React.useState(() => new QueryClient())
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
 
-    return (
-        <React.Fragment>
-
-            <QueryClientProvider client={myQueryClient}>
-                <ThemeProvider theme={myTheme}>
-                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                    <CssBaseline />
-
-                    {/* <Hydrate state={pageProps.dehydratedState}> */}
-
-                    <Component {...pageProps} />
-                    {/* </Hydrate> */}
-                </ThemeProvider>
-            </QueryClientProvider>
-
-        </React.Fragment>
-    );
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Component {...pageProps} />
+        </Hydrate>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
 }
-
-MyApp.propTypes = {
-    Component: PropTypes.elementType.isRequired,
-    pageProps: PropTypes.object.isRequired,
-};
