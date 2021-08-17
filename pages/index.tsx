@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   //   fetchChampions(myServerAxios(ctx)),
   //   fetchMe(myServerAxios(ctx)).catch((err) => console.log(err)),
   // ]);
-
+//
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(apiRoutes.auth.me, () =>
