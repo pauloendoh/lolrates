@@ -30,12 +30,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 60 * 45 // 45 min?
   };
 };
 
 const IndexPage = () => {
-  const user = useMeQuery();
   const { rates: championRates, updatedAt } = useChampionsQuery();
 
   return (

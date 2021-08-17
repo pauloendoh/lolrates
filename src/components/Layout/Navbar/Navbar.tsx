@@ -6,7 +6,7 @@ import {
   Tab,
   Tabs,
   Theme,
-  Toolbar
+  Toolbar,
 } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
@@ -28,7 +28,7 @@ const Navbar = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { data: authUser } = useMeQuery();
+  const { data: authUser, isLoading } = useMeQuery();
 
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
@@ -56,18 +56,14 @@ const Navbar = () => {
         <FlexVCenter>
           <SidebarToggleButton />
 
-          {authUser ? (
-            <Button onClick={logout}>Logout</Button>
-          ) : (
-            <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
-          )}
-
-          {/* tem algum problema nesse segundo authUser.................... PORRA */}
-
+          {isLoading && "Loading..."}
+          {authUser && <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>}
+          {!authUser && !isLoading && <Button onClick={logout}>Logout</Button>}
+          
+         
           {authUser && (
             <Flex>
               <Txt>{authUser.username} logged!!</Txt>
-              
 
               <Flex>
                 <Tabs
@@ -94,7 +90,7 @@ const Navbar = () => {
                 </Tabs>
               </Flex>
             </Flex>
-          ) }
+          )}
 
           <AuthDialog
             open={openAuthDialog}
