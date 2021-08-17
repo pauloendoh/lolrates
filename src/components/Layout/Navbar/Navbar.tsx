@@ -57,8 +57,8 @@ const Navbar = () => {
           <SidebarToggleButton />
 
           {isLoading && "Loading..."}
-          {authUser && <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>}
-          {!authUser && !isLoading && <Button onClick={logout}>Logout</Button>}
+          {!authUser && !isLoading && <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>}
+          {authUser && <Button onClick={logout}>Logout</Button>}
           
          
           {authUser && (
