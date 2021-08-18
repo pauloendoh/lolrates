@@ -12,9 +12,6 @@ export async function fetchMe(axios: AxiosInstance) {
 }
 
 // query
-export default function useMeQuery(initialData?: AuthUserGetDto) {
-  
-  return initialData
-    ? useQuery(queryKeyUrl, () => fetchMe(myClientAxios), { initialData })
-    : useQuery(queryKeyUrl, () => fetchMe(myClientAxios));
+export default function useMeQuery() {
+  return useQuery(queryKeyUrl, () => fetchMe(myClientAxios), {retry: false});
 }

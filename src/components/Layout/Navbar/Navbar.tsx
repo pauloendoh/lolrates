@@ -1,21 +1,21 @@
 import {
   AppBar,
-  Box,
   Button,
   makeStyles,
   Tab,
   Tabs,
   Theme,
-  Toolbar,
+  Toolbar
 } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { destroyCookie } from "nookies";
 import React, { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { apiRoutes } from "../../../consts/apiRoutes";
-import { myQueryClient } from "../../../consts/myQueryClient";
 import { pageRoutes } from "../../../consts/pageRoutes";
 import useMeQuery from "../../../hooks/react-query/auth/useMeQuery";
+import useSnackbarStore from "../../../hooks/stores/useSnackbarStore";
 import myClientAxios from "../../../utils/axios/myClientAxios";
 import Flex from "../../Shared/Flexboxes/Flex";
 import FlexVCenter from "../../Shared/Flexboxes/FlexVCenter";
@@ -28,12 +28,14 @@ const Navbar = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { data: authUser, isLoading } = useMeQuery();
+  const { data: authUser, isLoading, isFetching, isError } = useMeQuery();
 
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
   const { pathname } = useRouter();
   const [tabIndex, setTabIndex] = useState<number | boolean>(false);
+
+  const { setSuccessMessage } = useSnackbarStore();
 
   useEffect(() => {
     if (pathname.startsWith(pageRoutes.draft)) {
@@ -41,14 +43,16 @@ const Navbar = () => {
     } else setTabIndex(0);
   }, [pathname]);
 
+  const queryClient = useQueryClient();
   const logout = () => {
     // put this into an utils?...
     destroyCookie(null, "user");
     delete myClientAxios.defaults.headers["x-auth-token"];
-    myQueryClient.setQueryData(apiRoutes.auth.me, null);
+    queryClient.setQueryData(apiRoutes.auth.me, null);
+    setSuccessMessage("Successful logout!");
   };
 
-  console.log(authUser);
+  const shouldShowLogin = (!authUser && !isLoading) || isError
 
   return (
     <AppBar className={classes.root} position="fixed" elevation={0}>
@@ -57,10 +61,11 @@ const Navbar = () => {
           <SidebarToggleButton />
 
           {isLoading && "Loading..."}
-          {!authUser && !isLoading && <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>}
+          {shouldShowLogin  && (
+            <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
+          )}
           {authUser && <Button onClick={logout}>Logout</Button>}
-          
-         
+
           {authUser && (
             <Flex>
               <Txt>{authUser.username} logged!!</Txt>

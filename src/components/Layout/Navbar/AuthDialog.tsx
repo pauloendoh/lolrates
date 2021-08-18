@@ -1,32 +1,39 @@
-import { Box, Button, CircularProgress, Dialog, DialogContent, Link, makeStyles } from "@material-ui/core"
-import { Form, Formik } from "formik"
-import React, { useState } from "react"
-import useLoginMutation from "../../../hooks/useLoginMutation"
-import { newAuthData } from "../../../types/IAuthData"
-import { IResponseError } from "../../../types/IResponseError"
-import MyTextField from "../../Shared/MyInputs/MyTextField"
-import Txt from "../../Shared/Text/Txt"
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  Link,
+  makeStyles,
+} from "@material-ui/core";
+import { Form, Formik } from "formik";
+import React, { useState } from "react";
+import useLoginMutation from "../../../hooks/useLoginMutation";
+import { newAuthData } from "../../../types/IAuthData";
+import { IResponseError } from "../../../types/IResponseError";
+import MyTextField from "../../Shared/MyInputs/MyTextField";
+import Txt from "../../Shared/Text/Txt";
 
 interface Props {
-  open: boolean
+  open: boolean;
   // initialValue: DecisionDto
-  onClose: () => void
+  onClose: () => void;
   // afterSave?: (returned: DecisionDto) => void
 }
 
-type FormType = "login" | "register"
+type FormType = "login" | "register";
 
 const AuthDialog = (props: Props) => {
   // const history = useHistory()
 
   const handleClose = () => {
-    props.onClose()
-  }
+    props.onClose();
+  };
 
-  const [formType, setFormType] = useState<FormType>("login")
-  const [responseErrors, setResponseErrors] = useState([] as IResponseError[])
-  const classes = useStyles()
-
+  const [formType, setFormType] = useState<FormType>("login");
+  const [responseErrors, setResponseErrors] = useState([] as IResponseError[]);
+  const classes = useStyles();
 
   // const { mutate: postDecision } = usePostDecisionMutation()
 
@@ -38,9 +45,9 @@ const AuthDialog = (props: Props) => {
     //         history.push(PATHS.BigDecisions.decision(data.id))
     //     },
     // })
-  }
+  };
 
-  const { mutate: login, isLoading } = useLoginMutation()
+  const { mutate: login, isLoading } = useLoginMutation();
 
   return (
     <Dialog
@@ -52,35 +59,32 @@ const AuthDialog = (props: Props) => {
     >
       <Box pb={1} px={1}>
         <DialogContent>
-
           <Box>
             <Formik
               initialValues={newAuthData()}
-
               // PE 2/3 jogar pra fora
               onSubmit={(values, { setSubmitting }) => {
                 if (
                   formType === "register" &&
                   values.password !== values.password2
                 ) {
-                  setResponseErrors([
-                    { message: "Passwords don't match" },
-                  ])
-                  setSubmitting(false)
-                  return
+                  setResponseErrors([{ message: "Passwords don't match" }]);
+                  setSubmitting(false);
+                  return;
                 }
 
                 const authData = {
                   username: values.username,
                   email: values.email,
                   password: values.password,
-                }
+                };
 
                 const endpoint =
-                  formType === "register" ? "/auth/register" : "/auth/login"
+                  formType === "register" ? "/auth/register" : "/auth/login";
 
-                setResponseErrors([])
-                if (formType === "login") login(values)
+                setResponseErrors([]);
+                if (formType === "login")
+                  login(values, { onSuccess: () => props.onClose() });
                 // axios.post<AuthUserGetDto>(endpoint, authData)
                 //   .then((res) => {
                 //     const authUser = res.data
@@ -203,9 +207,9 @@ const AuthDialog = (props: Props) => {
                   <Link
                     href="#"
                     onClick={(e: any) => {
-                      e.preventDefault()
-                      setResponseErrors([])
-                      setFormType("login")
+                      e.preventDefault();
+                      setResponseErrors([]);
+                      setFormType("login");
                     }}
                   >
                     Sign in
@@ -217,9 +221,9 @@ const AuthDialog = (props: Props) => {
                   <Link
                     href="#"
                     onClick={(e: any) => {
-                      e.preventDefault()
-                      setResponseErrors([])
-                      setFormType("register")
+                      e.preventDefault();
+                      setResponseErrors([]);
+                      setFormType("register");
                     }}
                   >
                     Sign up
@@ -254,14 +258,11 @@ const AuthDialog = (props: Props) => {
               </Box> */}
             </Box>
           </Box>
-
-
         </DialogContent>
       </Box>
     </Dialog>
-  )
-}
-
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -295,7 +296,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 7,
     background: theme.palette.grey[800],
   },
-}))
+}));
 
-
-export default AuthDialog
+export default AuthDialog;

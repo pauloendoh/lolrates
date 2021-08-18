@@ -1,22 +1,18 @@
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import React from "react";
 import { QueryClient } from "react-query";
-import { dehydrate, DehydratedState } from "react-query/hydration";
+import { dehydrate } from "react-query/hydration";
 import Layout from "../src/components/Layout/Layout";
 import LolRates from "../src/components/LolRates/LolRates";
 import { apiRoutes } from "../src/consts/apiRoutes";
 import useChampionsQuery, {
-  fetchChampions,
+  fetchChampions
 } from "../src/hooks/react-query/auth/useChampionsQuery";
-import useMeQuery, { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
+import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
 import myServerAxios from "../src/utils/axios/myServerAxios";
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  // const [result, initialUser] = await Promise.all([
-  //   fetchChampions(myServerAxios(ctx)),
-  //   fetchMe(myServerAxios(ctx)).catch((err) => console.log(err)),
-  // ]);
-//
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(apiRoutes.auth.me, () =>

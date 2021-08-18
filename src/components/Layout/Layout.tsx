@@ -1,9 +1,9 @@
 import { Box } from "@material-ui/core";
-
 import Head from "next/head";
 import React, { ReactNode } from "react";
-import DefaultNavbar from "./Navbar/DefaultNavbar";
 import Navbar from "./Navbar/Navbar";
+import MySnackbar from "./Snackbar";
+
 
 type Props = {
   children?: ReactNode;
@@ -22,6 +22,7 @@ const Layout = ({ children, title = "LoL Rates" }: Props) => (
       <Navbar />
       <Box pt={10}>{children}</Box>
     </Box>
+    <MySnackbar />
   </>
 );
 
