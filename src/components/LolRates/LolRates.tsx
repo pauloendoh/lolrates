@@ -14,6 +14,8 @@ import React, { useEffect, useState } from "react";
 import { ILolRateChampion } from "../../types/LolRate/ILolRateChampion";
 import HelpIcon from "@material-ui/icons/Help";
 import { ILolRateUpdatedAt } from "../../types/LolRate/ILolRateUpdatedAt";
+import ChampionTooltip from "./ChampionPickWinTooltip/ChampionPickWinTooltip";
+import ChampionNameTableCell from "./ChampionNameTableCell/ChampionNameTableCell";
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP";
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
@@ -106,7 +108,7 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
                     fontWeight: sortDescBy === "AvgPick" ? "bold" : "normal",
                   }}
                 >
-                  AvgPick
+                  Pick
                 </Button>
               </TableCell>
               <TableCell>
@@ -119,7 +121,7 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
                     fontWeight: sortDescBy === "AvgWin" ? "bold" : "normal",
                   }}
                 >
-                  AvgWin
+                  Win
                 </Button>
               </TableCell>
               <TableCell>
@@ -132,10 +134,7 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
                     fontWeight: sortDescBy === "AvgAvg" ? "bold" : "normal",
                   }}
                 >
-                  AvgAvg
-                  <Tooltip title="(AvgPick + AvgWin) / 2">
-                    <HelpIcon style={{ marginLeft: 4, height: "0.75em" }} />
-                  </Tooltip>
+                  (Pick+Win)/2
                 </Button>
               </TableCell>
             </TableRow>
@@ -143,107 +142,14 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
           <TableBody>
             {filteredRates.map((rate, i) => (
               <TableRow key={i}>
-                <TableCell>
-                  <Box style={{ display: "flex", alignItems: "center" }}>
-                    <Box>
-                      {/* PE 1/3 - create a <ChampionIcon/>. Also use in DraftSelector */}
-                      <img
-                        src={rate.iconUrl}
-                        style={{ width: 30, borderRadius: 100 }}
-                      />
-                    </Box>
+                <ChampionNameTableCell rate={rate} />
 
-                    <Box style={{ marginLeft: 8 }}>
-                      <Box>{rate.championName}</Box>
-                      <Box style={{ fontSize: "smaller" }}>
-                        <i>{rate.role}</i>
-                      </Box>
-                    </Box>
-                  </Box>
+                <TableCell>
+                  <ChampionTooltip championRate={rate} isHovering="Pick" />
                 </TableCell>
 
                 <TableCell>
-                  <Tooltip
-                    title={
-                      <>
-                        <a
-                          target="_blank"
-                          href={`https://www.op.gg/champion/${rate.championName}/statistics`}
-                        >
-                          op.gg:{" "}
-                          {rate.opggPick > 0
-                            ? rate.opggPick.toFixed(1) + "%"
-                            : ""}{" "}
-                        </a>
-                        <br />
-                        <a
-                          target="_blank"
-                          href={`https://www.google.com/search?q=${rate.championName} lolgraphs`}
-                        >
-                          lolgraphs:{" "}
-                          {rate.lolgraphsPick > 0
-                            ? rate.lolgraphsPick.toFixed(1) + "%"
-                            : ""}{" "}
-                        </a>
-                        <br />
-                        <a
-                          target="_blank"
-                          href={`https://u.gg/lol/champions/${rate.championName}`}
-                        >
-                          u.gg:{" "}
-                          {rate.uggPick > 0
-                            ? rate.uggPick.toFixed(1) + "%"
-                            : ""}{" "}
-                        </a>
-                      </>
-                    }
-                    interactive
-                  >
-                    <Button>
-                      {rate.avgPick > 0 ? rate.avgPick.toFixed(1) + "%" : ""}{" "}
-                    </Button>
-                  </Tooltip>
-                </TableCell>
-
-                <TableCell>
-                  <Tooltip
-                    title={
-                      <>
-                        <a
-                          target="_blank"
-                          href={`https://www.op.gg/champion/${rate.championName}/statistics`}
-                        >
-                          op.gg:{" "}
-                          {rate.opggWin > 0
-                            ? rate.opggWin.toFixed(1) + "%"
-                            : ""}{" "}
-                        </a>
-                        <br />
-                        <a
-                          target="_blank"
-                          href={`https://www.google.com/search?q=${rate.championName} lolgraphs`}
-                        >
-                          lolgraphs:{" "}
-                          {rate.lolgraphsWin > 0
-                            ? rate.lolgraphsWin.toFixed(1) + "%"
-                            : ""}{" "}
-                        </a>
-                        <br />
-                        <a
-                          target="_blank"
-                          href={`https://u.gg/lol/champions/${rate.championName}`}
-                        >
-                          u.gg:{" "}
-                          {rate.uggWin > 0 ? rate.uggWin.toFixed(1) + "%" : ""}{" "}
-                        </a>
-                      </>
-                    }
-                    interactive
-                  >
-                    <Button>
-                      {rate.avgWin > 0 ? rate.avgWin.toFixed(1) + "%" : ""}{" "}
-                    </Button>
-                  </Tooltip>
+                  <ChampionTooltip championRate={rate} isHovering="Win" />
                 </TableCell>
 
                 <TableCell>

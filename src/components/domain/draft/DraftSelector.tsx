@@ -7,7 +7,7 @@ import {
 } from "../../../types/LolRate/ChampionRoleType";
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getEmptySelectedChampions } from "../../../types/LolRate/ISelectedChampions";
-import { formatWinPickRate } from "../../../utils/formatWinPickRate";
+import { formatWinPickRate } from "../../../utils/domain/rates/formatWinPickRate";
 import Flex from "../../Shared/Flexboxes/Flex";
 import Txt from "../../Shared/Text/Txt";
 
