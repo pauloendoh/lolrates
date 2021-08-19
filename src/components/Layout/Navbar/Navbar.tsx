@@ -5,7 +5,7 @@ import {
   Tab,
   Tabs,
   Theme,
-  Toolbar
+  Toolbar,
 } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
@@ -28,7 +28,7 @@ const Navbar = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { data: authUser, isLoading, isFetching, isError } = useMeQuery();
+  const { data: authUser, isLoading } = useMeQuery({refetchOnWindowFocus: false, retry: false});
 
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
@@ -52,16 +52,15 @@ const Navbar = () => {
     setSuccessMessage("Successful logout!");
   };
 
-  const shouldShowLogin = (!authUser && !isLoading) || isError
+  const shouldShowLogin = !authUser && !isLoading;
 
   return (
     <AppBar className={classes.root} position="fixed" elevation={0}>
       <Toolbar className={classes.toolbar}>
         <FlexVCenter>
           <SidebarToggleButton />
-
           {isLoading && "Loading..."}
-          {shouldShowLogin  && (
+          {shouldShowLogin && (
             <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
           )}
           {authUser && <Button onClick={logout}>Logout</Button>}
