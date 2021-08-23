@@ -9,7 +9,7 @@ interface ISidebarStore {
 
 const useSidebarStore = create<ISidebarStore>(
   (set: SetState<ISidebarStore>, get: GetState<ISidebarStore>) => ({
-    sidebarIsOpen: true,
+    sidebarIsOpen: false,
     openSidebar: () => {
       set((state) => ({ sidebarIsOpen: true }))
     },

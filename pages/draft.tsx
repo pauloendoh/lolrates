@@ -68,7 +68,7 @@ const DraftPage = () => {
           })}
           flexGrow={1}
         >
-          <Container style={{ maxWidth: 600 }}>
+          <Container style={{ maxWidth: 900 }}>
             <Box>
               {response && response.rates.length > 0 && (
                 <DraftSelector rates={response.rates} />

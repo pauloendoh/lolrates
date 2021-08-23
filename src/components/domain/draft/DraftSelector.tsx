@@ -1,3 +1,12 @@
+import {
+  FormControl,
+  InputLabel,
+  Menu,
+  MenuItem,
+  Select,
+  Tooltip,
+  useTheme,
+} from "@material-ui/core";
 import { Box, Paper } from "@material-ui/core";
 import React, { useState } from "react";
 import myColors from "../../../consts/myColors";
@@ -8,8 +17,13 @@ import {
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getEmptySelectedChampions } from "../../../types/LolRate/ISelectedChampions";
 import { formatWinPickRate } from "../../../utils/domain/rates/formatWinPickRate";
+import ChampionTooltip from "../../LolRates/ChampionPickWinTooltip/ChampionPickWinTooltip";
 import Flex from "../../Shared/Flexboxes/Flex";
+import FlexVCenter from "../../Shared/Flexboxes/FlexVCenter";
 import Txt from "../../Shared/Text/Txt";
+import ChampionTooltipTitle from "../rates/ChampionTooltipTitle";
+
+type FilterByType = "All" | "Over 51% WR";
 
 // PE 2/3
 const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
@@ -17,12 +31,20 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
     getEmptySelectedChampions()
   );
 
+  const [sortBy, setSortBy] = useState<FilterByType>("All");
+
   // Returns rates by role, over 51% win rate and in descending order
   const getBestChampionsByRole = (role: ChampionRoleType) => {
-    const ratesOver51 = [...props.rates].filter(
-      (r) => r.avgWin >= 51 && r.role === role
-    );
-    return ratesOver51.sort((a, b) => b.avgWin - a.avgWin);
+    if (sortBy === "All")
+      return [...props.rates]
+        .filter((r) => r.role === role)
+        .sort((a, b) => b.avgAvg - a.avgAvg);
+    else {
+      const ratesOver51 = [...props.rates].filter(
+        (r) => r.avgWin >= 51 && r.role === role
+      );
+      return ratesOver51.sort((a, b) => b.avgAvg - a.avgAvg);
+    }
   };
 
   const selectChampionForRole = (
@@ -34,6 +56,13 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
 
   const getSelectedChampionAtRole = (role: ChampionRoleType) => {
     return selectedChampions[role];
+  };
+
+  const theme = useTheme();
+  const getBorder = (avgWin: number) => {
+    if (avgWin >= 51) return `2px solid ${theme.palette.primary.main}`;
+    if (avgWin >= 49) return `2px solid ${myColors.ratingYellow[5]}`;
+    return `2px solid ${theme.palette.error.main}`;
   };
 
   return (
@@ -49,7 +78,7 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
             }
           >
             <Flex>
-              <Box width={216} minHeight={128}>
+              <Box minWidth={216} minHeight={128}>
                 {getSelectedChampionAtRole(role) && (
                   <Flex>
                     <img
@@ -84,26 +113,51 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
                 )}
               </Box>
 
-              <Box width={216}>
-                <Box pb={0.5}>
+              <Box flexGrow={1}>
+                <FlexVCenter pb={0.5} justifyContent="space-between">
                   <Txt>Best rates at {role}</Txt>
-                </Box>
-
+                  {role === "TOP" && (
+                    <FlexVCenter>
+                      <FormControl size="small" variant="outlined">
+                        <InputLabel id={`input-label-${role}`}>
+                          Show
+                        </InputLabel>
+                        <Select
+                          labelId={`input-label-${role}`}
+                          value={sortBy}
+                          onChange={(e) => setSortBy(e.target.value as any)}
+                          label="Sort by"
+                        >
+                          <MenuItem value={"All" as FilterByType}>All</MenuItem>
+                          <MenuItem value={"Over 51% WR" as FilterByType}>
+                            Over 51%
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </FlexVCenter>
+                  )}
+                </FlexVCenter>
                 {/* Showing champion icons */}
                 <Flex flexWrap="wrap">
                   {getBestChampionsByRole(role).map((championRate, i) => (
                     <Box mr={0.5} mb={1} key={i}>
-                      <img
-                        onClick={() =>
-                          selectChampionForRole(championRate, role)
-                        }
-                        src={championRate.iconUrl}
-                        style={{
-                          width: 32,
-                          borderRadius: 100,
-                          cursor: "pointer",
-                        }}
-                      />
+                      <Tooltip
+                        interactive
+                        title={<ChampionTooltipTitle rate={championRate} />}
+                      >
+                        <img
+                          onClick={() =>
+                            selectChampionForRole(championRate, role)
+                          }
+                          src={championRate.iconUrl}
+                          style={{
+                            width: 32,
+                            borderRadius: 100,
+                            border: getBorder(championRate.avgWin),
+                            cursor: "pointer",
+                          }}
+                        />
+                      </Tooltip>
                     </Box>
                   ))}
                 </Flex>

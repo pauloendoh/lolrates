@@ -19,13 +19,13 @@ export default function MyApp(props: AppProps) {
   }, []);
 
   // https://react-query.tanstack.com/guides/ssr
-  const [queryClient] = React.useState(() => new QueryClient({defaultOptions: {queries:{staleTime: 1}}}));
-
+  const [queryClient] = React.useState(
+    () => new QueryClient({ defaultOptions: { queries: { staleTime: 1 } } })
+  );
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ReactQueryDevtools initialIsOpen={false} />
