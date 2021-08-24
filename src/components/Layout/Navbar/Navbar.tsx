@@ -20,7 +20,7 @@ import myClientAxios from "../../../utils/axios/myClientAxios";
 import Flex from "../../Shared/Flexboxes/Flex";
 import FlexVCenter from "../../Shared/Flexboxes/FlexVCenter";
 import Txt from "../../Shared/Text/Txt";
-import AuthDialog from "./AuthDialog";
+import AuthDialog from "./AuthDialog/AuthDialog";
 import SidebarToggleButton from "./SidebarToggleButton";
 
 // PE 2/3

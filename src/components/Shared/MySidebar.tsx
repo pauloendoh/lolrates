@@ -15,20 +15,19 @@ const MySidebar = (props: React.ComponentProps<typeof Drawer>) => {
   const classes = useStyles();
 
   return (
-      <Drawer
-        anchor="left"
-        className={classes.root}
-        variant="persistent"
-        open={sidebarIsOpen}
-        
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        {...props}
-      >
-        <Toolbar />
-        <Box>{props.children}</Box>
-      </Drawer>
+    <Drawer
+      anchor="left"
+      className={classes.root}
+      variant="persistent"
+      open={sidebarIsOpen}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      {...props}
+    >
+      <Toolbar />
+      {props.children}
+    </Drawer>
   );
 };
 

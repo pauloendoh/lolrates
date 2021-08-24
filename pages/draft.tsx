@@ -6,12 +6,13 @@ import React from "react";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import DraftSelector from "../src/components/domain/draft/DraftSelector";
+import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
 import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
 import { apiRoutes } from "../src/consts/apiRoutes";
 import useChampionsQuery, {
-  fetchChampions,
+  fetchChampions
 } from "../src/hooks/react-query/auth/useChampionsQuery";
 import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
@@ -57,7 +58,9 @@ const DraftPage = () => {
   return (
     <Layout>
       <Flex height="100%">
-        <MySidebar />
+        <MySidebar>
+          <DraftSidebarContent />
+        </MySidebar>
 
         <Box
           className={classNames(classes.content, {
@@ -67,9 +70,7 @@ const DraftPage = () => {
         >
           <Container style={{ maxWidth: 900 }}>
             <Box>
-              {rates && rates.length > 0 && (
-                <DraftSelector rates={rates} />
-              )}
+              {rates && rates.length > 0 && <DraftSelector rates={rates} />}
             </Box>
           </Container>
         </Box>

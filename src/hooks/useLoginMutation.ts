@@ -33,7 +33,6 @@ export default function useLoginMutation() {
         setSuccessMessage("Successful login!");
       },
       onError: (err) => {
-        alert(err);
         setErrorMessage(JSON.stringify(err));
       },
     }

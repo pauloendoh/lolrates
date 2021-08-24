@@ -3,4 +3,8 @@ export const urls = {
   lolgraph: 'https://www.leagueofgraphs.com/champions/builds',
   ugg: 'https://u.gg/lol/champions/',
   
+  api: {
+    player: '/lolrates/player', 
+
+  }
 }
