@@ -31,7 +31,7 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
     getEmptySelectedChampions()
   );
 
-  const [sortBy, setSortBy] = useState<FilterByType>("All");
+  const [sortBy, setSortBy] = useState<FilterByType>("Over 51% WR");
 
   // Returns rates by role, over 51% win rate and in descending order
   const getBestChampionsByRole = (role: ChampionRoleType) => {
@@ -142,6 +142,8 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
                   {getBestChampionsByRole(role).map((championRate, i) => (
                     <Box mr={0.5} mb={1} key={i}>
                       <Tooltip
+                      enterDelay={500}
+                      enterNextDelay={500}
                         interactive
                         title={<ChampionTooltipTitle rate={championRate} />}
                       >

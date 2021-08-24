@@ -12,7 +12,8 @@ import ChampionTooltip from "../ChampionPickWinTooltip/ChampionPickWinTooltip";
 const ChampionNameTableCell = ({ rate }: { rate: ILolRateChampion }) => {
   return (
     <TableCell>
-      <Tooltip interactive title={<ChampionTooltipTitle rate={rate} />}>
+      <Tooltip interactive
+      title={<ChampionTooltipTitle rate={rate} />}>
         <Box
           style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
         >

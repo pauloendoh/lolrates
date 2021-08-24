@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Hydrate } from "react-query/hydration";
 import theme from "../src/consts/theme";
+import './styles.css'
+
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;

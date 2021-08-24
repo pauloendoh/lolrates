@@ -1,37 +1,48 @@
 import {
   Box,
   Button,
+  makeStyles,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { ILolRateChampion } from "../../types/LolRate/ILolRateChampion";
-import HelpIcon from "@material-ui/icons/Help";
-import { ILolRateUpdatedAt } from "../../types/LolRate/ILolRateUpdatedAt";
-import ChampionTooltip from "./ChampionPickWinTooltip/ChampionPickWinTooltip";
+import React, { useCallback, useState } from "react";
+import { urls } from "../../consts/urls";
+import useChampionsQuery from "../../hooks/react-query/auth/useChampionsQuery";
+import stringAreVerySimilar from "../../utils/text/stringsAreVerySimilar";
+import MyTextField from "../Shared/MyInputs/MyTextField";
+import Txt from "../Shared/Text/Txt";
 import ChampionNameTableCell from "./ChampionNameTableCell/ChampionNameTableCell";
+import ChampionTooltip from "./ChampionPickWinTooltip/ChampionPickWinTooltip";
+import LolRatesUpdatedAt from "./LolRatesUpdatedAt/LolRatesUpdatedAt";
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP";
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
 
 type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg";
 
-const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
+const LolRates = () => {
+  const { rates: allChampionRates, updatedAt } = useChampionsQuery();
+
   const [checked51, setChecked51] = useState(false);
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");
   const [sortDescBy, setSortDescBy] = useState<SortDescBy>("AvgAvg");
-  const [filteredRates, setFilteredRates] = useState(allChampionRates);
+  const [textFilter, setTextFilter] = useState("");
 
-  useEffect(() => {
+  const getFilteredRates = useCallback(() => {
     let filteredRates = [...allChampionRates];
+
+    if (textFilter.trim().length > 0) {
+      return  filteredRates.filter((r) =>
+        stringAreVerySimilar(textFilter, r.championName)
+      );
+    }
 
     // PE 1/3 - Separate into filterRates(rates, selectedRole, checked51, sortDescBy)
     if (selectedRole !== "ALL") {
@@ -55,19 +66,46 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
         filteredRates = filteredRates.sort((a, b) => b.avgWin - a.avgWin);
     }
 
-    setFilteredRates(filteredRates);
-  }, [selectedRole, checked51, sortDescBy]);
+    
+
+    return filteredRates;
+  }, [allChampionRates, selectedRole, checked51, sortDescBy, textFilter]);
+
+  const classes = useStyles();
 
   return (
     <Box p={3}>
       <Typography variant="h3">LoL Rates</Typography>
       <Box>
-        <ul>
-          <li>
-            Average pick and win rates from OP.GG, LeagueOfGraphs and U.GG
-          </li>
-          <li>Global Platinum+</li>
-        </ul>
+        {/* PE 1/3 - componentize? */}
+        <Txt>
+          Average pick and win rates from{" "}
+          <a href={urls.opgg} className={classes.link} target="_blank">
+            OP.GG
+          </a>
+          ,{" "}
+          <a href={urls.lolgraph} className={classes.link} target="_blank">
+            LeagueOfGraphs
+          </a>{" "}
+          and{" "}
+          <a href={urls.ugg} className={classes.link} target="_blank">
+            U.GG
+          </a>{" "}
+          (Global Platinum+)
+        </Txt>
+      </Box>
+      <Box>
+        <MyTextField
+          id="text-filter"
+          name="text-filter"
+          value={textFilter}
+          onChange={(e) => setTextFilter(e.target.value)}
+          size="small"
+          label="Filter champion"
+          className="mt-3"
+        />
+      </Box>
+      <Box>
         <label>
           <input
             type="checkbox"
@@ -77,6 +115,7 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
           {"Only AvgWin >= 51%"}
         </label>
       </Box>
+
       <Box style={{ marginTop: 16, marginBottom: 16 }}>
         {rolesArr.map((role) => (
           <Button
@@ -140,7 +179,7 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredRates.map((rate, i) => (
+            {getFilteredRates().map((rate, i) => (
               <TableRow key={i}>
                 <ChampionNameTableCell rate={rate} />
 
@@ -160,28 +199,16 @@ const LolRates = ({ rates: allChampionRates, updatedAt }: Props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {updatedAt && (
-        <>
-          <Box>
-            OP.GG updated at:{" "}
-            {new Date(updatedAt.opggUpdatedAt).toLocaleString()}
-          </Box>
-          <Box>
-            LeagueOfGraphs updated at:{" "}
-            {new Date(updatedAt.lolgraphsUpdatedAt).toLocaleString()}
-          </Box>
-          <Box>
-            U.GG updated at: {new Date(updatedAt.uggUpdatedAt).toLocaleString()}
-          </Box>
-        </>
-      )}
+      {updatedAt && <LolRatesUpdatedAt updatedAt={updatedAt} />}
     </Box>
   );
 };
 
-interface Props {
-  rates: ILolRateChampion[];
-  updatedAt: ILolRateUpdatedAt;
-}
+const useStyles = makeStyles((theme) => ({
+  link: {
+    color: "inherit",
+    fontWeight: 600,
+  },
+}));
 
 export default LolRates;

@@ -20,5 +20,5 @@ export default function useChampionsQuery(initialData?: LolRateDto) {
     : useQuery(queryKeyUrl, () => fetchChampions(myClientAxios));
 
   const { rates, updatedAt } = data ? data : { rates: [], updatedAt: null };
-  return { data, rates, updatedAt, isLoading };
+  return {  rates, updatedAt, isLoading };
 }

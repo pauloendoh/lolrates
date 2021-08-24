@@ -1,7 +1,4 @@
-import {
-  Box,
-  Container, makeStyles
-} from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
 import classNames from "classnames";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
@@ -14,7 +11,7 @@ import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
 import { apiRoutes } from "../src/consts/apiRoutes";
 import useChampionsQuery, {
-  fetchChampions
+  fetchChampions,
 } from "../src/hooks/react-query/auth/useChampionsQuery";
 import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
@@ -55,7 +52,7 @@ const DraftPage = () => {
 
   const { sidebarIsOpen } = useSidebarStore();
 
-  const { data: response } = useChampionsQuery();
+  const { rates } = useChampionsQuery();
 
   return (
     <Layout>
@@ -70,8 +67,8 @@ const DraftPage = () => {
         >
           <Container style={{ maxWidth: 900 }}>
             <Box>
-              {response && response.rates.length > 0 && (
-                <DraftSelector rates={response.rates} />
+              {rates && rates.length > 0 && (
+                <DraftSelector rates={rates} />
               )}
             </Box>
           </Container>

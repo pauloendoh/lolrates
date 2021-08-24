@@ -13,6 +13,8 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@types/next": "^9.0.0",
+    "@types/react-timeago": "^4.1.3",
+    "@types/string-similarity": "^4.0.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
@@ -24,6 +26,8 @@
     "react-dom": "^17.0.1",
     "react-number-format": "^4.7.3",
     "react-query": "^3.19.6",
+    "react-timeago": "^6.2.1",
+    "string-similarity": "^4.0.4",
     "zustand": "^3.5.8"
   },
   "devDependencies": {
