@@ -12,7 +12,7 @@ const DraftSidebarContent = () => {
 
   const { data: players } = usePlayersQuery();
   const getPlayersAlphabetically = useCallback(() => {
-    if (players.length > 0)
+    if (players?.length > 0)
       return players.sort((a, b) => a.name.localeCompare(b.name));
     return [];
   }, [players]);
