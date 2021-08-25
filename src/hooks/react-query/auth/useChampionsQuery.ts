@@ -1,24 +1,14 @@
-import { AxiosInstance } from "axios";
 import { useQuery } from "react-query";
-import { LolRateDto } from "../../../types/LolRate/LolRateDto";
-import { apiRoutes } from "../../../consts/apiRoutes";
+import { urls } from "../../../consts/urls";
+import { PlayerDto } from "../../../types/domain/draft/PlayerDto";
+import { ChampionDto } from "../../../types/domain/general/ChampionDto";
 import myClientAxios from "../../../utils/axios/myClientAxios";
 
-const queryKeyUrl = apiRoutes.lolRates;
-
-// fetch
-export async function fetchChampions(customAxios: AxiosInstance) {
-  return customAxios.get<LolRateDto>(queryKeyUrl).then((res) => res.data);
-}
+const url = urls.api.champion;
 
 // query
-export default function useChampionsQuery(initialData?: LolRateDto) {
-  const { data, isLoading } = initialData
-    ? useQuery(queryKeyUrl, () => fetchChampions(myClientAxios), {
-        initialData,
-      })
-    : useQuery(queryKeyUrl, () => fetchChampions(myClientAxios));
-
-  const { rates, updatedAt } = data ? data : { rates: [], updatedAt: null };
-  return {  rates, updatedAt, isLoading };
+export default function useChampionsQuery() {
+  return useQuery(url, () =>
+    myClientAxios.get<ChampionDto[]>(url).then((res) => res.data)
+  );
 }

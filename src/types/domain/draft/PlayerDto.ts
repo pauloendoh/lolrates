@@ -1,7 +1,12 @@
+import { PlayerChampionDto } from "./PlayerChampionDto";
+
 export interface PlayerDto {
   id: number;
   userId?: number;
   name: string;
+
+  champions?: PlayerChampionDto[],
+  
   createdAt: string;
   updatedAt: string;
 }

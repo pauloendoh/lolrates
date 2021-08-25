@@ -2,9 +2,12 @@ import { Box, IconButton, ListItem, ListItemText } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useCallback, useState } from "react";
 import usePlayersQuery from "../../../../hooks/react-query/auth/usePlayersQuery";
-import { getEmptyPlayerDto, PlayerDto } from "../../../../types/dtos/PlayerDto";
+import {
+  getEmptyPlayerDto,
+  PlayerDto
+} from "../../../../types/domain/draft/PlayerDto";
 import FlexVCenter from "../../../Shared/Flexboxes/FlexVCenter";
-import PlayerNameDialog from "../PlayerNameDialog/PlayerNameDialog";
+import PlayerNameDialog from "../dialogs/PlayerNameDialog/PlayerNameDialog";
 
 const DraftSidebarContent = () => {
   const [openPlayerDialog, setOpenPlayerDialog] = useState(false);

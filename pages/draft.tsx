@@ -5,15 +5,15 @@ import { parseCookies } from "nookies";
 import React from "react";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import DraftSelector from "../src/components/domain/draft/DraftSelector";
+import DraftSelector from "../src/components/domain/draft/DraftSelector/DraftSelector";
 import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
 import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
 import { apiRoutes } from "../src/consts/apiRoutes";
-import useChampionsQuery, {
-  fetchChampions
-} from "../src/hooks/react-query/auth/useChampionsQuery";
+import useLolRates, {
+  fetchLolRates
+} from "../src/hooks/react-query/auth/useLolRatesQuery";
 import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
 import myServerAxios from "../src/utils/axios/myServerAxios";
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   );
 
   await queryClient.prefetchQuery(apiRoutes.lolRates, () =>
-    fetchChampions(myServerAxios(ctx))
+    fetchLolRates(myServerAxios(ctx))
   );
   return {
     props: {
@@ -53,7 +53,7 @@ const DraftPage = () => {
 
   const { sidebarIsOpen } = useSidebarStore();
 
-  const { rates } = useChampionsQuery();
+  const { rates } = useLolRates();
 
   return (
     <Layout>

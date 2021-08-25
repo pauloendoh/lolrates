@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
 import { urls } from "../../consts/urls";
-import useChampionsQuery from "../../hooks/react-query/auth/useChampionsQuery";
+import useLolRates from "../../hooks/react-query/auth/useLolRatesQuery";
 import stringAreVerySimilar from "../../utils/text/stringsAreVerySimilar";
 import MyTextField from "../Shared/MyInputs/MyTextField";
 import Txt from "../Shared/Text/Txt";
@@ -26,7 +26,7 @@ const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
 type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg";
 
 const LolRates = () => {
-  const { rates: allChampionRates, updatedAt } = useChampionsQuery();
+  const { rates: allChampionRates, updatedAt } = useLolRates();
 
   const [checked51, setChecked51] = useState(false);
 
