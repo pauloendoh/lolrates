@@ -1,12 +1,12 @@
 import produce from "immer";
 import { useMutation, useQueryClient } from "react-query";
 import { urls } from "../consts/urls";
-import { PlayerDto } from "../types/dtos/PlayerDto";
+import { PlayerDto } from "../types/domain/draft/PlayerDto";
 import myClientAxios from "../utils/axios/myClientAxios";
 import useSnackbarStore from "./stores/useSnackbarStore";
 
 export default function useSavePlayerMutation() {
-  const url = urls.api.player;
+  const url = urls.api.player; 
 
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
