@@ -2,7 +2,7 @@ import { Box, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
 import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
-import useSavePlayerChampionMutation from "../../../../../hooks/useSavePlayerChampionMutation";
+import useSavePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useSavePlayerChampionMutation";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import SaveCancelButtons from "../../../../Shared/Buttons/SaveCancelButtons";
 import ChampionSelector from "../../selectors/ChampionSelector/ChampionSelector";

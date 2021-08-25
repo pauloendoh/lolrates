@@ -6,6 +6,8 @@ export const urls = {
   api: {
     player: "/lolrates/player",
     playerChampion: "/lolrates/playerChampion",
+    playerChampionId: (id: number) => `/lolrates/playerChampion/${id}`, 
     champion: "/lolrates/champion",
+
   },
 };

@@ -6,17 +6,17 @@ import {
   MenuItem,
   Select,
   Tooltip,
-  useTheme,
+  useTheme
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useState } from "react";
 import myColors from "../../../../../consts/myColors";
-import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
+import useDeletePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useDeletePlayerChampionMutation";
 import usePlayersQuery from "../../../../../hooks/react-query/auth/usePlayersQuery";
 import usePlayerChampionsQuery from "../../../../../hooks/react-query/queries/usePlayerChampionsQuery";
 import {
   getEmptyPlayerChampionDto,
-  PlayerChampionDto,
+  PlayerChampionDto
 } from "../../../../../types/domain/draft/PlayerChampionDto";
 import { ChampionRoleType } from "../../../../../types/LolRate/ChampionRoleType";
 import { ILolRateChampion } from "../../../../../types/LolRate/ILolRateChampion";
@@ -27,6 +27,7 @@ import Txt from "../../../../Shared/Text/Txt";
 import ChampionTooltipTitle from "../../../rates/ChampionTooltipTitle";
 import PlayerChampionDialog from "../../dialogs/PlayerChampionDialog/PlayerChampionDialog";
 import PlayerSelector from "../../selectors/PlayerSelector/PlayerSelector";
+import PlayerChampionImage from "./PlayerChampionImage/PlayerChampionImage";
 
 type FilterByType = "All" | "Over 51% WR";
 
@@ -94,13 +95,10 @@ const DraftSelectorRow = (props: {
     );
   };
 
-  const { data: allChampions } = useChampionsQuery();
+  const { mutate: deletePChampion } = useDeletePlayerChampionMutation();
 
-  const getChampionById = (id: number) => {
-    if (allChampions?.length) {
-      return allChampions.find((c) => c.id === id);
-    }
-    return null;
+  const confirmDeletePChampion = (id: number) => {
+    if (confirm("Confirm delete?")) deletePChampion(id);
   };
 
   return (
@@ -157,15 +155,10 @@ const DraftSelectorRow = (props: {
                 <Txt>OP</Txt>
                 <Flex flexWrap="wrap">
                   {getOpChampions().map((pChampion) => (
-                    <img
+                    <PlayerChampionImage
                       key={pChampion.id}
-                      src={getChampionById(pChampion.championId).iconUrl}
-                      style={{
-                        width: 32,
-                        borderRadius: 100,
-                        // border: getBorder(championRate.avgWin),
-                        cursor: "pointer",
-                      }}
+                      onClickDelete={confirmDeletePChampion}
+                      pChampion={pChampion}
                     />
                   ))}
                   <IconButton
@@ -190,15 +183,10 @@ const DraftSelectorRow = (props: {
                 <Txt>Decent/Practice</Txt>
                 <Flex flexWrap="wrap">
                   {getDecentChampions().map((pChampion) => (
-                    <img
+                    <PlayerChampionImage
                       key={pChampion.id}
-                      src={getChampionById(pChampion.championId).iconUrl}
-                      style={{
-                        width: 32,
-                        borderRadius: 100,
-                        // border: getBorder(championRate.avgWin),
-                        cursor: "pointer",
-                      }}
+                      onClickDelete={confirmDeletePChampion}
+                      pChampion={pChampion}
                     />
                   ))}
 

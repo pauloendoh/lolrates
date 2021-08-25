@@ -1,9 +1,9 @@
 import produce from "immer";
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../consts/urls";
-import { PlayerChampionDto } from "../types/domain/draft/PlayerChampionDto";
-import myClientAxios from "../utils/axios/myClientAxios";
-import useSnackbarStore from "./stores/useSnackbarStore";
+import { urls } from "../../../consts/urls";
+import { PlayerChampionDto } from "../../../types/domain/draft/PlayerChampionDto";
+import myClientAxios from "../../../utils/axios/myClientAxios";
+import useSnackbarStore from "../../stores/useSnackbarStore";
 
 export default function useSavePlayerChampionMutation() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
