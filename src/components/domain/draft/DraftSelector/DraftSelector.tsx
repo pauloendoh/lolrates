@@ -24,6 +24,7 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
     [props.rates]
   );
 
+
   return (
     <Paper>
       <Box px={2} py={1}>

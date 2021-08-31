@@ -10,6 +10,7 @@ import FlexVCenter from "../../../../../Shared/Flexboxes/FlexVCenter";
 // PE 2/3
 const PlayerChampionImage = (props: {
   pChampion: PlayerChampionDto;
+  onClick: (id: number) => void;
   onClickDelete: (id: number) => void;
 }) => {
   const { data: allChampions } = useChampionsQuery();
@@ -33,6 +34,7 @@ const PlayerChampionImage = (props: {
     >
       <img
         src={getChampionById(props.pChampion.championId).iconUrl}
+        onClick={() => props.onClick(props.pChampion.championId)}
         style={{
           width: 32,
           borderRadius: 100,

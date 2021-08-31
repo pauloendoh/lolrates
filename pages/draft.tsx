@@ -7,6 +7,7 @@ import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import DraftSelector from "../src/components/domain/draft/DraftSelector/DraftSelector";
 import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
+import TotalChampionRadar from "../src/components/domain/draft/TotalChampionRadar/TotalChampionRadar";
 import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
@@ -68,10 +69,13 @@ const DraftPage = () => {
           })}
           flexGrow={1}
         >
-          <Container style={{ maxWidth: 900 }}>
-            <Box>
-              {rates && rates.length > 0 && <DraftSelector rates={rates} />}
-            </Box>
+          <Container style={{ minWidth: 900 }}>
+            <Flex>
+              <Box>
+                {rates && rates.length > 0 && <DraftSelector rates={rates} />}
+              </Box>
+              <TotalChampionRadar />
+            </Flex>
           </Container>
         </Box>
       </Flex>

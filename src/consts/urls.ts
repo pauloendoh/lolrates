@@ -8,6 +8,6 @@ export const urls = {
     playerChampion: "/lolrates/playerChampion",
     playerChampionId: (id: number) => `/lolrates/playerChampion/${id}`, 
     champion: "/lolrates/champion",
-
+    championRadar: "/lolrates/championRadar"
   },
 };

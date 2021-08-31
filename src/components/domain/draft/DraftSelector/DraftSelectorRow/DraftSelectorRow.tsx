@@ -6,20 +6,26 @@ import {
   MenuItem,
   Select,
   Tooltip,
-  useTheme
+  useTheme,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import myColors from "../../../../../consts/myColors";
 import useDeletePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useDeletePlayerChampionMutation";
+import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
 import usePlayersQuery from "../../../../../hooks/react-query/auth/usePlayersQuery";
 import usePlayerChampionsQuery from "../../../../../hooks/react-query/queries/usePlayerChampionsQuery";
+import useSelectedChampionsStore from "../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
 import {
   getEmptyPlayerChampionDto,
-  PlayerChampionDto
+  PlayerChampionDto,
 } from "../../../../../types/domain/draft/PlayerChampionDto";
 import { ChampionRoleType } from "../../../../../types/LolRate/ChampionRoleType";
-import { ILolRateChampion } from "../../../../../types/LolRate/ILolRateChampion";
+import {
+  getLolRateDto,
+  ILolRateChampion,
+} from "../../../../../types/LolRate/ILolRateChampion";
 import { formatWinPickRate } from "../../../../../utils/domain/rates/formatWinPickRate";
 import Flex from "../../../../Shared/Flexboxes/Flex";
 import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
@@ -41,6 +47,13 @@ const DraftSelectorRow = (props: {
 }) => {
   const [selectedChampion, setSelectedChampion] =
     useState<ILolRateChampion>(null);
+
+  const { setChampion } = useSelectedChampionsStore();
+  
+  useEffect(() => {
+    if (selectedChampion) setChampion(selectedChampion);
+    // TODO: else: removeChampion
+  }, [selectedChampion]);
 
   // Returns rates by role, over 51% win rate and in descending order
   const getBestChampions = () => {
@@ -101,6 +114,19 @@ const DraftSelectorRow = (props: {
     if (confirm("Confirm delete?")) deletePChampion(id);
   };
 
+  const { data: allChampions } = useChampionsQuery();
+
+  const handleSelectPlayerChampion = (championId: number) => {
+    if (allChampions?.length > 0) {
+      const champion = allChampions.find((c) => c.id === championId);
+      const rateFound = props.roleRates.find(
+        (rate) => rate.championName === champion.name
+      );
+      if (rateFound) setSelectedChampion(rateFound);
+      else setSelectedChampion(getLolRateDto(champion, props.role));
+    }
+  };
+
   return (
     <Box
       pt={1}
@@ -157,6 +183,7 @@ const DraftSelectorRow = (props: {
                   {getOpChampions().map((pChampion) => (
                     <PlayerChampionImage
                       key={pChampion.id}
+                      onClick={handleSelectPlayerChampion}
                       onClickDelete={confirmDeletePChampion}
                       pChampion={pChampion}
                     />
@@ -185,6 +212,7 @@ const DraftSelectorRow = (props: {
                   {getDecentChampions().map((pChampion) => (
                     <PlayerChampionImage
                       key={pChampion.id}
+                      onClick={handleSelectPlayerChampion}
                       onClickDelete={confirmDeletePChampion}
                       pChampion={pChampion}
                     />
