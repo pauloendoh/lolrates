@@ -74,7 +74,7 @@ export default function ChampionRadar({
         <Txt style={{ position: "absolute", top: -50, right: 260 }}>
           Protect: {values.protect}
         </Txt>
-        <Txt style={{ position: "absolute", bottom: -200, right: 310 }}>
+        <Txt style={{ position: "absolute", top: -200, right: 310 }}>
           DPS: {values.dps}
         </Txt>
       </Box>
