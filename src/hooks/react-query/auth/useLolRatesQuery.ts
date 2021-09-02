@@ -12,7 +12,7 @@ export async function fetchLolRates(customAxios: AxiosInstance) {
 }
 
 // query
-export default function useLolRates(initialData?: LolRateDto) {
+export default function useLolRatesQuery(initialData?: LolRateDto) {
   const { data, isLoading } = initialData
     ? useQuery(queryKeyUrl, () => fetchLolRates(myClientAxios), {
         initialData,

@@ -155,7 +155,7 @@ const DraftSelectorRow = (props: {
 
   return (
     <Box
-      pt={1}
+      py={1}
       key={props.role}
       borderBottom={
         props.hasBorderBottom ? `1px solid ${myColors.borderColor}` : null
@@ -163,20 +163,21 @@ const DraftSelectorRow = (props: {
     >
       <Flex>
         <Box minWidth={216} minHeight={128}>
-          {!!selectedChampion && (
-            <Flex>
-              <img
-                src={selectedChampion.iconUrl}
-                style={{
-                  height: 48,
-                  borderRadius: 100,
-                  cursor: "pointer",
-                }}
-              />
+          <Flex>
+            <img
+              src={selectedChampion?.iconUrl}
+              style={{
+                height: 48,
+                borderRadius: 100,
+                cursor: "pointer",
+              }}
+            />
 
-              <Box px={2} width="100%">
-                <FlexVCenter justifyContent="space-between">
-                  <Txt>{props.role}</Txt>
+            <Box px={1} width="100%">
+              <FlexVCenter justifyContent="space-between">
+                <Txt>{props.role}</Txt>
+
+                {selectedChampion && (
                   <Link
                     onClick={() => {
                       setSelectedChampion(null);
@@ -185,34 +186,39 @@ const DraftSelectorRow = (props: {
                   >
                     Clear
                   </Link>
-                </FlexVCenter>
-              </Box>
-            </Flex>
-          )}
+                )}
+              </FlexVCenter>
 
-          {players?.length > 0 && (
-            <Box>
-              <PlayerSelector
-                role={props.role}
-                playerOptions={players}
-                selectedPlayerId={selectedPlayerId}
-                onChange={setSelectedPlayerId}
-              />
-            </Box>
-          )}
-          {selectedChampion && (
-            <Box>
-              <Txt>{selectedChampion.championName}</Txt>
-              {selectedChampion.avgWin > 0 && (
-                <Box>
-                  <Txt>
-                    {formatWinPickRate(selectedChampion.avgWin)} win ·{" "}
-                    {formatWinPickRate(selectedChampion.avgPick)} pick
-                  </Txt>
+              {players?.length > 0 && (
+                <Box mt={1}>
+                  <PlayerSelector
+                    role={props.role}
+                    playerOptions={players}
+                    selectedPlayerId={selectedPlayerId}
+                    onChange={setSelectedPlayerId}
+                  />
+                </Box>
+              )}
+              {selectedChampion && (
+                <Box mt={1}>
+                  <Txt variant="subtitle1">{selectedChampion.championName}</Txt>
+                  {selectedChampion.avgWin > 0 && (
+                    <Box mt={1}>
+                      <Txt>
+                        {formatWinPickRate(selectedChampion.avgWin)} win
+                      </Txt>
+
+                      <Box>
+                        <Txt>
+                          {formatWinPickRate(selectedChampion.avgPick)} pick
+                        </Txt>
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
               )}
             </Box>
-          )}
+          </Flex>
         </Box>
 
         {/*  Middle column  */}

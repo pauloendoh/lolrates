@@ -1,4 +1,5 @@
 import { Box, Button, makeStyles, Tooltip } from "@material-ui/core";
+import classNames from "classnames";
 import React from "react";
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
@@ -53,7 +54,12 @@ const ChampionTooltip = ({
         </Flex>
       }
     >
-      <Button>
+      <Button
+        className={classNames({
+          [`${classes.isPick}`]: isHovering === "Pick",
+          [`${classes.isWin}`]: isHovering === "Win",
+        })}
+      >
         {championRate[keys.avg] > 0 && championRate[keys.avg].toFixed(1) + "%"}
       </Button>
     </Tooltip>
@@ -71,6 +77,14 @@ const useStyles = makeStyles((theme) => ({
     "& a:not(:last-child)": {
       marginBottom: theme.spacing(1),
     },
+  },
+  isPick: {
+    textDecoration: "underline",
+    color: theme.palette.primary.main,
+  },
+  isWin: {
+    textDecoration: "underline",
+    color: theme.palette.secondary.main,
   },
 }));
 

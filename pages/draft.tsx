@@ -1,23 +1,17 @@
 import { Box, Container, makeStyles } from "@material-ui/core";
 import classNames from "classnames";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import { parseCookies } from "nookies";
 import React from "react";
-import { QueryClient } from "react-query";
-import { dehydrate } from "react-query/hydration";
 import DraftSelector from "../src/components/domain/draft/DraftSelector/DraftSelector";
 import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
 import TotalChampionRadar from "../src/components/domain/draft/TotalChampionRadar/TotalChampionRadar";
 import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/Shared/Flexboxes/Flex";
 import MySidebar from "../src/components/Shared/MySidebar";
-import { apiRoutes } from "../src/consts/apiRoutes";
-import useLolRates, {
-  fetchLolRates
-} from "../src/hooks/react-query/auth/useLolRatesQuery";
-import { fetchMe } from "../src/hooks/react-query/auth/useMeQuery";
+import useLolRatesQuery from "../src/hooks/react-query/auth/useLolRatesQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
-import myServerAxios from "../src/utils/axios/myServerAxios";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`
@@ -33,19 +27,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(apiRoutes.auth.me, () =>
-    fetchMe(myServerAxios(ctx))
-  );
-
-  await queryClient.prefetchQuery(apiRoutes.lolRates, () =>
-    fetchLolRates(myServerAxios(ctx))
-  );
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: {},
   };
 };
 
@@ -54,10 +38,14 @@ const DraftPage = () => {
 
   const { sidebarIsOpen } = useSidebarStore();
 
-  const { rates } = useLolRates();
+  const { rates } = useLolRatesQuery();
 
   return (
     <Layout>
+      <Head>
+        <title>Draft</title>
+      </Head>
+
       <Flex height="100%">
         <MySidebar>
           <DraftSidebarContent />
