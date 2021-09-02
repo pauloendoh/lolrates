@@ -6,7 +6,8 @@ const myColors = {
       4: "#D1A024", 
       5: "#FFB600"
   }, 
-  border: "rgba(255, 255, 255, 0.1)"
+  border: `1px solid rgba(255, 255, 255, 0.1)`, 
+  borderColor: "rgba(255, 255, 255, 0.1)"
 }
 
 export default myColors

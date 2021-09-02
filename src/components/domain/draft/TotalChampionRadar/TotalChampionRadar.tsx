@@ -67,7 +67,7 @@ export default function TotalChampionRadar() {
 
   return (
     <Box width="375px" height="300px">
-      {getTotalRadar() && <ChampionRadar showLabel value={getTotalRadar()} />}
+      {getTotalRadar() && <ChampionRadar showLabel values={getTotalRadar()} />}
       {getChampionsWithRadar().map((champion) => (
         <Box key={champion.id}>{champion.name}</Box>
       ))}

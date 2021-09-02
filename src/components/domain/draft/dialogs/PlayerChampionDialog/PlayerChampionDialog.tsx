@@ -29,9 +29,15 @@ const PlayerChampionDialog = (props: {
   const { data: cRadars } = useChampionRadarsQuery();
 
   const [cRadar, setCRadar] = useState<ChampionRadarDto>(null);
-  const [selectedChampionId, setSelectedChampionId] = useState<number>(
-    props.initialValue?.championId
+  const [selectedChampionId, setSelectedChampionId] = useState<number>(null
   );
+
+  useEffect(() => {
+    if(props.initialValue?.championId){
+      setSelectedChampionId(props.initialValue.championId)
+    }
+    else setSelectedChampionId(null)
+  }, [props.initialValue])
 
   useEffect(() => {
     if (cRadars?.length > 0 && selectedChampionId) {
@@ -114,7 +120,8 @@ const PlayerChampionDialog = (props: {
 
                 {cRadar !== null && (
                   <React.Fragment>
-                    <ChampionRadar value={cRadar} showLabel={false} />
+                    <ChampionRadar values={cRadar} showLabel={false} />
+
                     <Box position="relative">
                       <MyTextField
                         style={{

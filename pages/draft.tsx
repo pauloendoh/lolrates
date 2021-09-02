@@ -69,14 +69,16 @@ const DraftPage = () => {
           })}
           flexGrow={1}
         >
-          <Container style={{ minWidth: 900 }}>
-            <Flex>
-              <Box>
-                {rates && rates.length > 0 && <DraftSelector rates={rates} />}
-              </Box>
-              <TotalChampionRadar />
-            </Flex>
-          </Container>
+          <Box pt={5} pb={10}>
+            <Container style={{ minWidth: 900 }}>
+              <Flex>
+                <Box>
+                  {rates && rates.length > 0 && <DraftSelector rates={rates} />}
+                </Box>
+                <TotalChampionRadar />
+              </Flex>
+            </Container>
+          </Box>
         </Box>
       </Flex>
     </Layout>

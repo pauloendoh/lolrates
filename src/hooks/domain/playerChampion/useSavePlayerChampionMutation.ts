@@ -13,11 +13,7 @@ export default function useSavePlayerChampionMutation() {
   return useMutation(
     (playerChampion: PlayerChampionDto) =>
       myClientAxios
-        .request<PlayerChampionDto>({
-          url: urls.api.playerChampion,
-          data: playerChampion,
-          method: playerChampion.id ? "PUT" : "POST",
-        })
+        .post<PlayerChampionDto>(urls.api.playerChampion, playerChampion)
         .then((res) => res.data),
     {
       onSuccess: (saved) => {

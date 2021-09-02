@@ -5,6 +5,7 @@ import { ILolRateChampion } from "../../../../types/LolRate/ILolRateChampion";
 interface ISelectedChampionsStore {
   selectedChampions: ILolRateChampion[];
   setChampion: (champion: ILolRateChampion) => void;
+  removeChampion: (championName: string) => void;
 }
 
 const useSelectedChampionsStore = create<ISelectedChampionsStore>(
@@ -28,6 +29,13 @@ const useSelectedChampionsStore = create<ISelectedChampionsStore>(
         return draft;
       });
 
+      set({ selectedChampions: newSelected });
+    },
+    removeChampion: (championName) => {
+      const { selectedChampions } = get();
+      const newSelected = selectedChampions.filter(
+        (c) => c.championName !== championName
+      );
       set({ selectedChampions: newSelected });
     },
   })

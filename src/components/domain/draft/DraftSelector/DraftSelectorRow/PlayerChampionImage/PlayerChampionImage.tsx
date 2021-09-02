@@ -1,4 +1,4 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box } from "@material-ui/core";
 import React, { useState } from "react";
@@ -11,7 +11,8 @@ import FlexVCenter from "../../../../../Shared/Flexboxes/FlexVCenter";
 const PlayerChampionImage = (props: {
   pChampion: PlayerChampionDto;
   onClick: (id: number) => void;
-  onClickDelete: (id: number) => void;
+  onClickEditChampion: (id: number) => void;
+  onClickDelete: (championId: number) => void;
 }) => {
   const { data: allChampions } = useChampionsQuery();
 
@@ -55,7 +56,32 @@ const PlayerChampionImage = (props: {
           style={{ cursor: "pointer" }}
           onClick={() => props.onClickDelete(props.pChampion.id)}
         >
-          <FontAwesomeIcon icon={faTimes} color={theme.palette.grey[900]} />
+          <FontAwesomeIcon
+            icon={faTimes}
+            fontSize="8px"
+            color={theme.palette.grey[900]}
+          />
+        </FlexVCenter>
+      )}
+
+      {hover && (
+        <FlexVCenter
+          position="absolute"
+          width={14}
+          height={14}
+          bgcolor="white"
+          justifyContent="center"
+          right={0}
+          bottom={0}
+          borderRadius={14}
+          style={{ cursor: "pointer" }}
+          onClick={() => props.onClickEditChampion(props.pChampion.championId)}
+        >
+          <FontAwesomeIcon
+            icon={faPen}
+            size="sm"
+            color={theme.palette.grey[900]}
+          />
         </FlexVCenter>
       )}
     </Box>

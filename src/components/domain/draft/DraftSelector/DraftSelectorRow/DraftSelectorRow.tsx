@@ -3,14 +3,14 @@ import {
   FormControl,
   IconButton,
   InputLabel,
+  Link,
   MenuItem,
   Select,
   Tooltip,
-  useTheme,
+  useTheme
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import myColors from "../../../../../consts/myColors";
 import useDeletePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useDeletePlayerChampionMutation";
 import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
@@ -19,12 +19,14 @@ import usePlayerChampionsQuery from "../../../../../hooks/react-query/queries/us
 import useSelectedChampionsStore from "../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
 import {
   getEmptyPlayerChampionDto,
-  PlayerChampionDto,
+  getFilledPlayerChampionDto,
+  PlayerChampionDto
 } from "../../../../../types/domain/draft/PlayerChampionDto";
+import { SkillLevelTypes } from "../../../../../types/domain/draft/SkillLevelTypes";
 import { ChampionRoleType } from "../../../../../types/LolRate/ChampionRoleType";
 import {
   getLolRateDto,
-  ILolRateChampion,
+  ILolRateChampion
 } from "../../../../../types/LolRate/ILolRateChampion";
 import { formatWinPickRate } from "../../../../../utils/domain/rates/formatWinPickRate";
 import Flex from "../../../../Shared/Flexboxes/Flex";
@@ -48,8 +50,8 @@ const DraftSelectorRow = (props: {
   const [selectedChampion, setSelectedChampion] =
     useState<ILolRateChampion>(null);
 
-  const { setChampion } = useSelectedChampionsStore();
-  
+  const { setChampion, removeChampion } = useSelectedChampionsStore();
+
   useEffect(() => {
     if (selectedChampion) setChampion(selectedChampion);
     // TODO: else: removeChampion
@@ -127,12 +129,36 @@ const DraftSelectorRow = (props: {
     }
   };
 
+  const handleClickEditChampion = (
+    championId: number,
+    skillLevel: SkillLevelTypes
+  ) => {
+    setChampionDialogIsOpen(true);
+
+    const pChampion = pChampions.find(
+      (pChampion) =>
+        pChampion.playerId === selectedPlayerId &&
+        pChampion.championId === championId
+    );
+
+    console.log(championId);
+    setInitialValueChampionDialog(
+      getFilledPlayerChampionDto(
+        pChampion.id,
+        selectedPlayerId as number,
+        championId,
+        skillLevel,
+        props.role
+      )
+    );
+  };
+
   return (
     <Box
       pt={1}
       key={props.role}
       borderBottom={
-        props.hasBorderBottom ? `1px solid ${myColors.border}` : null
+        props.hasBorderBottom ? `1px solid ${myColors.borderColor}` : null
       }
     >
       <Flex>
@@ -148,16 +174,18 @@ const DraftSelectorRow = (props: {
                 }}
               />
 
-              <Box ml={1}>
-                <Box>
-                  <Txt>{selectedChampion.championName}</Txt>
-                </Box>
-                <Box>
-                  <Txt>
-                    {formatWinPickRate(selectedChampion.avgWin)} win ·{" "}
-                    {formatWinPickRate(selectedChampion.avgPick)} pick
-                  </Txt>
-                </Box>
+              <Box px={2} width="100%">
+                <FlexVCenter justifyContent="space-between">
+                  <Txt>{props.role}</Txt>
+                  <Link
+                    onClick={() => {
+                      setSelectedChampion(null);
+                      removeChampion(selectedChampion.championName);
+                    }}
+                  >
+                    Clear
+                  </Link>
+                </FlexVCenter>
               </Box>
             </Flex>
           )}
@@ -172,17 +200,40 @@ const DraftSelectorRow = (props: {
               />
             </Box>
           )}
+          {selectedChampion && (
+            <Box>
+              <Txt>{selectedChampion.championName}</Txt>
+              {selectedChampion.avgWin > 0 && (
+                <Box>
+                  <Txt>
+                    {formatWinPickRate(selectedChampion.avgWin)} win ·{" "}
+                    {formatWinPickRate(selectedChampion.avgPick)} pick
+                  </Txt>
+                </Box>
+              )}
+            </Box>
+          )}
         </Box>
 
-        <Box minWidth={216} minHeight={128}>
+        {/*  Middle column  */}
+        <Box
+          minWidth={216}
+          minHeight={128}
+          px={1}
+          borderRight={myColors.border}
+          borderLeft={myColors.border}
+        >
           {selectedPlayerId && (
             <React.Fragment>
               <Box mb={1}>
                 <Txt>OP</Txt>
-                <Flex flexWrap="wrap">
+                <Flex flexWrap="wrap" style={{ gap: 8 }}>
                   {getOpChampions().map((pChampion) => (
                     <PlayerChampionImage
                       key={pChampion.id}
+                      onClickEditChampion={(championId) =>
+                        handleClickEditChampion(championId, "OP")
+                      }
                       onClick={handleSelectPlayerChampion}
                       onClickDelete={confirmDeletePChampion}
                       pChampion={pChampion}
@@ -190,6 +241,7 @@ const DraftSelectorRow = (props: {
                   ))}
                   <IconButton
                     size="small"
+                    style={{ width: 32, height: 32 }}
                     onClick={() => {
                       setChampionDialogIsOpen(true);
                       setInitialValueChampionDialog(
@@ -208,11 +260,14 @@ const DraftSelectorRow = (props: {
               </Box>
               <Box mt={2} mb={1}>
                 <Txt>Decent/Practice</Txt>
-                <Flex flexWrap="wrap">
+                <Flex flexWrap="wrap" style={{ gap: 8 }}>
                   {getDecentChampions().map((pChampion) => (
                     <PlayerChampionImage
                       key={pChampion.id}
                       onClick={handleSelectPlayerChampion}
+                      onClickEditChampion={(championId) =>
+                        handleClickEditChampion(championId, "Decent/Practice")
+                      }
                       onClickDelete={confirmDeletePChampion}
                       pChampion={pChampion}
                     />
@@ -220,6 +275,7 @@ const DraftSelectorRow = (props: {
 
                   <IconButton
                     size="small"
+                    style={{ width: 32, height: 32 }}
                     onClick={() => {
                       setChampionDialogIsOpen(true);
                       setInitialValueChampionDialog(
@@ -245,7 +301,7 @@ const DraftSelectorRow = (props: {
           )}
         </Box>
 
-        <Box flexGrow={1}>
+        <Box flexGrow={1} px={1}>
           <FlexVCenter pb={0.5} justifyContent="space-between">
             <Txt>Best rates at {props.role}</Txt>
 
@@ -270,9 +326,9 @@ const DraftSelectorRow = (props: {
             )}
           </FlexVCenter>
           {/* Showing champion icons */}
-          <Flex flexWrap="wrap">
+          <Flex flexWrap="wrap" style={{ gap: 8 }}>
             {getBestChampions().map((championRate, i) => (
-              <Box mr={0.5} mb={1} key={i}>
+              <Box key={i}>
                 <Tooltip
                   enterDelay={500}
                   enterNextDelay={500}

@@ -12,7 +12,7 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
 
   const isLast = useCallback(
     (index: number) => {
-      return roles.length === index - 1;
+      return roles.length - 1 === index;
     },
     [props.rates]
   );
@@ -23,7 +23,6 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
     },
     [props.rates]
   );
-
 
   return (
     <Paper>

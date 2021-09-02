@@ -5,7 +5,6 @@ import myClientAxios from "../../../utils/axios/myClientAxios";
 
 const url = urls.api.playerChampion;
 
-// query
 export default function usePlayerChampionsQuery() {
   return useQuery(url, () =>
     myClientAxios.get<PlayerChampionDto[]>(url).then((res) => res.data)
