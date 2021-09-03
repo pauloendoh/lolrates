@@ -1,11 +1,13 @@
 import {
   AppBar,
+  Box,
   Button,
+  IconButton,
   makeStyles,
   Tab,
   Tabs,
   Theme,
-  Toolbar,
+  Toolbar
 } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
@@ -14,21 +16,25 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { apiRoutes } from "../../../consts/apiRoutes";
 import { pageRoutes } from "../../../consts/pageRoutes";
+import { urls } from "../../../consts/urls";
 import useMeQuery from "../../../hooks/react-query/auth/useMeQuery";
 import useSnackbarStore from "../../../hooks/stores/useSnackbarStore";
 import myClientAxios from "../../../utils/axios/myClientAxios";
 import Flex from "../../Shared/Flexboxes/Flex";
 import FlexVCenter from "../../Shared/Flexboxes/FlexVCenter";
-import Txt from "../../Shared/Text/Txt";
+import NextImage from "../../Shared/Next/NextImage/NextImage";
+import NextLink from "../../Shared/Next/NextLink/NextLink";
 import AuthDialog from "./AuthDialog/AuthDialog";
 import SidebarToggleButton from "./SidebarToggleButton";
 
 // PE 2/3
 const Navbar = () => {
   const classes = useStyles();
-  const router = useRouter();
 
-  const { data: authUser, isLoading } = useMeQuery({refetchOnWindowFocus: false, retry: false});
+  const { data: authUser, isLoading } = useMeQuery({
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
@@ -52,54 +58,60 @@ const Navbar = () => {
     setSuccessMessage("Successful logout!");
   };
 
-  const shouldShowLogin = !authUser && !isLoading;
+  const isLoggedOut = !authUser && !isLoading;
 
   return (
     <AppBar className={classes.root} position="fixed" elevation={0}>
       <Toolbar className={classes.toolbar}>
-        <FlexVCenter>
-          <SidebarToggleButton />
-          {isLoading && "Loading..."}
-          {shouldShowLogin && (
-            <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
-          )}
-          {authUser && <Button onClick={logout}>Logout</Button>}
+        <FlexVCenter justifyContent="space-between" width="100%">
+          <FlexVCenter>
+            <SidebarToggleButton />
 
-          {authUser && (
+            <Box ml={2} />
+            <NextLink href={urls.pages.index}>
+              <a>
+                <IconButton style={{width: 24, height: 24}}>
+
+                <NextImage
+                  src={urls.image("fire-icon-league.png")}
+                  width="16px"
+                  height="20px"
+                />
+                </IconButton>
+              </a>
+            </NextLink>
+          </FlexVCenter>
+
+          {!isLoggedOut && (
             <Flex>
-              <Txt>{authUser.username} logged!!</Txt>
-
-              <Flex>
-                <Tabs
-                  className={classes.tabs}
-                  value={tabIndex}
-                  indicatorColor="primary"
-                  textColor="primary"
-                  aria-label="disabled tabs example"
-                >
-                  <Link href={pageRoutes.index} passHref>
-                    <Tab
-                      id="index-tab"
-                      className={classes.tab}
-                      label={`Home`}
-                    />
-                  </Link>
-                  <Link href={pageRoutes.draft} passHref>
-                    <Tab
-                      id="draft-tab"
-                      className={classes.tab}
-                      label={`Draft`}
-                    />
-                  </Link>
-                </Tabs>
-              </Flex>
+              <Tabs
+                className={classes.tabs}
+                value={tabIndex}
+                indicatorColor="primary"
+                textColor="primary"
+              >
+                <Link href={pageRoutes.index} passHref>
+                  <Tab id="index-tab" className={classes.tab} label={`Home`} />
+                </Link>
+                <Link href={pageRoutes.draft} passHref>
+                  <Tab id="draft-tab" className={classes.tab} label={`Draft`} />
+                </Link>
+              </Tabs>
             </Flex>
           )}
 
-          <AuthDialog
-            open={openAuthDialog}
-            onClose={() => setOpenAuthDialog(false)}
-          />
+          <FlexVCenter>
+            {isLoading && "Loading..."}
+            {isLoggedOut && (
+              <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
+            )}
+            {authUser && <Button onClick={logout}>Logout</Button>}
+
+            <AuthDialog
+              open={openAuthDialog}
+              onClose={() => setOpenAuthDialog(false)}
+            />
+          </FlexVCenter>
         </FlexVCenter>
       </Toolbar>
     </AppBar>

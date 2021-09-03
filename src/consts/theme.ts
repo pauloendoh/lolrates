@@ -30,6 +30,12 @@ const theme = createTheme({
         background: "#1E1E1E",
       },
     },
+    MuiToolbar:{
+      root: {
+        paddingLeft: 32, 
+        paddingRight: 32
+      }
+    },
     MuiTooltip: {
       arrow: { color: "#292929" },
       tooltip: {

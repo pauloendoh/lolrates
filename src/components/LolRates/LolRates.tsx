@@ -16,9 +16,7 @@ import {
   TableRow,
   Typography
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useQueryClient } from "react-query";
-import { apiRoutes } from "../../consts/apiRoutes";
+import React, { useCallback, useState } from "react";
 import { urls } from "../../consts/urls";
 import useLolRatesQuery from "../../hooks/react-query/auth/useLolRatesQuery";
 import { ILolRateChampion } from "../../types/LolRate/ILolRateChampion";
@@ -45,6 +43,40 @@ const LolRates = () => {
   const [sortDescBy, setSortDescBy] = useState<SortDescBy>("AvgAvg");
   const [textFilter, setTextFilter] = useState("");
 
+  const getFilteredRates = useCallback(() => {
+    let filteredRates = [...allChampionRates];
+
+    if (textFilter.trim().length > 0) {
+      return filteredRates.filter((r) =>
+        stringAreVerySimilar(textFilter, r.championName)
+      );
+    }
+
+    // PE 1/3 - Separate into filterRates(rates, selectedRole, checked51, sortDescBy)
+    if (selectedRole !== "ALL") {
+      filteredRates = allChampionRates.filter(
+        (rate) => rate.role === selectedRole
+      );
+    }
+
+    if (checked51) {
+      filteredRates = filteredRates.filter((r) => r.avgWin >= 51);
+    }
+
+    switch (sortDescBy) {
+      case "AvgAvg":
+        filteredRates = filteredRates.sort((a, b) => b.avgAvg - a.avgAvg);
+        break;
+      case "AvgPick":
+        filteredRates = filteredRates.sort((a, b) => b.avgPick - a.avgPick);
+        break;
+      case "AvgWin":
+        filteredRates = filteredRates.sort((a, b) => b.avgWin - a.avgWin);
+    }
+
+    return filteredRates;
+  }, [allChampionRates, selectedRole, checked51, sortDescBy, textFilter]);
+
   const shouldShowRate = (rate: ILolRateChampion) => {
     if (textFilter.trim().length > 0) {
       return stringAreVerySimilar(textFilter, rate.championName);
@@ -53,7 +85,6 @@ const LolRates = () => {
     if (selectedRole === rate.role) return true;
     return false;
   };
-
 
   const classes = useStyles();
 
@@ -183,7 +214,7 @@ const LolRates = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {allChampionRates?.map((rate, i) => (
+                  {getFilteredRates().map((rate, i) => (
                     <TableRow
                       key={i}
                       style={{

@@ -69,7 +69,7 @@ export default function ChampionRadar({
           Tankiness: {values.tankiness}
         </Txt>
         <Txt style={{ position: "absolute", top: -50, right: 70 }}>
-          Engage: {values.engage}
+        Engage: {values.engage}
         </Txt>
         <Txt style={{ position: "absolute", top: -50, right: 260 }}>
           Protect: {values.protect}

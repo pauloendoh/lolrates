@@ -6,8 +6,13 @@ export const urls = {
   api: {
     player: "/lolrates/player",
     playerChampion: "/lolrates/playerChampion",
-    playerChampionId: (id: number) => `/lolrates/playerChampion/${id}`, 
+    playerChampionId: (id: number) => `/lolrates/playerChampion/${id}`,
     champion: "/lolrates/champion",
-    championRadar: "/lolrates/championRadar"
+    championRadar: "/lolrates/championRadar",
   },
+  pages: {
+    index: "/", 
+    draft: "/draft"
+  }, 
+  image: (fileName: string) => `/images/${fileName}`,
 };
