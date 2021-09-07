@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import React from "react";
+import { urls } from "../../../consts/urls";
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../utils/domain/rates/getOpggUrl";
@@ -9,25 +10,25 @@ import { getUggUrl } from "../../../utils/domain/rates/getUggUrl";
 import Flex from "../../Shared/Flexboxes/Flex";
 
 const ChampionTooltipTitle = ({
-  rate: championRate,
+  championName,
 }: {
-  rate: ILolRateChampion;
+  championName: string
 }) => {
   const classes = useStyles();
 
   return (
     <Flex flexDirection="column" py={1} className={classes.box}>
-      <a target="_blank" href={getOpggUrl(championRate.championName)}>
+      <a target="_blank" href={getOpggUrl(championName)}>
         op.gg
       </a>
-      <a target="_blank" href={getLolGraphsUrl(championRate.championName)}>
+      <a target="_blank" href={getLolGraphsUrl(championName)}>
         lolgraphs
       </a>
-      <a target="_blank" href={getUggUrl(championRate.championName)}>
+      <a target="_blank" href={urls.uggChampion(championName)}>
         u.gg
       </a>
       <Box mt={2}>
-        <a target="_blank" href={getPatchHistoryUrl(championRate.championName)}>
+        <a target="_blank" href={getPatchHistoryUrl(championName)}>
           Patch history
         </a>
       </Box>

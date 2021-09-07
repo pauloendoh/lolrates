@@ -9,6 +9,7 @@ import {
   Theme,
   Toolbar
 } from "@material-ui/core";
+import classNames from "classnames";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { destroyCookie } from "nookies";
@@ -70,19 +71,18 @@ const Navbar = () => {
             <Box ml={2} />
             <NextLink href={urls.pages.index}>
               <a>
-                <IconButton style={{width: 24, height: 24}}>
-
-                <NextImage
-                  src={urls.image("fire-icon-league.png")}
-                  width="16px"
-                  height="20px"
-                />
+                <IconButton style={{ width: 24, height: 24 }}>
+                  <NextImage
+                    src={urls.image("fire-icon-league.png")}
+                    width="16px"
+                    height="20px"
+                  />
                 </IconButton>
               </a>
             </NextLink>
           </FlexVCenter>
 
-          {!isLoggedOut && (
+          {authUser && (
             <Flex>
               <Tabs
                 className={classes.tabs}
@@ -91,10 +91,23 @@ const Navbar = () => {
                 textColor="primary"
               >
                 <Link href={pageRoutes.index} passHref>
-                  <Tab id="index-tab" className={classes.tab} label={`Home`} />
+                  {/* PE 1/3 - DRY */}
+                  <Tab
+                    id="home-tab"
+                    className={classNames(classes.tab, {
+                      [`${classes.selectedTab}`]: tabIndex === 0,
+                    })}
+                    label={`Home`}
+                  />
                 </Link>
                 <Link href={pageRoutes.draft} passHref>
-                  <Tab id="draft-tab" className={classes.tab} label={`Draft`} />
+                  <Tab
+                    id="draft-tab"
+                    label={`Draft`}
+                    className={classNames(classes.tab, {
+                      [`${classes.selectedTab}`]: tabIndex === 1,
+                    })}
+                  />
                 </Link>
               </Tabs>
             </Flex>
@@ -149,6 +162,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     minWidth: "inherit",
     width: "inherit",
     color: "white",
+    opacity: 1,
+  },
+  selectedTab: {
+    color: theme.palette.primary.main,
   },
 }));
 

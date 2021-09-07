@@ -1,11 +1,11 @@
 import { Box, Button, makeStyles, Tooltip } from "@material-ui/core";
 import classNames from "classnames";
 import React from "react";
+import { urls } from "../../../consts/urls";
 import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../utils/domain/rates/getOpggUrl";
 import { getPatchHistoryUrl } from "../../../utils/domain/rates/getPatchHistoryUrl";
-import { getUggUrl } from "../../../utils/domain/rates/getUggUrl";
 import Flex from "../../Shared/Flexboxes/Flex";
 
 const ChampionTooltip = ({
@@ -38,7 +38,7 @@ const ChampionTooltip = ({
             {championRate[keys.lolgraphs] > 0 &&
               championRate[keys.lolgraphs].toFixed(1) + "%"}
           </a>
-          <a target="_blank" href={getUggUrl(championRate.championName)}>
+          <a target="_blank" href={urls.uggChampion(championRate.championName)}>
             u.gg:{" "}
             {championRate[keys.ugg] > 0 &&
               championRate[keys.ugg].toFixed(1) + "%"}

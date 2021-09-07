@@ -6,7 +6,7 @@ import ChampionTooltipTitle from "../../domain/rates/ChampionTooltipTitle";
 const ChampionNameTableCell = ({ rate }: { rate: ILolRateChampion }) => {
   return (
     <TableCell>
-      <Tooltip interactive title={<ChampionTooltipTitle rate={rate} />}>
+      <Tooltip interactive title={<ChampionTooltipTitle  championName={rate.championName}/>}>
         <Box
           style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
         >

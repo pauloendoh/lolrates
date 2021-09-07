@@ -7,7 +7,7 @@ import {
   MenuItem,
   Select,
   Tooltip,
-  useTheme
+  useTheme,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
@@ -20,15 +20,16 @@ import useSelectedChampionsStore from "../../../../../hooks/stores/domain/draft/
 import {
   getEmptyPlayerChampionDto,
   getFilledPlayerChampionDto,
-  PlayerChampionDto
+  PlayerChampionDto,
 } from "../../../../../types/domain/draft/PlayerChampionDto";
 import { SkillLevelTypes } from "../../../../../types/domain/draft/SkillLevelTypes";
 import { ChampionRoleType } from "../../../../../types/LolRate/ChampionRoleType";
 import {
   getLolRateDto,
-  ILolRateChampion
+  ILolRateChampion,
 } from "../../../../../types/LolRate/ILolRateChampion";
 import { formatWinPickRate } from "../../../../../utils/domain/rates/formatWinPickRate";
+import { getChampionImageBorder } from "../../../../../utils/domain/rates/getChampionImageBorder";
 import Flex from "../../../../Shared/Flexboxes/Flex";
 import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
 import Txt from "../../../../Shared/Text/Txt";
@@ -68,11 +69,6 @@ const DraftSelectorRow = (props: {
   };
 
   const theme = useTheme();
-  const getBorder = (avgWin: number) => {
-    if (avgWin >= 51) return `2px solid ${theme.palette.primary.main}`;
-    if (avgWin >= 49) return `2px solid ${myColors.ratingYellow[5]}`;
-    return `2px solid ${theme.palette.error.main}`;
-  };
 
   const { data: players } = usePlayersQuery();
 
@@ -164,14 +160,25 @@ const DraftSelectorRow = (props: {
       <Flex>
         <Box minWidth={216} minHeight={128}>
           <Flex>
-            <img
-              src={selectedChampion?.iconUrl}
-              style={{
-                height: 48,
-                borderRadius: 100,
-                cursor: "pointer",
-              }}
-            />
+            {selectedChampion?.iconUrl.length > 0 ? (
+              <img
+                src={selectedChampion?.iconUrl}
+                style={{
+                  height: 48,
+                  borderRadius: 100,
+                }}
+              />
+            ) : (
+              <FlexVCenter
+                justifyContent="center"
+                height={48}
+                minWidth={48}
+                bgcolor={myColors.dark.lightDark}
+                borderRadius={48}
+              >
+                <Txt variant="h5">?</Txt>
+              </FlexVCenter>
+            )}
 
             <Box px={1} width="100%">
               <FlexVCenter justifyContent="space-between">
@@ -236,6 +243,7 @@ const DraftSelectorRow = (props: {
                 <Flex flexWrap="wrap" style={{ gap: 8 }}>
                   {getOpChampions().map((pChampion) => (
                     <PlayerChampionImage
+                      role={props.role}
                       key={pChampion.id}
                       onClickEditChampion={(championId) =>
                         handleClickEditChampion(championId, "OP")
@@ -269,6 +277,7 @@ const DraftSelectorRow = (props: {
                 <Flex flexWrap="wrap" style={{ gap: 8 }}>
                   {getDecentChampions().map((pChampion) => (
                     <PlayerChampionImage
+                      role={props.role}
                       key={pChampion.id}
                       onClick={handleSelectPlayerChampion}
                       onClickEditChampion={(championId) =>
@@ -339,7 +348,11 @@ const DraftSelectorRow = (props: {
                   enterDelay={500}
                   enterNextDelay={500}
                   interactive
-                  title={<ChampionTooltipTitle rate={championRate} />}
+                  title={
+                    <ChampionTooltipTitle
+                      championName={championRate.championName}
+                    />
+                  }
                 >
                   <img
                     onClick={() => setSelectedChampion(championRate)}
@@ -347,7 +360,7 @@ const DraftSelectorRow = (props: {
                     style={{
                       width: 32,
                       borderRadius: 100,
-                      border: getBorder(championRate.avgWin),
+                      border: getChampionImageBorder(championRate.avgWin),
                       cursor: "pointer",
                     }}
                   />

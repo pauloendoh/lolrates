@@ -1,4 +1,7 @@
 const myColors = {
+  dark: {
+    lightDark: '#3E3E3E'
+  }, 
   ratingYellow: {
       1: "#929292", 
       2: "#968864", 
