@@ -1,33 +1,37 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import React from "react";
 import {
   ChampionRoleType,
   roles
 } from "../../../../../types/LolRate/ChampionRoleType";
+import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../Shared/MyInputs/MyTextField";
 
 // PE 2/3
 const RoleSelector = (props: {
   selectedRole: ChampionRoleType | "";
   onChange: (championRole: ChampionRoleType) => void;
 }) => {
-  const handleChange = (event: any) => {
-    const role = event.target.value as ChampionRoleType;
-    props.onChange(role);
-  };
-
   return (
-    <Select
-      labelId={`role-selector-label`}
+    <Autocomplete
       value={props.selectedRole}
-      onChange={handleChange}
-      label="Champion"
-    >
-      {roles.map((role) => (
-        <MenuItem key={role} value={role}>
-          {role}
-        </MenuItem>
-      ))}
-    </Select>
+      options={[...roles]}
+      renderOption={(role) => <FlexVCenter>{role}</FlexVCenter>}
+      getOptionLabel={(role) => role}
+      renderInput={(params) => (
+        <MyTextField
+          InputProps={{ id: "role-selector" }}
+          label="Role"
+          style={{width: 115}}
+          {...params}
+          size="small"
+        />
+      )}
+      onChange={(e, value) => {
+        const role = value as ChampionRoleType;
+        props.onChange(role);
+      }}
+    />
   );
 };
 

@@ -6,7 +6,7 @@ import {
   Radar,
   RadarChart,
   ResponsiveContainer,
-  Tooltip,
+  Tooltip
 } from "recharts";
 import { ChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import Txt from "../../../Shared/Text/Txt";
@@ -60,24 +60,26 @@ export default function ChampionRadar({
           <Radar dataKey="maxValue" fillOpacity={0} />
         </RadarChart>
       </ResponsiveContainer>
-      <Box position="relative">
-        <Txt style={{ position: "absolute", top: -290, left: 160 }}>
-          Burst: {values.burst}
-        </Txt>
+      {showLabel && (
+        <Box position="relative">
+          <Txt style={{ position: "absolute", top: -290, left: 160 }}>
+            Burst: {values.burst}
+          </Txt>
 
-        <Txt style={{ position: "absolute", top: -200, right: -10 }}>
-          Tankiness: {values.tankiness}
-        </Txt>
-        <Txt style={{ position: "absolute", top: -50, right: 70 }}>
-        Engage: {values.engage}
-        </Txt>
-        <Txt style={{ position: "absolute", top: -50, right: 260 }}>
-          Protect: {values.protect}
-        </Txt>
-        <Txt style={{ position: "absolute", top: -200, right: 310 }}>
-          DPS: {values.dps}
-        </Txt>
-      </Box>
+          <Txt style={{ position: "absolute", top: -200, right: -10 }}>
+            Tankiness: {values.tankiness}
+          </Txt>
+          <Txt style={{ position: "absolute", top: -50, right: 70 }}>
+            Engage: {values.engage}
+          </Txt>
+          <Txt style={{ position: "absolute", top: -50, right: 260 }}>
+            Protect: {values.protect}
+          </Txt>
+          <Txt style={{ position: "absolute", top: -200, right: 310 }}>
+            DPS: {values.dps}
+          </Txt>
+        </Box>
+      )}
     </Box>
   );
 }

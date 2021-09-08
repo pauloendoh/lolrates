@@ -1,5 +1,5 @@
 import { Box } from "@material-ui/core";
-import React from "react";
+import React, { useMemo } from "react";
 import useChampionRadarsQuery from "../../../../hooks/domain/championRadar/useChampionRadarsQuery";
 import useChampionsQuery from "../../../../hooks/react-query/auth/useChampionsQuery";
 import useSelectedChampionsStore from "../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
@@ -13,9 +13,7 @@ export default function TotalChampionRadar() {
   const { selectedChampions } = useSelectedChampionsStore();
   const { data: allChampions } = useChampionsQuery();
 
-  const reduceSum = (numbers: number[]) => {};
-
-  const getChampionsWithRadar = () => {
+  const championsWithRadar = useMemo(() => {
     let championSet = new Set<ChampionDto>();
 
     if (radars?.length > 0 && allChampions?.length > 0) {
@@ -30,7 +28,7 @@ export default function TotalChampionRadar() {
     }
 
     return Array.from(championSet);
-  };
+  }, [selectedChampions, radars]);
 
   const getTotalRadar = () => {
     let totalBurst = 0;
@@ -65,10 +63,12 @@ export default function TotalChampionRadar() {
     return radar;
   };
 
+  if (championsWithRadar.length === 0) return null;
+
   return (
     <Box width="375px" height="300px">
       {getTotalRadar() && <ChampionRadar showLabel values={getTotalRadar()} />}
-      {getChampionsWithRadar().map((champion) => (
+      {championsWithRadar.map((champion) => (
         <Box key={champion.id}>{champion.name}</Box>
       ))}
     </Box>

@@ -1,33 +1,38 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import React from "react";
 import {
   skillLevels,
-  SkillLevelTypes,
+  SkillLevelTypes
 } from "../../../../../types/domain/draft/SkillLevelTypes";
+import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../Shared/MyInputs/MyTextField";
 
 // PE 2/3
 const SkillLevelSelector = (props: {
   selectedLevel: SkillLevelTypes;
   onChange: (level: SkillLevelTypes) => void;
 }) => {
-  const handleChange = (event: any) => {
-    const level = event.target.value as SkillLevelTypes;
-    props.onChange(level);
-  };
-
   return (
-    <Select
-      labelId={`skill-level-selector-label`}
+    <Autocomplete
       value={props.selectedLevel}
-      onChange={handleChange}
-      label="Skill level"
-    >
-      {skillLevels.map((level) => (
-        <MenuItem key={level} value={level}>
-          {level}
-        </MenuItem>
-      ))}
-    </Select>
+      options={[...skillLevels]}
+      renderOption={(skillLevel) => <FlexVCenter>{skillLevel}</FlexVCenter>}
+      getOptionLabel={(skillLevel) => skillLevel}
+      renderInput={(params) => (
+        <MyTextField
+          InputProps={{ id: "skill-level-selector" }}
+          label="Skill level"
+          style={{width: 111}}
+          {...params}
+          size="small"
+          
+        />
+      )}
+      onChange={(e, value) => {
+        const level = value as SkillLevelTypes;
+        props.onChange(level);
+      }}
+    />
   );
 };
 

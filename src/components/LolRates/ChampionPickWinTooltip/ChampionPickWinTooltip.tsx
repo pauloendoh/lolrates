@@ -16,7 +16,7 @@ const ChampionTooltip = ({
   isHovering: "Pick" | "Win";
 }) => {
   const keys = {
-    opgg: `opgg${isHovering}`, // opggPick or opggWin
+    opgg: `opgg${isHovering}`, 
     lolgraphs: `lolgraphs${isHovering}`,
     ugg: `ugg${isHovering}`,
     avg: `avg${isHovering}`,

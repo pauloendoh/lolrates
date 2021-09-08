@@ -7,7 +7,6 @@ import {
   MenuItem,
   Select,
   Tooltip,
-  useTheme,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
@@ -67,8 +66,6 @@ const DraftSelectorRow = (props: {
       return ratesOver51.sort((a, b) => b.avgAvg - a.avgAvg);
     }
   };
-
-  const theme = useTheme();
 
   const { data: players } = usePlayersQuery();
 

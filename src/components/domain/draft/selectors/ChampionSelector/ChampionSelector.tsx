@@ -1,6 +1,8 @@
-import { MenuItem, Select } from "@material-ui/core";
-import React from "react";
+import { Autocomplete } from "@material-ui/lab";
+import React, { useEffect, useState } from "react";
 import { ChampionDto } from "../../../../../types/domain/general/ChampionDto";
+import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../Shared/MyInputs/MyTextField";
 
 // PE 2/3
 const ChampionSelector = (props: {
@@ -8,28 +10,39 @@ const ChampionSelector = (props: {
   selectedChampionId: number | "";
   onChange: (championId: number) => void;
 }) => {
-  const handleChange = (event: any) => {
-    const championId = event.target.value as number;
-    props.onChange(championId);
-  };
+
+
+  const [selectedChampion, setSelectedChampion] = useState<ChampionDto>(null);
+
+  useEffect(() => {
+    if (props.selectedChampionId) {
+      setSelectedChampion(
+        props.championOptions.find((p) => p.id === props.selectedChampionId)
+      );
+    }
+  }, [props.selectedChampionId]);
 
   return (
-    <Select
-      labelId={`champion-selector-label`}
-      value={props.selectedChampionId ? props.selectedChampionId : ""}
-      onChange={handleChange}
-      label="Champion"
-    >
-      {props.championOptions.map((champion) => (
-        <MenuItem
-          key={champion.id}
-          value={champion.id}
-          selected={champion.id === props.selectedChampionId}
-        >
-          {champion.name}
-        </MenuItem>
-      ))}
-    </Select>
+    <Autocomplete
+      value={selectedChampion}
+      options={[...props.championOptions]}
+      renderOption={(option) => <FlexVCenter>{option.name}</FlexVCenter>}
+      getOptionLabel={(option) => option.name}
+      renderInput={(params) => (
+        <MyTextField
+          InputProps={{ id: "champion-selector" }}
+          label="Champion name"
+          style={{width: 182}}
+          {...params}
+          size="small"
+        />
+      )}
+      onChange={(e, value) => {
+        const champion = value as ChampionDto;
+
+        props.onChange(champion ? champion.id : null);
+      }}
+    />
   );
 };
 

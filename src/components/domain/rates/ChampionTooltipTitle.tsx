@@ -6,7 +6,6 @@ import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
 import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../utils/domain/rates/getOpggUrl";
 import { getPatchHistoryUrl } from "../../../utils/domain/rates/getPatchHistoryUrl";
-import { getUggUrl } from "../../../utils/domain/rates/getUggUrl";
 import Flex from "../../Shared/Flexboxes/Flex";
 
 const ChampionTooltipTitle = ({

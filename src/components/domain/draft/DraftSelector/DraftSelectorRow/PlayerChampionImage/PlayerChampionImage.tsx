@@ -1,10 +1,12 @@
 import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Tooltip } from "@material-ui/core";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import theme from "../../../../../../consts/theme";
-import useChampionsQuery from "../../../../../../hooks/react-query/auth/useChampionsQuery";
-import useLolRatesQuery from "../../../../../../hooks/react-query/auth/useLolRatesQuery";
+import useChampionsQuery, {
+  useQueryChampionById
+} from "../../../../../../hooks/react-query/auth/useChampionsQuery";
+import { useChampionRateQuery } from "../../../../../../hooks/react-query/auth/useLolRatesQuery";
 import { PlayerChampionDto } from "../../../../../../types/domain/draft/PlayerChampionDto";
 import { ChampionRoleType } from "../../../../../../types/LolRate/ChampionRoleType";
 import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
@@ -19,25 +21,9 @@ const PlayerChampionImage = (props: {
   onClickEditChampion: (id: number) => void;
   onClickDelete: (championId: number) => void;
 }) => {
-  const { data: allChampions } = useChampionsQuery();
 
-  const champion = useMemo(() => {
-    if (allChampions?.length) {
-      return allChampions.find((c) => c.id === props.pChampion.championId);
-    }
-    return null;
-  }, [props.pChampion]);
-
-  const { rates } = useLolRatesQuery();
-
-  const championRate = useMemo(() => {
-    if (rates?.length > 0 && champion)
-      return rates.find(
-        (rate) =>
-          rate.championName === champion.name && rate.role === props.role
-      );
-    return null;
-  }, [rates, props.pChampion]);
+  const champion = useQueryChampionById(props.pChampion.championId);
+  const championRate = useChampionRateQuery(champion.name, props.role);
 
   const [hover, setHover] = useState(false);
 

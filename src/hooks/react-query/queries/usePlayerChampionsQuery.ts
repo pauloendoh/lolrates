@@ -10,3 +10,4 @@ export default function usePlayerChampionsQuery() {
     myClientAxios.get<PlayerChampionDto[]>(url).then((res) => res.data)
   );
 }
+

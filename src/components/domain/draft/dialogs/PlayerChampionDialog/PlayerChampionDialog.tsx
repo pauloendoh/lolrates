@@ -11,6 +11,7 @@ import {
 } from "../../../../../types/domain/draft/ChampionRadarDto";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import SaveCancelButtons from "../../../../Shared/Buttons/SaveCancelButtons";
+import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
 import MyTextField from "../../../../Shared/MyInputs/MyTextField";
 import ChampionRadar from "../../ChampionRadar/ChampionRadar";
 import ChampionSelector from "../../selectors/ChampionSelector/ChampionSelector";
@@ -29,15 +30,13 @@ const PlayerChampionDialog = (props: {
   const { data: cRadars } = useChampionRadarsQuery();
 
   const [cRadar, setCRadar] = useState<ChampionRadarDto>(null);
-  const [selectedChampionId, setSelectedChampionId] = useState<number>(null
-  );
+  const [selectedChampionId, setSelectedChampionId] = useState<number>(null);
 
   useEffect(() => {
-    if(props.initialValue?.championId){
-      setSelectedChampionId(props.initialValue.championId)
-    }
-    else setSelectedChampionId(null)
-  }, [props.initialValue])
+    if (props.initialValue?.championId) {
+      setSelectedChampionId(props.initialValue.championId);
+    } else setSelectedChampionId(null);
+  }, [props.initialValue]);
 
   useEffect(() => {
     if (cRadars?.length > 0 && selectedChampionId) {
@@ -66,7 +65,7 @@ const PlayerChampionDialog = (props: {
       onClose={props.onClose}
       open={props.open}
       fullWidth
-      maxWidth="xs"
+      maxWidth="sm"
       aria-labelledby="auth-dialog"
     >
       <Box pb={1} px={1}>
@@ -92,7 +91,7 @@ const PlayerChampionDialog = (props: {
                 Edit player champion
               </DialogTitle>
               <DialogContent>
-                <Box>
+                <FlexVCenter style={{ gap: 8 }}>
                   {champions?.length > 0 && (
                     <ChampionSelector
                       championOptions={champions}
@@ -116,10 +115,10 @@ const PlayerChampionDialog = (props: {
                       onChange={(level) => setFieldValue("skillLevel", level)}
                     />
                   </Box>
-                </Box>
+                </FlexVCenter>
 
                 {cRadar !== null && (
-                  <React.Fragment>
+                  <Box mt={5} style={{width: 'fit-content'}}>
                     <ChampionRadar values={cRadar} showLabel={false} />
 
                     <Box position="relative">
@@ -215,7 +214,7 @@ const PlayerChampionDialog = (props: {
                         }}
                       />
                     </Box>
-                  </React.Fragment>
+                  </Box>
                 )}
               </DialogContent>
               <DialogTitle>
