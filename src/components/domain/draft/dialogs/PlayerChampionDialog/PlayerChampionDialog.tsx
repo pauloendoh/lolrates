@@ -100,6 +100,7 @@ const PlayerChampionDialog = (props: {
                         setFieldValue("championId", championId);
                       }}
                       selectedChampionId={values.championId}
+                      width="182px"
                     />
                   )}
 
@@ -118,7 +119,7 @@ const PlayerChampionDialog = (props: {
                 </FlexVCenter>
 
                 {cRadar !== null && (
-                  <Box mt={5} style={{width: 'fit-content'}}>
+                  <Box mt={5} style={{ width: "fit-content" }}>
                     <ChampionRadar values={cRadar} showLabel={false} />
 
                     <Box position="relative">

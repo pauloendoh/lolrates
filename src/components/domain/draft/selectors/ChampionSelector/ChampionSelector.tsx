@@ -9,6 +9,7 @@ const ChampionSelector = (props: {
   championOptions: ChampionDto[];
   selectedChampionId: number | "";
   onChange: (championId: number) => void;
+  width: string; 
 }) => {
 
 
@@ -32,7 +33,7 @@ const ChampionSelector = (props: {
         <MyTextField
           InputProps={{ id: "champion-selector" }}
           label="Champion name"
-          style={{width: 182}}
+          style={{width: props.width}}
           {...params}
           size="small"
         />

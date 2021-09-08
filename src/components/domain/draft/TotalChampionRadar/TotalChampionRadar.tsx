@@ -63,14 +63,18 @@ export default function TotalChampionRadar() {
     return radar;
   };
 
-  if (championsWithRadar.length === 0) return null;
 
   return (
-    <Box width="375px" height="300px">
-      {getTotalRadar() && <ChampionRadar showLabel values={getTotalRadar()} />}
-      {championsWithRadar.map((champion) => (
-        <Box key={champion.id}>{champion.name}</Box>
-      ))}
+    <Box minWidth="375px" height="300px">
+      {championsWithRadar.length > 0 && getTotalRadar() ? (
+        <ChampionRadar showLabel values={getTotalRadar()} />
+      ) : (
+        <>
+          {championsWithRadar.map((champion) => (
+            <Box key={champion.id}>{champion.name}</Box>
+          ))}
+        </>
+      )}
     </Box>
   );
 }

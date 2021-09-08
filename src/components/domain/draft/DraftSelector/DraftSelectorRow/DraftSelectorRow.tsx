@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import myColors from "../../../../../consts/myColors";
 import useDeletePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useDeletePlayerChampionMutation";
 import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
@@ -34,6 +34,7 @@ import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
 import Txt from "../../../../Shared/Text/Txt";
 import ChampionTooltipTitle from "../../../rates/ChampionTooltipTitle";
 import PlayerChampionDialog from "../../dialogs/PlayerChampionDialog/PlayerChampionDialog";
+import ChampionSelector from "../../selectors/ChampionSelector/ChampionSelector";
 import PlayerSelector from "../../selectors/PlayerSelector/PlayerSelector";
 import PlayerChampionImage from "./PlayerChampionImage/PlayerChampionImage";
 
@@ -47,15 +48,15 @@ const DraftSelectorRow = (props: {
   sortBy: FilterByType;
   setSortBy: (newSortBy: FilterByType) => void;
 }) => {
-  const [selectedChampion, setSelectedChampion] =
+  const [selectedChampionRate, setSelectedChampionRate] =
     useState<ILolRateChampion>(null);
 
   const { setChampion, removeChampion } = useSelectedChampionsStore();
 
   useEffect(() => {
-    if (selectedChampion) setChampion(selectedChampion);
+    if (selectedChampionRate) setChampion(selectedChampionRate);
     // TODO: else: removeChampion
-  }, [selectedChampion]);
+  }, [selectedChampionRate]);
 
   // Returns rates by role, over 51% win rate and in descending order
   const getBestChampions = () => {
@@ -111,14 +112,26 @@ const DraftSelectorRow = (props: {
 
   const { data: allChampions } = useChampionsQuery();
 
+  const selectedChampion = useMemo(() => {
+    if (selectedChampionRate && allChampions?.length) {
+      return allChampions.find(
+        (c) => c.name === selectedChampionRate.championName
+      );
+    }
+    return null;
+  }, [selectedChampionRate, allChampions]);
+
   const handleSelectPlayerChampion = (championId: number) => {
     if (allChampions?.length > 0) {
       const champion = allChampions.find((c) => c.id === championId);
-      const rateFound = props.roleRates.find(
-        (rate) => rate.championName === champion.name
-      );
-      if (rateFound) setSelectedChampion(rateFound);
-      else setSelectedChampion(getLolRateDto(champion, props.role));
+
+      if (champion) {
+        const rateFound = props.roleRates.find(
+          (rate) => rate.championName === champion.name
+        );
+        if (rateFound) setSelectedChampionRate(rateFound);
+        else setSelectedChampionRate(getLolRateDto(champion, props.role));
+      }
     }
   };
 
@@ -134,7 +147,6 @@ const DraftSelectorRow = (props: {
         pChampion.championId === championId
     );
 
-    console.log(championId);
     setInitialValueChampionDialog(
       getFilledPlayerChampionDto(
         pChampion.id,
@@ -157,9 +169,9 @@ const DraftSelectorRow = (props: {
       <Flex>
         <Box minWidth={216} minHeight={128}>
           <Flex>
-            {selectedChampion?.iconUrl.length > 0 ? (
+            {selectedChampionRate?.iconUrl.length > 0 ? (
               <img
-                src={selectedChampion?.iconUrl}
+                src={selectedChampionRate?.iconUrl}
                 style={{
                   height: 48,
                   borderRadius: 100,
@@ -181,11 +193,11 @@ const DraftSelectorRow = (props: {
               <FlexVCenter justifyContent="space-between">
                 <Txt>{props.role}</Txt>
 
-                {selectedChampion && (
+                {selectedChampionRate && (
                   <Link
                     onClick={() => {
-                      setSelectedChampion(null);
-                      removeChampion(selectedChampion.championName);
+                      setSelectedChampionRate(null);
+                      removeChampion(selectedChampionRate.championName);
                     }}
                   >
                     Clear
@@ -203,24 +215,29 @@ const DraftSelectorRow = (props: {
                   />
                 </Box>
               )}
-              {selectedChampion && (
-                <Box mt={1}>
-                  <Txt variant="subtitle1">{selectedChampion.championName}</Txt>
-                  {selectedChampion.avgWin > 0 && (
-                    <Box mt={1}>
-                      <Txt>
-                        {formatWinPickRate(selectedChampion.avgWin)} win
-                      </Txt>
+              <Box mt={1}>
+                <ChampionSelector
+                  championOptions={allChampions ? allChampions : []}
+                  onChange={handleSelectPlayerChampion}
+                  selectedChampionId={
+                    selectedChampion ? selectedChampion.id : null
+                  }
+                  width="100%"
+                />
+                {selectedChampionRate?.avgWin > 0 && (
+                  <Box mt={1}>
+                    <Txt>
+                      {formatWinPickRate(selectedChampionRate.avgWin)} win
+                    </Txt>
 
-                      <Box>
-                        <Txt>
-                          {formatWinPickRate(selectedChampion.avgPick)} pick
-                        </Txt>
-                      </Box>
+                    <Box>
+                      <Txt>
+                        {formatWinPickRate(selectedChampionRate.avgPick)} pick
+                      </Txt>
                     </Box>
-                  )}
-                </Box>
-              )}
+                  </Box>
+                )}
+              </Box>
             </Box>
           </Flex>
         </Box>
@@ -352,7 +369,7 @@ const DraftSelectorRow = (props: {
                   }
                 >
                   <img
-                    onClick={() => setSelectedChampion(championRate)}
+                    onClick={() => setSelectedChampionRate(championRate)}
                     src={championRate.iconUrl}
                     style={{
                       width: 32,
