@@ -19,7 +19,7 @@ const PlayerSelector = (props: {
       setSelectedPlayer(
         props.playerOptions.find((p) => p.id === props.selectedPlayerId)
       );
-    }
+    } else setSelectedPlayer(null);
   }, [props.selectedPlayerId]);
 
   return (

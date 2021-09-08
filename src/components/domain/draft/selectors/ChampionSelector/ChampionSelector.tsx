@@ -9,10 +9,8 @@ const ChampionSelector = (props: {
   championOptions: ChampionDto[];
   selectedChampionId: number | "";
   onChange: (championId: number) => void;
-  width: string; 
+  width: string;
 }) => {
-
-
   const [selectedChampion, setSelectedChampion] = useState<ChampionDto>(null);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ const ChampionSelector = (props: {
       setSelectedChampion(
         props.championOptions.find((p) => p.id === props.selectedChampionId)
       );
-    }
+    } else setSelectedChampion(null);
   }, [props.selectedChampionId]);
 
   return (
@@ -33,7 +31,7 @@ const ChampionSelector = (props: {
         <MyTextField
           InputProps={{ id: "champion-selector" }}
           label="Champion name"
-          style={{width: props.width}}
+          style={{ width: props.width }}
           {...params}
           size="small"
         />
