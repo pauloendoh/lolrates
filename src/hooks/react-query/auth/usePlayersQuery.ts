@@ -7,7 +7,8 @@ const url = urls.api.player;
 
 // query
 export default function usePlayersQuery() {
-  return useQuery(url, () =>
+  const query =  useQuery(url, () =>
     myClientAxios.get<PlayerDto[]>(url).then((res) => res.data)
   );
+  return { allPlayers: query.data} 
 }

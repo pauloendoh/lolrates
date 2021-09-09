@@ -11,6 +11,8 @@ const ChampionSelector = (props: {
   onChange: (championId: number) => void;
   width: string;
 }) => {
+
+  // PE 2/3 - shouldn't need this if props.value was correct '-'
   const [selectedChampion, setSelectedChampion] = useState<ChampionDto>(null);
 
   useEffect(() => {

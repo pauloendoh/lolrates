@@ -13,12 +13,12 @@ const DraftSidebarContent = () => {
   const [openPlayerDialog, setOpenPlayerDialog] = useState(false);
   const [playerDialog, setPlayerDialog] = useState<PlayerDto>(null);
 
-  const { data: players } = usePlayersQuery();
+  const { allPlayers } = usePlayersQuery();
   const getPlayersAlphabetically = useCallback(() => {
-    if (players?.length > 0)
-      return players.sort((a, b) => a.name.localeCompare(b.name));
+    if (allPlayers?.length > 0)
+      return allPlayers.sort((a, b) => a.name.localeCompare(b.name));
     return [];
-  }, [players]);
+  }, [allPlayers]);
 
   return (
     <React.Fragment>

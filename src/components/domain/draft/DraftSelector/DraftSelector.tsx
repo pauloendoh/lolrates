@@ -2,7 +2,7 @@ import { Box, Paper } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
 import { roles } from "../../../../types/LolRate/ChampionRoleType";
 import { ILolRateChampion } from "../../../../types/LolRate/ILolRateChampion";
-import DraftSelectorRow from "./DraftSelectorRow/DraftSelectorRow";
+import DraftRow from "./DraftRow/DraftRow";
 
 type FilterByType = "All" | "Over 51% WR";
 
@@ -29,7 +29,7 @@ const DraftSelector = (props: { rates: ILolRateChampion[] }) => {
       <Box px={2} py={1}>
         {/* iterating roles */}
         {roles.map((role, index) => (
-          <DraftSelectorRow
+          <DraftRow
             key={role}
             hasBorderBottom={!isLast(index)}
             roleRates={getRatesByRole(role)}
