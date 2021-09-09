@@ -19,7 +19,10 @@
     "strict": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
-    "target": "esnext"
+    "target": "esnext",
+
+    "baseUrl": "src",
+   
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx"]

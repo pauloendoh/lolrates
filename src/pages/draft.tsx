@@ -4,14 +4,14 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { parseCookies } from "nookies";
 import React from "react";
-import DraftSelector from "../src/components/domain/draft/DraftSelector/DraftSelector";
-import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
-import TotalChampionRadar from "../src/components/domain/draft/TotalChampionRadar/TotalChampionRadar";
-import Layout from "../src/components/Layout/Layout";
-import Flex from "../src/components/UI/Flexboxes/Flex";
-import MySidebar from "../src/components/UI/MySidebar";
-import useLolRatesQuery from "../src/hooks/react-query/domain/rates/useLolRatesQuery";
-import useSidebarStore from "../src/hooks/zustand-stores/useSidebarStore";
+import DraftSelector from "../components/domain/draft/DraftSelector/DraftSelector";
+import DraftSidebarContent from "../components/domain/draft/DraftSidebarContent/DraftSidebarContent";
+import TotalChampionRadar from "../components/domain/draft/TotalChampionRadar/TotalChampionRadar";
+import Layout from "../components/Layout/Layout";
+import Flex from "../components/UI/Flexboxes/Flex";
+import MySidebar from "../components/UI/MySidebar";
+import useLolRatesQuery from "../hooks/react-query/domain/rates/useLolRatesQuery";
+import useSidebarStore from "../hooks/zustand-stores/useSidebarStore";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`

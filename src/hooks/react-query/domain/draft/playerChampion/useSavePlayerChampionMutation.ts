@@ -1,8 +1,8 @@
-import produce from "immer";
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../../../../../utils/urls";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
+import { pushOrReplace } from "../../../../../utils/pushOrReplace";
+import { urls } from "../../../../../utils/urls";
 import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
 
 export default function useSavePlayerChampionMutation() {
@@ -21,17 +21,8 @@ export default function useSavePlayerChampionMutation() {
         const pChampions =
           queryClient.getQueryData<PlayerChampionDto[]>(queryKey);
 
-        const newPChampions = produce(pChampions, (draft) => {
-          const index = draft.findIndex(
-            (pChampion) => pChampion.id === saved.id
-          );
-          if (~index) {
-            draft[index] = saved;
-          } else {
-            draft.push(saved);
-          }
-          return draft;
-        });
+        const newPChampions = pushOrReplace(pChampions, saved, "id");
+
         queryClient.setQueryData(queryKey, newPChampions);
         setSuccessMessage("Player champion saved!");
       },

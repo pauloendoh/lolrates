@@ -1,9 +1,9 @@
-import produce from "immer";
+import useSnackbarStore from "hooks/zustand-stores/useSnackbarStore";
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../../../../../utils/urls";
-import { ChampionRadarDto } from "../../../../../types/domain/draft/ChampionRadarDto";
-import myClientAxios from "../../../../../utils/axios/myClientAxios";
-import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
+import { ChampionRadarDto } from "types/domain/draft/ChampionRadarDto";
+import myClientAxios from "utils/axios/myClientAxios";
+import { pushOrReplace } from "utils/pushOrReplace";
+import { urls } from "utils/urls";
 
 export default function useSaveChampionRadarMutation() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
@@ -25,17 +25,8 @@ export default function useSaveChampionRadarMutation() {
       onSuccess: (saved) => {
         const radars = queryClient.getQueryData<ChampionRadarDto[]>(url);
 
-        const newRadars = produce(radars, (draft) => {
-          const index = draft.findIndex(
-            (pChampion) => pChampion.id === saved.id
-          );
-          if (~index) {
-            draft[index] = saved;
-          } else {
-            draft.push(saved);
-          }
-          return draft;
-        });
+        const newRadars = pushOrReplace(radars, saved, "id");
+
         queryClient.setQueryData(url, newRadars);
         setSuccessMessage("Radar saved!");
       },
