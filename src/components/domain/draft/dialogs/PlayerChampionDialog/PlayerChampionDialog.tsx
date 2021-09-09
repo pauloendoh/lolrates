@@ -1,18 +1,18 @@
 import { Box, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import useChampionRadarsQuery from "../../../../../hooks/domain/championRadar/useChampionRadarsQuery";
-import useSaveChampionRadarMutation from "../../../../../hooks/domain/championRadar/useSaveChampionRadarMutation";
-import useSavePlayerChampionMutation from "../../../../../hooks/domain/playerChampion/useSavePlayerChampionMutation";
-import useChampionsQuery from "../../../../../hooks/react-query/auth/useChampionsQuery";
+import useChampionRadarsQuery from "../../../../../hooks/react-query/domain/draft/championRadar/useChampionRadarsQuery";
+import useSaveChampionRadarMutation from "../../../../../hooks/react-query/domain/draft/championRadar/useSaveChampionRadarMutation";
+import useSavePlayerChampionMutation from "../../../../../hooks/react-query/domain/draft/playerChampion/useSavePlayerChampionMutation";
+import useChampionsQuery from "../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import {
   ChampionRadarDto,
   getChampionRadarDto
 } from "../../../../../types/domain/draft/ChampionRadarDto";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
-import SaveCancelButtons from "../../../../Shared/Buttons/SaveCancelButtons";
-import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
-import MyTextField from "../../../../Shared/MyInputs/MyTextField";
+import SaveCancelButtons from "../../../../UI/Buttons/SaveCancelButtons";
+import FlexVCenter from "../../../../UI/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../UI/MyInputs/MyTextField";
 import ChampionRadar from "../../ChampionRadar/ChampionRadar";
 import ChampionSelector from "../../selectors/ChampionSelector/ChampionSelector";
 import RoleSelector from "../../selectors/RoleSelector/RoleSelector";

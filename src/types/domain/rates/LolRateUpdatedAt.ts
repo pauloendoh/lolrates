@@ -1,4 +1,4 @@
-export interface ILolRateUpdatedAt {
+export interface LolRateUpdatedAt {
   opggUpdatedAt: string
   lolgraphsUpdatedAt: string
   uggUpdatedAt: string

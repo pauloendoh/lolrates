@@ -4,8 +4,8 @@ import {
   skillLevels,
   SkillLevelTypes
 } from "../../../../../types/domain/draft/SkillLevelTypes";
-import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
-import MyTextField from "../../../../Shared/MyInputs/MyTextField";
+import FlexVCenter from "../../../../UI/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../UI/MyInputs/MyTextField";
 
 // PE 2/3
 const SkillLevelSelector = (props: {

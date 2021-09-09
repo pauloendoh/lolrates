@@ -1,7 +1,7 @@
-import { ChampionDto } from "../domain/general/ChampionDto"
+import { ChampionDto } from "../draft/ChampionDto"
 import { ChampionRoleType } from "./ChampionRoleType"
 
-export interface ILolRateChampion {
+export interface LolRateChampionDto {
   avgAvg: number
   championName: string
   role: string
@@ -16,7 +16,7 @@ export interface ILolRateChampion {
   avgWin: number
 }
 
-export const getLolRateDto = (champion: ChampionDto, role: ChampionRoleType): ILolRateChampion => ({
+export const getLolRateChampionDto = (champion: ChampionDto, role: ChampionRoleType): LolRateChampionDto => ({
   avgAvg: null, 
   championName: champion.name,  
   role,

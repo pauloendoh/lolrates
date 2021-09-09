@@ -8,9 +8,9 @@ import DraftSelector from "../src/components/domain/draft/DraftSelector/DraftSel
 import DraftSidebarContent from "../src/components/domain/draft/DraftSidebarContent/DraftSidebarContent";
 import TotalChampionRadar from "../src/components/domain/draft/TotalChampionRadar/TotalChampionRadar";
 import Layout from "../src/components/Layout/Layout";
-import Flex from "../src/components/Shared/Flexboxes/Flex";
-import MySidebar from "../src/components/Shared/MySidebar";
-import useLolRatesQuery from "../src/hooks/react-query/auth/useLolRatesQuery";
+import Flex from "../src/components/UI/Flexboxes/Flex";
+import MySidebar from "../src/components/UI/MySidebar";
+import useLolRatesQuery from "../src/hooks/react-query/domain/rates/useLolRatesQuery";
 import useSidebarStore from "../src/hooks/stores/useSidebarStore";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

@@ -1,18 +1,18 @@
 import { Box, Button, makeStyles, Tooltip } from "@material-ui/core";
 import classNames from "classnames";
 import React from "react";
-import { urls } from "../../../consts/urls";
-import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
-import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
-import { getOpggUrl } from "../../../utils/domain/rates/getOpggUrl";
-import { getPatchHistoryUrl } from "../../../utils/domain/rates/getPatchHistoryUrl";
-import Flex from "../../Shared/Flexboxes/Flex";
+import { urls } from "../../../../consts/urls";
+import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
+import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
+import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";
+import { getPatchHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
+import Flex from "../../../UI/Flexboxes/Flex";
 
 const ChampionTooltip = ({
   championRate,
   isHovering,
 }: {
-  championRate: ILolRateChampion;
+  championRate: LolRateChampionDto;
   isHovering: "Pick" | "Win";
 }) => {
   const keys = {

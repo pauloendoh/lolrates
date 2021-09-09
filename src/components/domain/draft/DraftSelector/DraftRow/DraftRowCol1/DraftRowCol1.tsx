@@ -1,31 +1,31 @@
 import { Box, Link } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
 import myColors from "../../../../../../consts/myColors";
-import useChampionsQuery from "../../../../../../hooks/react-query/auth/useChampionsQuery";
-import usePlayersQuery from "../../../../../../hooks/react-query/auth/usePlayersQuery";
+import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
+import usePlayersQuery from "../../../../../../hooks/react-query/domain/draft/usePlayersQuery";
 import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
-import { ChampionDto } from "../../../../../../types/domain/general/ChampionDto";
-import { ChampionRoleType } from "../../../../../../types/LolRate/ChampionRoleType";
+import { ChampionDto } from "../../../../../../types/domain/draft/ChampionDto";
+import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import {
-  getLolRateDto,
-  ILolRateChampion,
-} from "../../../../../../types/LolRate/ILolRateChampion";
+  getLolRateChampionDto,
+  LolRateChampionDto,
+} from "../../../../../../types/domain/rates/LolRateChampionDto";
 import { formatWinPickRate } from "../../../../../../utils/domain/rates/formatWinPickRate";
-import Flex from "../../../../../Shared/Flexboxes/Flex";
-import FlexVCenter from "../../../../../Shared/Flexboxes/FlexVCenter";
-import Txt from "../../../../../Shared/Text/Txt";
+import Flex from "../../../../../UI/Flexboxes/Flex";
+import FlexVCenter from "../../../../../UI/Flexboxes/FlexVCenter";
+import Txt from "../../../../../UI/Text/Txt";
 import ChampionSelector from "../../../selectors/ChampionSelector/ChampionSelector";
 import PlayerSelector from "../../../selectors/PlayerSelector/PlayerSelector";
 
 const DraftRowCol1 = (props: {
   role: ChampionRoleType;
-  roleRates: ILolRateChampion[];
+  roleRates: LolRateChampionDto[];
 
   playerId: number | "";
   onChangePlayerId: (value: number | "") => void;
 
-  championRate: ILolRateChampion;
-  onChangeChampionRate: (value: ILolRateChampion) => void;
+  championRate: LolRateChampionDto;
+  onChangeChampionRate: (value: LolRateChampionDto) => void;
 
   champion: ChampionDto;
   onChangeChampionId: (championId: number) => void

@@ -5,12 +5,12 @@ import React, { useState } from "react";
 import theme from "../../../../../../consts/theme";
 import useChampionsQuery, {
   useQueryChampionById
-} from "../../../../../../hooks/react-query/auth/useChampionsQuery";
-import { useChampionRateQuery } from "../../../../../../hooks/react-query/auth/useLolRatesQuery";
+} from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
+import { useChampionRateQuery } from "../../../../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { PlayerChampionDto } from "../../../../../../types/domain/draft/PlayerChampionDto";
-import { ChampionRoleType } from "../../../../../../types/LolRate/ChampionRoleType";
+import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
-import FlexVCenter from "../../../../../Shared/Flexboxes/FlexVCenter";
+import FlexVCenter from "../../../../../UI/Flexboxes/FlexVCenter";
 import ChampionTooltipTitle from "../../../../rates/ChampionTooltipTitle";
 
 // PE 2/3

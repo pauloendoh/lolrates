@@ -1,9 +1,9 @@
 import { Box } from "@material-ui/core";
 import Head from "next/head";
 import React from "react";
+import LolRates from "../src/components/domain/rates/LolRates";
 import Layout from "../src/components/Layout/Layout";
-import LolRates from "../src/components/LolRates/LolRates";
-import useLolRatesQuery from "../src/hooks/react-query/auth/useLolRatesQuery";
+import useLolRatesQuery from "../src/hooks/react-query/domain/rates/useLolRatesQuery";
 
 const IndexPage = () => {
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();

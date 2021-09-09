@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import React from "react";
 import { urls } from "../../../consts/urls";
-import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
+import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import { getLolGraphsUrl } from "../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../utils/domain/rates/getOpggUrl";
 import { getPatchHistoryUrl } from "../../../utils/domain/rates/getPatchHistoryUrl";
-import Flex from "../../Shared/Flexboxes/Flex";
+import Flex from "../../UI/Flexboxes/Flex";
 
 const ChampionTooltipTitle = ({
   championName,

@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { useQuery, UseQueryOptions } from "react-query";
 import { apiRoutes } from "../../../consts/apiRoutes";
-import { AuthUserGetDto } from "../../../types/dtos/auth/AuthUserGetDto";
+import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
 import myClientAxios from "../../../utils/axios/myClientAxios";
 
 const queryKeyUrl = apiRoutes.auth.me;

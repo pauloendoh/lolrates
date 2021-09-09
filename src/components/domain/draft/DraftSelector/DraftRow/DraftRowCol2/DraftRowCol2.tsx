@@ -2,9 +2,9 @@ import { Box, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
 import myColors from "../../../../../../consts/myColors";
-import useDeletePlayerChampionMutation from "../../../../../../hooks/domain/playerChampion/useDeletePlayerChampionMutation";
-import useChampionsQuery from "../../../../../../hooks/react-query/auth/useChampionsQuery";
-import usePlayerChampionsQuery from "../../../../../../hooks/react-query/queries/usePlayerChampionsQuery";
+import useDeletePlayerChampionMutation from "../../../../../../hooks/react-query/domain/draft/playerChampion/useDeletePlayerChampionMutation";
+import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
+import usePlayerChampionsQuery from "../../../../../../hooks/react-query/domain/draft/playerChampion/usePlayerChampionsQuery";
 import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
 import {
   getEmptyPlayerChampionDto,
@@ -12,24 +12,24 @@ import {
   PlayerChampionDto,
 } from "../../../../../../types/domain/draft/PlayerChampionDto";
 import { SkillLevelTypes } from "../../../../../../types/domain/draft/SkillLevelTypes";
-import { ChampionRoleType } from "../../../../../../types/LolRate/ChampionRoleType";
+import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import {
-  getLolRateDto,
-  ILolRateChampion,
-} from "../../../../../../types/LolRate/ILolRateChampion";
-import Flex from "../../../../../Shared/Flexboxes/Flex";
-import Txt from "../../../../../Shared/Text/Txt";
+  getLolRateChampionDto,
+  LolRateChampionDto,
+} from "../../../../../../types/domain/rates/LolRateChampionDto";
+import Flex from "../../../../../UI/Flexboxes/Flex";
+import Txt from "../../../../../UI/Text/Txt";
 import PlayerChampionDialog from "../../../dialogs/PlayerChampionDialog/PlayerChampionDialog";
 import PlayerChampionImage from "../PlayerChampionImage/PlayerChampionImage";
 
 const DraftRowCol2 = (props: {
   role: ChampionRoleType;
-  roleRates: ILolRateChampion[];
+  roleRates: LolRateChampionDto[];
 
   selectedPlayerId: number | "";
 
-  selectedChampionRate: ILolRateChampion;
-  onSelectChampionRate: (value: ILolRateChampion) => void;
+  selectedChampionRate: LolRateChampionDto;
+  onSelectChampionRate: (value: LolRateChampionDto) => void;
 }) => {
   // PE 2/3 - maybe a getSelectedChampion(role) should be created?
   const { setChampion } = useSelectedChampionsStore();
@@ -92,7 +92,7 @@ const DraftRowCol2 = (props: {
           (rate) => rate.championName === champion.name
         );
         if (rateFound) props.onSelectChampionRate(rateFound);
-        else props.onSelectChampionRate(getLolRateDto(champion, props.role));
+        else props.onSelectChampionRate(getLolRateChampionDto(champion, props.role));
       }
     }
   };

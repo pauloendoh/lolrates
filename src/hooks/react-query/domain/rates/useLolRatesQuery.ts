@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import { useQuery } from "react-query";
-import { apiRoutes } from "../../../consts/apiRoutes";
-import { LolRateDto } from "../../../types/LolRate/LolRateDto";
-import myClientAxios from "../../../utils/axios/myClientAxios";
+import { apiRoutes } from "../../../../consts/apiRoutes";
+import { LolRateDto } from "../../../../types/domain/rates/LolRateDto";
+import myClientAxios from "../../../../utils/axios/myClientAxios";
 
 const url = apiRoutes.lolRates;
 

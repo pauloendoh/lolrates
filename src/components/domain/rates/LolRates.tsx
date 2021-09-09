@@ -17,13 +17,13 @@ import {
   Typography
 } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
-import { urls } from "../../consts/urls";
-import useLolRatesQuery from "../../hooks/react-query/auth/useLolRatesQuery";
-import { ILolRateChampion } from "../../types/LolRate/ILolRateChampion";
-import stringAreVerySimilar from "../../utils/text/stringsAreVerySimilar";
-import FlexVCenter from "../Shared/Flexboxes/FlexVCenter";
-import MyTextField from "../Shared/MyInputs/MyTextField";
-import Txt from "../Shared/Text/Txt";
+import { urls } from "../../../consts/urls";
+import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
+import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
+import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
+import FlexVCenter from "../../UI/Flexboxes/FlexVCenter";
+import MyTextField from "../../UI/MyInputs/MyTextField";
+import Txt from "../../UI/Text/Txt";
 import ChampionNameTableCell from "./ChampionNameTableCell/ChampionNameTableCell";
 import ChampionTooltip from "./ChampionPickWinTooltip/ChampionPickWinTooltip";
 import LolRatesUpdatedAt from "./LolRatesUpdatedAt/LolRatesUpdatedAt";
@@ -77,7 +77,7 @@ const LolRates = () => {
     return filteredRates;
   }, [allChampionRates, selectedRole, checked51, sortDescBy, textFilter]);
 
-  const shouldShowRate = (rate: ILolRateChampion) => {
+  const shouldShowRate = (rate: LolRateChampionDto) => {
     if (textFilter.trim().length > 0) {
       return stringAreVerySimilar(textFilter, rate.championName);
     }

@@ -1,5 +1,5 @@
-import { SkillLevelTypes } from "../draft/SkillLevelTypes";
-import { ChampionRoleType } from "../../LolRate/ChampionRoleType";
+import { SkillLevelTypes } from "./SkillLevelTypes";
+import { ChampionRoleType } from "../rates/ChampionRoleType";
 
 export interface ChampionDto {
   id: number;

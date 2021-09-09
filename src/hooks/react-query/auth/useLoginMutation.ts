@@ -1,10 +1,10 @@
 import { setCookie } from "nookies";
 import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { apiRoutes } from "../consts/apiRoutes";
-import { AuthUserGetDto } from "../types/dtos/auth/AuthUserGetDto";
-import { IAuthData } from "../types/IAuthData";
-import myClientAxios from "../utils/axios/myClientAxios";
-import useSnackbarStore from "./stores/useSnackbarStore";
+import { apiRoutes } from "../../../consts/apiRoutes";
+import { AuthUserGetDto } from "../../../types/domain/auth/AuthUserGetDto";
+import { IAuthData } from "../../../types/domain/auth/IAuthData";
+import myClientAxios from "../../../utils/axios/myClientAxios";
+import useSnackbarStore from "../../stores/useSnackbarStore";
 
 export default function useLoginMutation() {
   // const { setUsername } = useAuthStore()

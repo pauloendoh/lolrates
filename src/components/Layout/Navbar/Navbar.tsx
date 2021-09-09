@@ -21,10 +21,10 @@ import { urls } from "../../../consts/urls";
 import useMeQuery from "../../../hooks/react-query/auth/useMeQuery";
 import useSnackbarStore from "../../../hooks/stores/useSnackbarStore";
 import myClientAxios from "../../../utils/axios/myClientAxios";
-import Flex from "../../Shared/Flexboxes/Flex";
-import FlexVCenter from "../../Shared/Flexboxes/FlexVCenter";
-import NextImage from "../../Shared/Next/NextImage/NextImage";
-import NextLink from "../../Shared/Next/NextLink/NextLink";
+import Flex from "../../UI/Flexboxes/Flex";
+import FlexVCenter from "../../UI/Flexboxes/FlexVCenter";
+import NextImage from "../../UI/Next/NextImage/NextImage";
+import NextLink from "../../UI/Next/NextLink/NextLink";
 import AuthDialog from "./AuthDialog/AuthDialog";
 import SidebarToggleButton from "./SidebarToggleButton";
 

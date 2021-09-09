@@ -9,7 +9,7 @@ import {
   Tooltip
 } from "recharts";
 import { ChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
-import Txt from "../../../Shared/Text/Txt";
+import Txt from "../../../UI/Text/Txt";
 
 export default function ChampionRadar({
   values,

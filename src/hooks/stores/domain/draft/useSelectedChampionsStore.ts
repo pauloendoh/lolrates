@@ -1,10 +1,10 @@
 import produce from "immer";
 import create, { GetState, SetState } from "zustand";
-import { ILolRateChampion } from "../../../../types/LolRate/ILolRateChampion";
+import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 
 interface ISelectedChampionsStore {
-  selectedChampions: ILolRateChampion[];
-  setChampion: (champion: ILolRateChampion) => void;
+  selectedChampions: LolRateChampionDto[];
+  setChampion: (champion: LolRateChampionDto) => void;
   removeChampion: (championName: string) => void;
 }
 

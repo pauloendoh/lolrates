@@ -1,10 +1,10 @@
 import { Box, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React from "react";
-import useSavePlayerMutation from "../../../../../hooks/useSavePlayerMutation";
+import useSavePlayerMutation from "../../../../../hooks/react-query/domain/draft/useSavePlayerMutation";
 import { PlayerDto } from "../../../../../types/domain/draft/PlayerDto";
-import SaveCancelButtons from "../../../../Shared/Buttons/SaveCancelButtons";
-import MyTextField from "../../../../Shared/MyInputs/MyTextField";
+import SaveCancelButtons from "../../../../UI/Buttons/SaveCancelButtons";
+import MyTextField from "../../../../UI/MyInputs/MyTextField";
 
 const PlayerNameDialog = (props: {
   open: boolean;

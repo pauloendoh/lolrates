@@ -1,9 +1,9 @@
 import { Box, TableCell, Tooltip } from "@material-ui/core";
 import React from "react";
-import { ILolRateChampion } from "../../../types/LolRate/ILolRateChampion";
-import ChampionTooltipTitle from "../../domain/rates/ChampionTooltipTitle";
+import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
+import ChampionTooltipTitle from "../ChampionTooltipTitle";
 
-const ChampionNameTableCell = ({ rate }: { rate: ILolRateChampion }) => {
+const ChampionNameTableCell = ({ rate }: { rate: LolRateChampionDto }) => {
   return (
     <TableCell>
       <Tooltip interactive title={<ChampionTooltipTitle  championName={rate.championName}/>}>

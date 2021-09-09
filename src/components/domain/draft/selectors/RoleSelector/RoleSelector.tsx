@@ -3,9 +3,9 @@ import React from "react";
 import {
   ChampionRoleType,
   roles
-} from "../../../../../types/LolRate/ChampionRoleType";
-import FlexVCenter from "../../../../Shared/Flexboxes/FlexVCenter";
-import MyTextField from "../../../../Shared/MyInputs/MyTextField";
+} from "../../../../../types/domain/rates/ChampionRoleType";
+import FlexVCenter from "../../../../UI/Flexboxes/FlexVCenter";
+import MyTextField from "../../../../UI/MyInputs/MyTextField";
 
 // PE 2/3
 const RoleSelector = (props: {

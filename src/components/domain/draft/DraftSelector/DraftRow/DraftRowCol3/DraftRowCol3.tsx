@@ -8,26 +8,26 @@ import {
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
-import { ChampionRoleType } from "../../../../../../types/LolRate/ChampionRoleType";
+import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import {
-  ILolRateChampion
-} from "../../../../../../types/LolRate/ILolRateChampion";
+  LolRateChampionDto
+} from "../../../../../../types/domain/rates/LolRateChampionDto";
 import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
-import Flex from "../../../../../Shared/Flexboxes/Flex";
-import FlexVCenter from "../../../../../Shared/Flexboxes/FlexVCenter";
-import Txt from "../../../../../Shared/Text/Txt";
+import Flex from "../../../../../UI/Flexboxes/Flex";
+import FlexVCenter from "../../../../../UI/Flexboxes/FlexVCenter";
+import Txt from "../../../../../UI/Text/Txt";
 import ChampionTooltipTitle from "../../../../rates/ChampionTooltipTitle";
 
 type FilterBy = "All" | "Over 51% WR";
 
 const DraftRowCol3 = (props: {
   role: ChampionRoleType;
-  roleRates: ILolRateChampion[];
+  roleRates: LolRateChampionDto[];
   sortBy: FilterBy;
   setSortBy: (newSortBy: FilterBy) => void;
 
-  selectedChampionRate: ILolRateChampion;
-  setSelectedChampionRate: (value: ILolRateChampion) => void;
+  selectedChampionRate: LolRateChampionDto;
+  setSelectedChampionRate: (value: LolRateChampionDto) => void;
 }) => {
   // PE 2/3 - maybe a getSelectedChampion(role) should be created?
   const { setChampion } = useSelectedChampionsStore();

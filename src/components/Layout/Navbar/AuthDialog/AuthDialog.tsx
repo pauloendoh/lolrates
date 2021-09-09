@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import useLoginMutation from "../../../../hooks/useLoginMutation";
-import { newAuthData } from "../../../../types/IAuthData";
+import useLoginMutation from "../../../../hooks/react-query/auth/useLoginMutation";
+import { newAuthData } from "../../../../types/domain/auth/IAuthData";
 import { IResponseError } from "../../../../types/IResponseError";
-import MyTextField from "../../../Shared/MyInputs/MyTextField";
-import Txt from "../../../Shared/Text/Txt";
+import MyTextField from "../../../UI/MyInputs/MyTextField";
+import Txt from "../../../UI/Text/Txt";
 
 interface Props {
   open: boolean;

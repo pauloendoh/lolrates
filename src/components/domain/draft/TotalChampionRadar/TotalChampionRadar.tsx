@@ -1,10 +1,10 @@
 import { Box } from "@material-ui/core";
 import React, { useMemo } from "react";
-import useChampionRadarsQuery from "../../../../hooks/domain/championRadar/useChampionRadarsQuery";
-import useChampionsQuery from "../../../../hooks/react-query/auth/useChampionsQuery";
+import useChampionRadarsQuery from "../../../../hooks/react-query/domain/draft/championRadar/useChampionRadarsQuery";
+import useChampionsQuery from "../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import useSelectedChampionsStore from "../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
 import { getChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
-import { ChampionDto } from "../../../../types/domain/general/ChampionDto";
+import { ChampionDto } from "../../../../types/domain/draft/ChampionDto";
 import ChampionRadar from "../ChampionRadar/ChampionRadar";
 
 export default function TotalChampionRadar() {

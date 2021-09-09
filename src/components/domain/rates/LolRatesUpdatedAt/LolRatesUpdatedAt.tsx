@@ -1,10 +1,10 @@
 import { Box, makeStyles } from "@material-ui/core";
 import React from "react";
 import ReactTimeago from "react-timeago";
-import { ILolRateUpdatedAt } from "../../../types/LolRate/ILolRateUpdatedAt";
-import Txt from "../../Shared/Text/Txt";
+import { LolRateUpdatedAt } from "../../../../types/domain/rates/LolRateUpdatedAt";
+import Txt from "../../../UI/Text/Txt";
 
-const LolRatesUpdatedAt = ({ updatedAt }: { updatedAt: ILolRateUpdatedAt }) => {
+const LolRatesUpdatedAt = ({ updatedAt }: { updatedAt: LolRateUpdatedAt }) => {
   const classes = useStyles();
 
   return (
