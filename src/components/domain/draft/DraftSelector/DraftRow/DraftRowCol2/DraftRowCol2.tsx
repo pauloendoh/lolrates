@@ -1,11 +1,11 @@
 import { Box, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useEffect, useState } from "react";
-import myColors from "../../../../../../consts/myColors";
+import myColors from "../../../../../../utils/myColors";
 import useDeletePlayerChampionMutation from "../../../../../../hooks/react-query/domain/draft/playerChampion/useDeletePlayerChampionMutation";
 import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import usePlayerChampionsQuery from "../../../../../../hooks/react-query/domain/draft/playerChampion/usePlayerChampionsQuery";
-import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
+import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import {
   getEmptyPlayerChampionDto,
   getFilledPlayerChampionDto,

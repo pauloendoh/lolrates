@@ -1,9 +1,9 @@
 import produce from "immer";
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../../../../consts/urls";
+import { urls } from "../../../../utils/urls";
 import { PlayerDto } from "../../../../types/domain/draft/PlayerDto";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
-import useSnackbarStore from "../../../stores/useSnackbarStore";
+import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 
 export default function useSavePlayerMutation() {
   const url = urls.api.player; 

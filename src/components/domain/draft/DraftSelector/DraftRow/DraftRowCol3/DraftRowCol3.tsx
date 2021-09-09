@@ -7,7 +7,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 import React, { useEffect } from "react";
-import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
+import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import {
   LolRateChampionDto

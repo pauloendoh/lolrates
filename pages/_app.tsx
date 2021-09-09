@@ -5,7 +5,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Hydrate } from "react-query/hydration";
-import theme from "../src/consts/theme";
+import theme from "../src/utils/theme";
 import './styles.css'
 
 

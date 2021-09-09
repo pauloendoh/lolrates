@@ -17,7 +17,7 @@ import {
   Typography
 } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
-import { urls } from "../../../consts/urls";
+import { urls } from "../../../utils/urls";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";

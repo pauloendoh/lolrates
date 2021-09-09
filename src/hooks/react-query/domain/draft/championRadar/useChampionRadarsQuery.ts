@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { urls } from "../../../../../consts/urls";
+import { urls } from "../../../../../utils/urls";
 import { ChampionRadarDto } from "../../../../../types/domain/draft/ChampionRadarDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
 

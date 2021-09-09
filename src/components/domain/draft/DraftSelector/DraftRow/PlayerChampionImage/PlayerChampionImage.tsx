@@ -2,7 +2,7 @@ import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Tooltip } from "@material-ui/core";
 import React, { useState } from "react";
-import theme from "../../../../../../consts/theme";
+import theme from "../../../../../../utils/theme";
 import useChampionsQuery, {
   useQueryChampionById
 } from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";

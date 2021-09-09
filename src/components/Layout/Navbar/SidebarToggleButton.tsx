@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import React from "react"
-import useSidebarStore from "../../../hooks/stores/useSidebarStore"
+import useSidebarStore from "../../../hooks/zustand-stores/useSidebarStore"
 
 const SidebarToggleButton = () => {
   const { toggleSidebar } = useSidebarStore()

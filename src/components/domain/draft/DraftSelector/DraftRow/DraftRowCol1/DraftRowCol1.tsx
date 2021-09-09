@@ -1,9 +1,9 @@
 import { Box, Link } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
-import myColors from "../../../../../../consts/myColors";
+import myColors from "../../../../../../utils/myColors";
 import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import usePlayersQuery from "../../../../../../hooks/react-query/domain/draft/usePlayersQuery";
-import useSelectedChampionsStore from "../../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
+import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { ChampionDto } from "../../../../../../types/domain/draft/ChampionDto";
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import {

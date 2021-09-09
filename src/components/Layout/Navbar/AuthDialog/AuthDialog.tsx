@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import useLoginMutation from "../../../../hooks/react-query/auth/useLoginMutation";
+import useLoginMutation from "../../../../hooks/react-query/domain/auth/useLoginMutation";
 import { newAuthData } from "../../../../types/domain/auth/IAuthData";
 import { IResponseError } from "../../../../types/IResponseError";
 import MyTextField from "../../../UI/MyInputs/MyTextField";

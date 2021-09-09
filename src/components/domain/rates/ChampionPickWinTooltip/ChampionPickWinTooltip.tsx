@@ -1,7 +1,7 @@
 import { Box, Button, makeStyles, Tooltip } from "@material-ui/core";
 import classNames from "classnames";
 import React from "react";
-import { urls } from "../../../../consts/urls";
+import { urls } from "../../../../utils/urls";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";

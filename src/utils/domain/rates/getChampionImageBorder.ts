@@ -1,5 +1,5 @@
-import myColors from "../../../consts/myColors";
-import theme from "../../../consts/theme";
+import myColors from "../../myColors";
+import theme from "../../theme";
 
 export const getChampionImageBorder = (avgWin: number) => {
   if (avgWin >= 51) return `2px solid ${theme.palette.primary.main}`;

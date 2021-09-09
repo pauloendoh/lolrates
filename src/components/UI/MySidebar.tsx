@@ -7,7 +7,7 @@ import {
   Toolbar,
 } from "@material-ui/core";
 import React from "react";
-import useSidebarStore from "../../hooks/stores/useSidebarStore";
+import useSidebarStore from "../../hooks/zustand-stores/useSidebarStore";
 
 const MySidebar = (props: React.ComponentProps<typeof Drawer>) => {
   const { sidebarIsOpen } = useSidebarStore();

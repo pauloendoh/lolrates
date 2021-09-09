@@ -2,7 +2,7 @@ import Snackbar from "@material-ui/core/Snackbar"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import MuiAlert, { AlertProps } from "@material-ui/lab/Alert"
 import React from "react"
-import useSnackbarStore from "../../hooks/stores/useSnackbarStore"
+import useSnackbarStore from "../../hooks/zustand-stores/useSnackbarStore"
 
 // Zustand version! 
 const MySnackbar = () => {

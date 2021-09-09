@@ -11,7 +11,7 @@ import Layout from "../src/components/Layout/Layout";
 import Flex from "../src/components/UI/Flexboxes/Flex";
 import MySidebar from "../src/components/UI/MySidebar";
 import useLolRatesQuery from "../src/hooks/react-query/domain/rates/useLolRatesQuery";
-import useSidebarStore from "../src/hooks/stores/useSidebarStore";
+import useSidebarStore from "../src/hooks/zustand-stores/useSidebarStore";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`

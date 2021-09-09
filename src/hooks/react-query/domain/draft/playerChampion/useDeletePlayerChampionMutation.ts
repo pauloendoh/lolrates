@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../../../../../consts/urls";
+import { urls } from "../../../../../utils/urls";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
-import useSnackbarStore from "../../../../stores/useSnackbarStore";
+import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
 
 export default function useDeletePlayerChampionMutation() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();

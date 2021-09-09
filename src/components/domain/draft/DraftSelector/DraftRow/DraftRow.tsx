@@ -1,8 +1,8 @@
 import { Box } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
-import myColors from "../../../../../consts/myColors";
+import myColors from "../../../../../utils/myColors";
 import useChampionsQuery from "../../../../../hooks/react-query/domain/draft/useChampionsQuery";
-import useSelectedChampionsStore from "../../../../../hooks/stores/domain/draft/useSelectedChampionsStore";
+import useSelectedChampionsStore from "../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { ChampionRoleType } from "../../../../../types/domain/rates/ChampionRoleType";
 import {
   getLolRateChampionDto,
