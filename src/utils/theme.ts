@@ -11,8 +11,8 @@ const theme = createTheme({
     secondary: { main: "#C862AC" },
   },
   typography: {
-    fontFamily: `'Open Sans', sans-serif;`, // imported at index.css
-    // fontFamily: `'Saira', sans-serif;`, // imported at index.css
+    // fontFamily: `'Open Sans', sans-serif;`, // imported at index.css
+    fontFamily: `'Noto Sans', sans-serif;`, // imported at index.css
     fontSize: 13,
     button: {
       textTransform: "none",

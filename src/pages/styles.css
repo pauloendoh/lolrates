@@ -3,10 +3,12 @@
   height: 7.5px;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 /* Track */
 
 ::-webkit-scrollbar-track {
-  background: #1E1E1E;
+  background: #1e1e1e;
 }
 
 /* Handle */
