@@ -1,3 +1,4 @@
+import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
 import {
   Box,
   FormControl,
@@ -5,18 +6,15 @@ import {
   MenuItem,
   Select,
   Tooltip
-} from "@material-ui/core";
+} from "@material-ui/core"
+import ChampionTooltipTitle from "components/domain/rates/ChampionTooltipTitle";
+import Flex from "components/UI/Flexboxes/Flex";
+import FlexVCenter from "components/UI/Flexboxes/FlexVCenter";
+import Txt from "components/UI/Text/Txt";
+import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import React, { useEffect } from "react";
-import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
+import { getChampionImageBorder } from "utils/domain/rates/getChampionImageBorder";
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
-import {
-  LolRateChampionDto
-} from "../../../../../../types/domain/rates/LolRateChampionDto";
-import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
-import Flex from "../../../../../UI/Flexboxes/Flex";
-import FlexVCenter from "../../../../../UI/Flexboxes/FlexVCenter";
-import Txt from "../../../../../UI/Text/Txt";
-import ChampionTooltipTitle from "../../../../rates/ChampionTooltipTitle";
 
 type FilterBy = "All" | "Over 51% WR";
 

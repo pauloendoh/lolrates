@@ -5,7 +5,6 @@ import myColors from "../../../../../../utils/myColors";
 import useDeletePlayerChampionMutation from "../../../../../../hooks/react-query/domain/draft/playerChampion/useDeletePlayerChampionMutation";
 import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import usePlayerChampionsQuery from "../../../../../../hooks/react-query/domain/draft/playerChampion/usePlayerChampionsQuery";
-import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import {
   getEmptyPlayerChampionDto,
   getFilledPlayerChampionDto,
@@ -21,6 +20,7 @@ import Flex from "../../../../../UI/Flexboxes/Flex";
 import Txt from "../../../../../UI/Text/Txt";
 import PlayerChampionDialog from "../../../dialogs/PlayerChampionDialog/PlayerChampionDialog";
 import PlayerChampionImage from "../PlayerChampionImage/PlayerChampionImage";
+import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 
 const DraftRowCol2 = (props: {
   role: ChampionRoleType;
