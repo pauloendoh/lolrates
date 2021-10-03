@@ -2,9 +2,8 @@ import { Autocomplete } from "@material-ui/lab";
 import React from "react";
 import {
   skillLevels,
-  SkillLevelTypes
+  SkillLevelTypes,
 } from "../../../../../types/domain/draft/SkillLevelTypes";
-import FlexVCenter from "../../../../UI/Flexboxes/FlexVCenter";
 import MyTextField from "../../../../UI/MyInputs/MyTextField";
 
 // PE 2/3
@@ -16,16 +15,15 @@ const SkillLevelSelector = (props: {
     <Autocomplete
       value={props.selectedLevel}
       options={[...skillLevels]}
-      renderOption={(skillLevel) => <FlexVCenter>{skillLevel}</FlexVCenter>}
+      renderOption={(skillLevel) => skillLevel}
       getOptionLabel={(skillLevel) => skillLevel}
       renderInput={(params) => (
         <MyTextField
           InputProps={{ id: "skill-level-selector" }}
           label="Skill level"
-          style={{width: 111}}
+          style={{ width: 111 }}
           {...params}
           size="small"
-          
         />
       )}
       onChange={(e, value) => {

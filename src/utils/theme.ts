@@ -30,11 +30,11 @@ const theme = createTheme({
         background: "#1E1E1E",
       },
     },
-    MuiToolbar:{
+    MuiToolbar: {
       root: {
-        paddingLeft: 32, 
-        paddingRight: 32
-      }
+        paddingLeft: 32,
+        paddingRight: 32,
+      },
     },
     MuiTooltip: {
       arrow: { color: "#292929" },
@@ -44,11 +44,12 @@ const theme = createTheme({
     },
     MuiLink: {
       root: {
-        cursor: 'pointer'
-      }
-    }, 
-    
-  }
+        cursor: "pointer",
+      },
+    },
+  },
 });
 
 export default theme;
+
+export const { spacing } = theme;

@@ -1,12 +1,11 @@
-import { Box, Button, makeStyles, Tooltip } from "@material-ui/core";
-import classNames from "classnames";
+import { Box, Tooltip } from "@material-ui/core";
 import React from "react";
-import { urls } from "../../../../utils/urls";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";
 import { getPatchHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
-import Flex from "../../../UI/Flexboxes/Flex";
+import { urls } from "../../../../utils/urls";
+import S from "./ChampionPickWinTooltip.styles";
 
 const ChampionTooltip = ({
   championRate,
@@ -16,18 +15,17 @@ const ChampionTooltip = ({
   isHovering: "Pick" | "Win";
 }) => {
   const keys = {
-    opgg: `opgg${isHovering}`, 
+    opgg: `opgg${isHovering}`,
     lolgraphs: `lolgraphs${isHovering}`,
     ugg: `ugg${isHovering}`,
     avg: `avg${isHovering}`,
   };
 
-  const classes = useStyles();
   return (
     <Tooltip
       interactive
       title={
-        <Flex flexDirection="column" py={1} className={classes.box}>
+        <S.TooltipContent>
           <a target="_blank" href={getOpggUrl(championRate.championName)}>
             op.gg:{" "}
             {championRate[keys.opgg] > 0 &&
@@ -51,41 +49,14 @@ const ChampionTooltip = ({
               Patch history
             </a>
           </Box>
-        </Flex>
+        </S.TooltipContent>
       }
     >
-      <Button
-        className={classNames({
-          [`${classes.isPick}`]: isHovering === "Pick",
-          [`${classes.isWin}`]: isHovering === "Win",
-        })}
-      >
+      <S.TextButton isHovering={isHovering}>
         {championRate[keys.avg] > 0 && championRate[keys.avg].toFixed(1) + "%"}
-      </Button>
+      </S.TextButton>
     </Tooltip>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  box: {
-    "& a": {
-      fontSize: 12,
-      marginTop: 4,
-      color: "white",
-    },
-
-    "& a:not(:last-child)": {
-      marginBottom: theme.spacing(1),
-    },
-  },
-  isPick: {
-    textDecoration: "underline",
-    color: theme.palette.primary.main,
-  },
-  isWin: {
-    textDecoration: "underline",
-    color: theme.palette.secondary.main,
-  },
-}));
 
 export default ChampionTooltip;

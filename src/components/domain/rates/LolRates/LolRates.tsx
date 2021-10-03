@@ -1,3 +1,4 @@
+import S from './LolRates.styles'
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,16 +18,16 @@ import {
   Typography
 } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
-import { urls } from "../../../utils/urls";
-import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
-import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
-import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
-import FlexVCenter from "../../UI/Flexboxes/FlexVCenter";
-import MyTextField from "../../UI/MyInputs/MyTextField";
-import Txt from "../../UI/Text/Txt";
-import ChampionNameTableCell from "./ChampionNameTableCell/ChampionNameTableCell";
-import ChampionTooltip from "./ChampionPickWinTooltip/ChampionPickWinTooltip";
-import LolRatesUpdatedAt from "./LolRatesUpdatedAt/LolRatesUpdatedAt";
+import { urls } from "../../../../utils/urls";
+import useLolRatesQuery from "../../../../hooks/react-query/domain/rates/useLolRatesQuery";
+import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
+import stringAreVerySimilar from "../../../../utils/text/stringsAreVerySimilar";
+import FlexVCenter from "../../../UI/Flexboxes/FlexVCenter";
+import MyTextField from "../../../UI/MyInputs/MyTextField";
+import Txt from "../../../UI/Text/Txt";
+import ChampionNameTableCell from "../ChampionNameTableCell/ChampionNameTableCell";
+import ChampionTooltip from "../ChampionPickWinTooltip/ChampionPickWinTooltip";
+import LolRatesUpdatedAt from "../LolRatesUpdatedAt/LolRatesUpdatedAt";
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP";
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
@@ -117,10 +118,10 @@ const LolRates = () => {
           onChange={(e) => setTextFilter(e.target.value)}
           size="small"
           label={
-            <FlexVCenter style={{ gap: 4 }}>
+            <S.SearchLabel>
               <FontAwesomeIcon icon={faSearch} />
-              <Box>Champion name</Box>
-            </FlexVCenter>
+              <span>Champion name</span>
+            </S.SearchLabel>
           }
           className="mt-3"
         />

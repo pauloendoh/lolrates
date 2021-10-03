@@ -1,4 +1,5 @@
-import { Box, Paper } from "@material-ui/core";
+import { spacing } from "@/utils/theme";
+import { Paper } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
 import { roles } from "../../../../types/domain/rates/ChampionRoleType";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
@@ -25,20 +26,18 @@ const DraftSelector = (props: { rates: LolRateChampionDto[] }) => {
   );
 
   return (
-    <Paper>
-      <Box px={2} py={1}>
-        {/* iterating roles */}
-        {roles.map((role, index) => (
-          <DraftRow
-            key={role}
-            hasBorderBottom={!isLast(index)}
-            roleRates={getRatesByRole(role)}
-            role={role}
-            sortBy={sortBy}
-            setSortBy={(changed) => setSortBy(changed)}
-          />
-        ))}
-      </Box>
+    <Paper style={{ padding: `${spacing(1)}px ${spacing(2)}px` }}>
+      {/* iterating roles */}
+      {roles.map((role, index) => (
+        <DraftRow
+          key={role}
+          hasBorderBottom={!isLast(index)}
+          roleRates={getRatesByRole(role)}
+          role={role}
+          sortBy={sortBy}
+          setSortBy={(changed) => setSortBy(changed)}
+        />
+      ))}
     </Paper>
   );
 };

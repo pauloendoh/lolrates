@@ -1,17 +1,15 @@
 import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Tooltip } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 import React, { useState } from "react";
-import theme from "../../../../../../utils/theme";
-import useChampionsQuery, {
-  useQueryChampionById
-} from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
+import { useQueryChampionById } from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import { useChampionRateQuery } from "../../../../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { PlayerChampionDto } from "../../../../../../types/domain/draft/PlayerChampionDto";
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
-import FlexVCenter from "../../../../../UI/Flexboxes/FlexVCenter";
-import ChampionTooltipTitle from "../../../../rates/ChampionTooltipTitle";
+import theme from "../../../../../../utils/theme";
+import ChampionTooltipTitle from "../../../../rates/ChampionTooltipTitle/ChampionTooltipTitle";
+import S from "./PlayerChampionImage.styles";
 
 // PE 2/3
 const PlayerChampionImage = (props: {
@@ -21,7 +19,6 @@ const PlayerChampionImage = (props: {
   onClickEditChampion: (id: number) => void;
   onClickDelete: (championId: number) => void;
 }) => {
-
   const champion = useQueryChampionById(props.pChampion.championId);
   const championRate = useChampionRateQuery(champion.name, props.role);
 
@@ -36,8 +33,7 @@ const PlayerChampionImage = (props: {
       interactive
       title={<ChampionTooltipTitle championName={champion.name} />}
     >
-      <Box
-        position="relative"
+      <S.ChampionImgWrapper
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
@@ -53,50 +49,33 @@ const PlayerChampionImage = (props: {
             cursor: "pointer",
           }}
         />
-        {hover && (
-          <FlexVCenter
-            position="absolute"
-            width={14}
-            height={14}
-            bgcolor="white"
-            justifyContent="center"
-            right={0}
-            top={0}
-            borderRadius={14}
-            style={{ cursor: "pointer" }}
-            onClick={() => props.onClickDelete(props.pChampion.id)}
-          >
-            <FontAwesomeIcon
-              icon={faTimes}
-              fontSize="8px"
-              color={theme.palette.grey[900]}
-            />
-          </FlexVCenter>
-        )}
 
         {hover && (
-          <FlexVCenter
-            position="absolute"
-            width={14}
-            height={14}
-            bgcolor="white"
-            justifyContent="center"
-            right={0}
-            bottom={0}
-            borderRadius={14}
-            style={{ cursor: "pointer" }}
-            onClick={() =>
-              props.onClickEditChampion(props.pChampion.championId)
-            }
-          >
-            <FontAwesomeIcon
-              icon={faPen}
-              size="sm"
-              color={theme.palette.grey[900]}
-            />
-          </FlexVCenter>
+          <>
+            <S.DeleteIconWrapper
+              onClick={() => props.onClickDelete(props.pChampion.id)}
+            >
+              <FontAwesomeIcon
+                icon={faTimes}
+                fontSize="8px"
+                color={theme.palette.grey[900]}
+              />
+            </S.DeleteIconWrapper>
+
+            <S.EditIconWrapper
+              onClick={() =>
+                props.onClickEditChampion(props.pChampion.championId)
+              }
+            >
+              <FontAwesomeIcon
+                icon={faPen}
+                size="sm"
+                color={theme.palette.grey[900]}
+              />
+            </S.EditIconWrapper>
+          </>
         )}
-      </Box>
+      </S.ChampionImgWrapper>
     </Tooltip>
   );
 };

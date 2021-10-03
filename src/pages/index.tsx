@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { Box } from "@material-ui/core";
 import Head from "next/head";
 import React from "react";
-import LolRates from "../components/domain/rates/LolRates";
+import LolRates from "../components/domain/rates/LolRates/LolRates";
 import Layout from "../components/Layout/Layout";
 import useLolRatesQuery from "../hooks/react-query/domain/rates/useLolRatesQuery";
 

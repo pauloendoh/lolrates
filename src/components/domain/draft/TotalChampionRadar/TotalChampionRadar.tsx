@@ -1,11 +1,11 @@
-import { Box } from "@material-ui/core";
 import React, { useMemo } from "react";
 import useChampionRadarsQuery from "../../../../hooks/react-query/domain/draft/championRadar/useChampionRadarsQuery";
 import useChampionsQuery from "../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import useSelectedChampionsStore from "../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
-import { getChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import { ChampionDto } from "../../../../types/domain/draft/ChampionDto";
+import { getChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import ChampionRadar from "../ChampionRadar/ChampionRadar";
+import S from './TotalChampionRadar.styles';
 
 export default function TotalChampionRadar() {
   const { data: radars } = useChampionRadarsQuery();
@@ -64,15 +64,15 @@ export default function TotalChampionRadar() {
   };
 
   return (
-    <Box minWidth="375px" height="300px">
+    <S.Root>
       {championsWithRadar.length > 0 && getTotalRadar() && (
         <>
           <ChampionRadar showLabel values={getTotalRadar()} />
           {championsWithRadar.map((champion) => (
-            <Box key={champion.id}>{champion.name}</Box>
+            <span key={champion.id}>{champion.name}</span>
           ))}
         </>
       )}
-    </Box>
+    </S.Root>
   );
 }

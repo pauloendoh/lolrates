@@ -2,7 +2,6 @@ import {
   AppBar,
   Box,
   Button,
-  IconButton,
   makeStyles,
   Tab,
   Tabs,
@@ -15,17 +14,16 @@ import Link from "next/link";
 import { destroyCookie } from "nookies";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
-import { apiRoutes } from "../../../utils/apiRoutes";
-import { pageRoutes } from "../../../utils/pageRoutes";
-import { urls } from "../../../utils/urls";
 import useMeQuery from "../../../hooks/react-query/domain/auth/useMeQuery";
 import useSnackbarStore from "../../../hooks/zustand-stores/useSnackbarStore";
+import { apiRoutes } from "../../../utils/apiRoutes";
 import myClientAxios from "../../../utils/axios/myClientAxios";
-import Flex from "../../UI/Flexboxes/Flex";
-import FlexVCenter from "../../UI/Flexboxes/FlexVCenter";
+import { pageRoutes } from "../../../utils/pageRoutes";
+import { urls } from "../../../utils/urls";
 import NextImage from "../../UI/Next/NextImage/NextImage";
 import NextLink from "../../UI/Next/NextLink/NextLink";
 import AuthDialog from "./AuthDialog/AuthDialog";
+import S from "./Navbar.styles";
 import SidebarToggleButton from "./SidebarToggleButton";
 
 // PE 2/3
@@ -63,69 +61,68 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.root} position="fixed" elevation={0}>
-      <Toolbar className={classes.toolbar}>
-        <FlexVCenter justifyContent="space-between" width="100%">
-          <FlexVCenter>
-            <SidebarToggleButton />
+      <Toolbar
+        className={classes.toolbar}
+        style={{
+          justifyContent: "space-between",
+        }}
+      >
+        <S.LeftIcons>
+          <SidebarToggleButton />
 
-            <Box ml={2} />
-            <NextLink href={urls.pages.index}>
-              <a>
-                <IconButton style={{ width: 24, height: 24 }}>
-                  <NextImage
-                    src={urls.image("fire-icon-league.png")}
-                    width="16px"
-                    height="20px"
-                  />
-                </IconButton>
-              </a>
-            </NextLink>
-          </FlexVCenter>
+          <Box ml={2} />
+          <NextLink href={urls.pages.index}>
+            <a>
+              <NextImage
+                src={urls.image("fire-icon-league.png")}
+                width="16px"
+                height="20px"
+              />
+            </a>
+          </NextLink>
+        </S.LeftIcons>
 
-          {authUser && (
-            <Flex>
-              <Tabs
-                className={classes.tabs}
-                value={tabIndex}
-                indicatorColor="primary"
-                textColor="primary"
-              >
-                <Link href={pageRoutes.index} passHref>
-                  {/* PE 1/3 - DRY */}
-                  <Tab
-                    id="home-tab"
-                    className={classNames(classes.tab, {
-                      [`${classes.selectedTab}`]: tabIndex === 0,
-                    })}
-                    label={`Home`}
-                  />
-                </Link>
-                <Link href={pageRoutes.draft} passHref>
-                  <Tab
-                    id="draft-tab"
-                    label={`Draft`}
-                    className={classNames(classes.tab, {
-                      [`${classes.selectedTab}`]: tabIndex === 1,
-                    })}
-                  />
-                </Link>
-              </Tabs>
-            </Flex>
+        {authUser && (
+          <Tabs
+            className={classes.tabs}
+            value={tabIndex}
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Link href={pageRoutes.index} passHref>
+              {/* PE 1/3 - DRY */}
+              <Tab
+                id="home-tab"
+                className={classNames(classes.tab, {
+                  [`${classes.selectedTab}`]: tabIndex === 0,
+                })}
+                label={`Home`}
+              />
+            </Link>
+            <Link href={pageRoutes.draft} passHref>
+              <Tab
+                id="draft-tab"
+                label={`Draft`}
+                className={classNames(classes.tab, {
+                  [`${classes.selectedTab}`]: tabIndex === 1,
+                })}
+              />
+            </Link>
+          </Tabs>
+        )}
+
+        <S.RightIcons>
+          {isLoading && "Loading..."}
+          {isLoggedOut && (
+            <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
           )}
+          {authUser && <Button onClick={logout}>Logout</Button>}
 
-          <FlexVCenter>
-            {isLoading && "Loading..."}
-            {isLoggedOut && (
-              <Button onClick={() => setOpenAuthDialog(true)}>Login</Button>
-            )}
-            {authUser && <Button onClick={logout}>Logout</Button>}
-
-            <AuthDialog
-              open={openAuthDialog}
-              onClose={() => setOpenAuthDialog(false)}
-            />
-          </FlexVCenter>
-        </FlexVCenter>
+          <AuthDialog
+            open={openAuthDialog}
+            onClose={() => setOpenAuthDialog(false)}
+          />
+        </S.RightIcons>
       </Toolbar>
     </AppBar>
   );
@@ -138,11 +135,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
     zIndex: 1201,
   },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+  toolbar: {},
 
   fireIcon: {
     color: theme.palette.secondary.main,

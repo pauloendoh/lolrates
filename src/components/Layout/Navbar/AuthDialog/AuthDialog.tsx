@@ -142,19 +142,6 @@ const AuthDialog = (props: Props) => {
                       required
                       InputLabelProps={{ required: false }}
                     />
-
-                    {/* {formType === "login" && (
-                      <Flex justifyContent="flex-end">
-                        <Button
-                          color="primary"
-                          onClick={() => {
-                            setFormType("passwordReset")
-                          }}
-                        >
-                          Forgot your password?
-                        </Button>
-                      </Flex>
-                    )} */}
                   </Box>
 
                   {formType === "register" ? (
@@ -232,31 +219,7 @@ const AuthDialog = (props: Props) => {
               )}
             </Box>
 
-            <Box mt={2}>
-              {/* <MyDivider>
-                <Box minWidth={30}>Or</Box>
-              </MyDivider> */}
-
-              {/* <Box mt={2}>
-                <GoogleButton />
-              </Box>
-
-              <Box mt={1}>
-                <Button
-                  onClick={handleTempSignIn}
-                  fullWidth
-                  className={classes.testUserButton}
-                  id="temp-user-btn"
-                >
-                  <FlexVCenter>
-                    <AccessAlarmIcon fontSize="large" />
-                    <Box ml={2} width={180}>
-                      Test with Temporary User
-                    </Box>
-                  </FlexVCenter>
-                </Button>
-              </Box> */}
-            </Box>
+            <Box mt={2}></Box>
           </Box>
         </DialogContent>
       </Box>

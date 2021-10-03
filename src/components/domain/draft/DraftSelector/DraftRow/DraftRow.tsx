@@ -1,16 +1,15 @@
-import { Box } from "@material-ui/core";
-import Flex from "components/UI/Flexboxes/Flex";
 import useChampionsQuery from "hooks/react-query/domain/draft/useChampionsQuery";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
-
 import React, { useEffect, useMemo, useState } from "react";
-import myColors from "utils/myColors";
+import { ChampionRoleType } from "../../../../../types/domain/rates/ChampionRoleType";
+import {
+  getLolRateChampionDto,
+  LolRateChampionDto
+} from "../../../../../types/domain/rates/LolRateChampionDto";
+import S from "./DraftRow.styles";
 import DraftRowCol1 from "./DraftRowCol1/DraftRowCol1";
 import DraftRowCol2 from "./DraftRowCol2/DraftRowCol2";
 import DraftRowCol3 from "./DraftRowCol3/DraftRowCol3";
-import { ChampionRoleType } from "../../../../../types/domain/rates/ChampionRoleType";
-import { LolRateChampionDto, getLolRateChampionDto } from "../../../../../types/domain/rates/LolRateChampionDto";
-
 
 type FilterBy = "All" | "Over 51% WR";
 
@@ -64,46 +63,38 @@ const DraftRow = (props: {
   };
 
   return (
-    <Box
-      py={1}
-      key={props.role}
-      borderBottom={
-        props.hasBorderBottom ? `1px solid ${myColors.borderColor}` : null
-      }
-    >
-      <Flex>
-        {/* PE 2/3 */}
-        <DraftRowCol1
-          role={props.role}
-          roleRates={props.roleRates}
-          playerId={selectedPlayerId}
-          onChangePlayerId={setSelectedPlayerId}
-          championRate={selectedChampionRate}
-          onChangeChampionRate={setSelectedChampionRate}
-          champion={selectedChampion}
-          onChangeChampionId={onSelectChampion}
-        />
+    <S.Root hasBorderBottom={props.hasBorderBottom}>
+      {/* PE 2/3 */}
+      <DraftRowCol1
+        role={props.role}
+        roleRates={props.roleRates}
+        playerId={selectedPlayerId}
+        onChangePlayerId={setSelectedPlayerId}
+        championRate={selectedChampionRate}
+        onChangeChampionRate={setSelectedChampionRate}
+        champion={selectedChampion}
+        onChangeChampionId={onSelectChampion}
+      />
 
-        {/* PE 2/3 */}
-        <DraftRowCol2
-          role={props.role}
-          roleRates={props.roleRates}
-          selectedPlayerId={selectedPlayerId}
-          selectedChampionRate={selectedChampionRate}
-          onSelectChampionRate={setSelectedChampionRate}
-        />
+      {/* PE 2/3 */}
+      <DraftRowCol2
+        role={props.role}
+        roleRates={props.roleRates}
+        selectedPlayerId={selectedPlayerId}
+        selectedChampionRate={selectedChampionRate}
+        onSelectChampionRate={setSelectedChampionRate}
+      />
 
-        {/* PE 2/3 */}
-        <DraftRowCol3
-          role={props.role}
-          roleRates={props.roleRates}
-          sortBy={props.sortBy}
-          setSortBy={props.setSortBy}
-          selectedChampionRate={selectedChampionRate}
-          setSelectedChampionRate={setSelectedChampionRate}
-        />
-      </Flex>
-    </Box>
+      {/* PE 2/3 */}
+      <DraftRowCol3
+        role={props.role}
+        roleRates={props.roleRates}
+        sortBy={props.sortBy}
+        setSortBy={props.setSortBy}
+        selectedChampionRate={selectedChampionRate}
+        setSelectedChampionRate={setSelectedChampionRate}
+      />
+    </S.Root>
   );
 };
 

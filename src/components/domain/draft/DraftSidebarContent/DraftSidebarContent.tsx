@@ -1,4 +1,5 @@
-import { Box, IconButton, ListItem, ListItemText } from "@material-ui/core";
+import Txt from "@/components/UI/Text/Txt";
+import { IconButton, ListItem, ListItemText } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import React, { useCallback, useState } from "react";
 import usePlayersQuery from "../../../../hooks/react-query/domain/draft/usePlayersQuery";
@@ -6,7 +7,6 @@ import {
   getEmptyPlayerDto,
   PlayerDto
 } from "../../../../types/domain/draft/PlayerDto";
-import FlexVCenter from "../../../UI/Flexboxes/FlexVCenter";
 import PlayerNameDialog from "../dialogs/PlayerNameDialog/PlayerNameDialog";
 
 const DraftSidebarContent = () => {
@@ -22,33 +22,30 @@ const DraftSidebarContent = () => {
 
   return (
     <React.Fragment>
-      <ListItem>
-        <ListItemText>
-          <FlexVCenter justifyContent="space-between">
-            <Box>Players</Box>
-            <IconButton
-              size="small"
-              onClick={() => {
-                setPlayerDialog(getEmptyPlayerDto());
-                setOpenPlayerDialog(true);
-              }}
-            >
-              <AddIcon />
-            </IconButton>
-          </FlexVCenter>
-
-          <PlayerNameDialog
-            open={openPlayerDialog}
-            initialValue={playerDialog}
-            onClose={() => setOpenPlayerDialog(false)}
-          />
-        </ListItemText>
+      <ListItem button style={{ justifyContent: "space-between" }}>
+        <Txt>Players</Txt>
+        <IconButton
+          size="small"
+          onClick={() => {
+            setPlayerDialog(getEmptyPlayerDto());
+            setOpenPlayerDialog(true);
+          }}
+        >
+          <AddIcon />
+        </IconButton>
       </ListItem>
+      
       {getPlayersAlphabetically()?.map((player) => (
         <ListItem key={player.id}>
           <ListItemText>{player.name}</ListItemText>
         </ListItem>
       ))}
+
+      <PlayerNameDialog
+        open={openPlayerDialog}
+        initialValue={playerDialog}
+        onClose={() => setOpenPlayerDialog(false)}
+      />
     </React.Fragment>
   );
 };

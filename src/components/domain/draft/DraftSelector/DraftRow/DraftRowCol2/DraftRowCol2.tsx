@@ -1,10 +1,10 @@
-import { Box, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import React, { useEffect, useState } from "react";
-import myColors from "../../../../../../utils/myColors";
 import useDeletePlayerChampionMutation from "../../../../../../hooks/react-query/domain/draft/playerChampion/useDeletePlayerChampionMutation";
-import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import usePlayerChampionsQuery from "../../../../../../hooks/react-query/domain/draft/playerChampion/usePlayerChampionsQuery";
+import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import {
   getEmptyPlayerChampionDto,
   getFilledPlayerChampionDto,
@@ -16,11 +16,10 @@ import {
   getLolRateChampionDto,
   LolRateChampionDto,
 } from "../../../../../../types/domain/rates/LolRateChampionDto";
-import Flex from "../../../../../UI/Flexboxes/Flex";
 import Txt from "../../../../../UI/Text/Txt";
 import PlayerChampionDialog from "../../../dialogs/PlayerChampionDialog/PlayerChampionDialog";
 import PlayerChampionImage from "../PlayerChampionImage/PlayerChampionImage";
-import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
+import S from "./DraftRowCol2.styles";
 
 const DraftRowCol2 = (props: {
   role: ChampionRoleType;
@@ -92,7 +91,10 @@ const DraftRowCol2 = (props: {
           (rate) => rate.championName === champion.name
         );
         if (rateFound) props.onSelectChampionRate(rateFound);
-        else props.onSelectChampionRate(getLolRateChampionDto(champion, props.role));
+        else
+          props.onSelectChampionRate(
+            getLolRateChampionDto(champion, props.role)
+          );
       }
     }
   };
@@ -121,18 +123,12 @@ const DraftRowCol2 = (props: {
   };
 
   return (
-    <Box
-      minWidth={216}
-      minHeight={128}
-      px={1}
-      borderRight={myColors.border}
-      borderLeft={myColors.border}
-    >
+    <S.Root>
       {props.selectedPlayerId && (
-        <React.Fragment>
-          <Box mb={1}>
+        <S.ColContent>
+          <S.ChampionsWrapper>
             <Txt>OP</Txt>
-            <Flex flexWrap="wrap" style={{ gap: 8 }}>
+            <S.ChampionImgs>
               {getOpChampions().map((pChampion) => (
                 <PlayerChampionImage
                   role={props.role}
@@ -162,11 +158,12 @@ const DraftRowCol2 = (props: {
               >
                 <AddIcon />
               </IconButton>
-            </Flex>
-          </Box>
-          <Box mt={2} mb={1}>
+            </S.ChampionImgs>
+          </S.ChampionsWrapper>
+
+          <S.ChampionsWrapper>
             <Txt>Decent/Practice</Txt>
-            <Flex flexWrap="wrap" style={{ gap: 8 }}>
+            <S.ChampionImgs>
               {getDecentChampions().map((pChampion) => (
                 <PlayerChampionImage
                   role={props.role}
@@ -197,16 +194,17 @@ const DraftRowCol2 = (props: {
               >
                 <AddIcon />
               </IconButton>
-            </Flex>
-          </Box>
-          <PlayerChampionDialog
-            open={championDialogIsOpen}
-            initialValue={initialValueChampionDialog}
-            onClose={() => setChampionDialogIsOpen(false)}
-          />
-        </React.Fragment>
+            </S.ChampionImgs>
+          </S.ChampionsWrapper>
+        </S.ColContent>
       )}
-    </Box>
+
+      <PlayerChampionDialog
+        open={championDialogIsOpen}
+        initialValue={initialValueChampionDialog}
+        onClose={() => setChampionDialogIsOpen(false)}
+      />
+    </S.Root>
   );
 };
 

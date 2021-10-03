@@ -1,21 +1,18 @@
-import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
+import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import {
-  Box,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Tooltip
-} from "@material-ui/core"
-import ChampionTooltipTitle from "components/domain/rates/ChampionTooltipTitle";
-import Flex from "components/UI/Flexboxes/Flex";
-import FlexVCenter from "components/UI/Flexboxes/FlexVCenter";
+  Tooltip,
+} from "@material-ui/core";
+import ChampionTooltipTitle from "@/components/domain/rates/ChampionTooltipTitle/ChampionTooltipTitle";
 import Txt from "components/UI/Text/Txt";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import React, { useEffect } from "react";
+import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
 import { getChampionImageBorder } from "utils/domain/rates/getChampionImageBorder";
-import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
-
+import S from "./DraftRowCol3.styles";
 type FilterBy = "All" | "Over 51% WR";
 
 const DraftRowCol3 = (props: {
@@ -47,57 +44,52 @@ const DraftRowCol3 = (props: {
   };
 
   return (
-    <Box flexGrow={1} px={1}>
-      <FlexVCenter pb={0.5} justifyContent="space-between">
+    <S.Root>
+      <S.BestRatesTitle>
         <Txt>Best rates at {props.role}</Txt>
 
         {/* PE 1/3 - componentize this  */}
         {props.role === "TOP" && (
-          <FlexVCenter>
-            <FormControl size="small" variant="outlined">
-              <InputLabel id={`input-label-${props.role}`}>Show</InputLabel>
-              <Select
-                labelId={`input-label-${props.role}`}
-                value={props.sortBy}
-                onChange={(e) => props.setSortBy(e.target.value as any)}
-                label="Sort by"
-              >
-                <MenuItem value={"All" as FilterBy}>All</MenuItem>
-                <MenuItem value={"Over 51% WR" as FilterBy}>Over 51%</MenuItem>
-              </Select>
-            </FormControl>
-          </FlexVCenter>
-        )}
-      </FlexVCenter>
-      {/* Showing champion icons */}
-      <Flex flexWrap="wrap" style={{ gap: 8 }}>
-        {getBestChampions().map((championRate, i) => (
-          <Box key={i}>
-            <Tooltip
-              enterDelay={500}
-              enterNextDelay={500}
-              interactive
-              title={
-                <ChampionTooltipTitle
-                  championName={championRate.championName}
-                />
-              }
+          <FormControl size="small" variant="outlined">
+            <InputLabel id={`input-label-${props.role}`}>Show</InputLabel>
+            <Select
+              labelId={`input-label-${props.role}`}
+              value={props.sortBy}
+              onChange={(e) => props.setSortBy(e.target.value as any)}
+              label="Sort by"
             >
-              <img
-                onClick={() => props.setSelectedChampionRate(championRate)}
-                src={championRate.iconUrl}
-                style={{
-                  width: 32,
-                  borderRadius: 100,
-                  border: getChampionImageBorder(championRate.avgWin),
-                  cursor: "pointer",
-                }}
-              />
-            </Tooltip>
-          </Box>
+              <MenuItem value={"All" as FilterBy}>All</MenuItem>
+              <MenuItem value={"Over 51% WR" as FilterBy}>Over 51%</MenuItem>
+            </Select>
+          </FormControl>
+        )}
+      </S.BestRatesTitle>
+      {/* Showing champion icons */}
+      <S.ChampionImgs>
+        {getBestChampions().map((championRate, i) => (
+          <Tooltip
+            key={i}
+            enterDelay={500}
+            enterNextDelay={500}
+            interactive
+            title={
+              <ChampionTooltipTitle championName={championRate.championName} />
+            }
+          >
+            <img
+              onClick={() => props.setSelectedChampionRate(championRate)}
+              src={championRate.iconUrl}
+              style={{
+                width: 32,
+                borderRadius: 100,
+                border: getChampionImageBorder(championRate.avgWin),
+                cursor: "pointer",
+              }}
+            />
+          </Tooltip>
         ))}
-      </Flex>
-    </Box>
+      </S.ChampionImgs>
+    </S.Root>
   );
 };
 

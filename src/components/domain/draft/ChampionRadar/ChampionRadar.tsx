@@ -1,4 +1,3 @@
-import { Box } from "@material-ui/core";
 import React from "react";
 import {
   PolarGrid,
@@ -6,10 +5,11 @@ import {
   Radar,
   RadarChart,
   ResponsiveContainer,
-  Tooltip
+  Tooltip,
 } from "recharts";
 import { ChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import Txt from "../../../UI/Text/Txt";
+import S from "./S.ChampionRadar";
 
 export default function ChampionRadar({
   values,
@@ -42,7 +42,7 @@ export default function ChampionRadar({
   ];
 
   return (
-    <Box width="375px" height="300px">
+    <S.Root>
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
           <PolarGrid />
@@ -61,7 +61,7 @@ export default function ChampionRadar({
         </RadarChart>
       </ResponsiveContainer>
       {showLabel && (
-        <Box position="relative">
+        <S.FloatingLabelsWrapper>
           <Txt style={{ position: "absolute", top: -290, left: 160 }}>
             Burst: {values.burst}
           </Txt>
@@ -78,8 +78,8 @@ export default function ChampionRadar({
           <Txt style={{ position: "absolute", top: -200, right: 310 }}>
             DPS: {values.dps}
           </Txt>
-        </Box>
+        </S.FloatingLabelsWrapper>
       )}
-    </Box>
+    </S.Root>
   );
 }
