@@ -9,13 +9,14 @@ export default {
     flexGrow: 1,
     padding: `0 ${theme.spacing(1)}px`,
   }),
-  BestRatesTitle: styled(FlexVCenter)({
+  Header: styled(FlexVCenter)({
     paddingBottom: spacing(1),
+    justifyContent: "space-between",
   }),
 
   ChampionImgs: styled(Flex)({
-    flexWrap: 'wrap', 
-    gap: 8
+    flexWrap: "wrap",
+    gap: 8,
+    paddingBottom: spacing(1),
   }),
-
 };

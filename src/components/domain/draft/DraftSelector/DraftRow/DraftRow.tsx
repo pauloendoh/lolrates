@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ChampionRoleType } from "../../../../../types/domain/rates/ChampionRoleType";
 import {
   getLolRateChampionDto,
-  LolRateChampionDto
+  LolRateChampionDto,
 } from "../../../../../types/domain/rates/LolRateChampionDto";
 import S from "./DraftRow.styles";
 import DraftRowCol1 from "./DraftRowCol1/DraftRowCol1";
@@ -87,7 +87,7 @@ const DraftRow = (props: {
 
       {/* PE 2/3 */}
       <DraftRowCol3
-        role={props.role}
+        championRoleRow={props.role}
         roleRates={props.roleRates}
         sortBy={props.sortBy}
         setSortBy={props.setSortBy}

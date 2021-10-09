@@ -1,4 +1,4 @@
-import S from './LolRates.styles'
+import Txt from "@/components/UI/Text/Txt";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,26 +15,27 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
-import { urls } from "../../../../utils/urls";
 import useLolRatesQuery from "../../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../../utils/text/stringsAreVerySimilar";
+import { urls } from "../../../../utils/urls";
 import FlexVCenter from "../../../UI/Flexboxes/FlexVCenter";
 import MyTextField from "../../../UI/MyInputs/MyTextField";
-import Txt from "../../../UI/Text/Txt";
 import ChampionNameTableCell from "../ChampionNameTableCell/ChampionNameTableCell";
 import ChampionTooltip from "../ChampionPickWinTooltip/ChampionPickWinTooltip";
-import LolRatesUpdatedAt from "../LolRatesUpdatedAt/LolRatesUpdatedAt";
+import RatesUpdatedAt from "../RatesUpdatedAt/RatesUpdatedAt";
+import S from "./LolRatesPageContent.styles";
 
 type Roles = "ALL" | "TOP" | "JUNGLE" | "MID" | "BOT" | "SUP";
 const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
 
 type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg";
 
-const LolRates = () => {
+// PE 1/3 - Change to LolRatesPageContent
+const LolRatesPageContent = () => {
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();
 
   const [checked51, setChecked51] = useState(false);
@@ -244,7 +245,7 @@ const LolRates = () => {
               </Table>
             </Paper>
           </TableContainer>
-          {updatedAt && <LolRatesUpdatedAt updatedAt={updatedAt} />}
+          {updatedAt && <RatesUpdatedAt updatedAt={updatedAt} />}
         </>
       )}
     </Box>
@@ -263,4 +264,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default LolRates;
+export default LolRatesPageContent;

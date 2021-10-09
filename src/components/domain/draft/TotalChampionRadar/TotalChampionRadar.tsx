@@ -5,7 +5,7 @@ import useSelectedChampionsStore from "../../../../hooks/zustand-stores/domain/d
 import { ChampionDto } from "../../../../types/domain/draft/ChampionDto";
 import { getChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import ChampionRadar from "../ChampionRadar/ChampionRadar";
-import S from './TotalChampionRadar.styles';
+import S from "./TotalChampionRadar.styles";
 
 export default function TotalChampionRadar() {
   const { data: radars } = useChampionRadarsQuery();

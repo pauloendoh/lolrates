@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start -p 8080",
     "build:start": "next build && next start -p 8080",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "unused": "ts-unused-exports"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -54,6 +55,7 @@
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
+    "ts-unused-exports": "^7.0.3",
     "typescript": "^4.4.3"
   },
   "eslintConfig": {

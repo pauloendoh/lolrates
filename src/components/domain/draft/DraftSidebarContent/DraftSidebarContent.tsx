@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import usePlayersQuery from "../../../../hooks/react-query/domain/draft/usePlayersQuery";
 import {
   getEmptyPlayerDto,
-  PlayerDto
+  PlayerDto,
 } from "../../../../types/domain/draft/PlayerDto";
 import PlayerNameDialog from "../dialogs/PlayerNameDialog/PlayerNameDialog";
 
@@ -34,7 +34,7 @@ const DraftSidebarContent = () => {
           <AddIcon />
         </IconButton>
       </ListItem>
-      
+
       {getPlayersAlphabetically()?.map((player) => (
         <ListItem key={player.id}>
           <ListItemText>{player.name}</ListItemText>

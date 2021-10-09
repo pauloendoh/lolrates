@@ -1,22 +1,17 @@
-import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Tooltip,
-} from "@material-ui/core";
 import ChampionTooltipTitle from "@/components/domain/rates/ChampionTooltipTitle/ChampionTooltipTitle";
+import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
+import { Tooltip } from "@material-ui/core";
 import Txt from "components/UI/Text/Txt";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import React, { useEffect } from "react";
 import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
 import { getChampionImageBorder } from "utils/domain/rates/getChampionImageBorder";
+import DraftFilter from "./DraftChampionFilter/DraftFilter";
 import S from "./DraftRowCol3.styles";
 type FilterBy = "All" | "Over 51% WR";
 
 const DraftRowCol3 = (props: {
-  role: ChampionRoleType;
+  championRoleRow: ChampionRoleType;
   roleRates: LolRateChampionDto[];
   sortBy: FilterBy;
   setSortBy: (newSortBy: FilterBy) => void;
@@ -45,25 +40,18 @@ const DraftRowCol3 = (props: {
 
   return (
     <S.Root>
-      <S.BestRatesTitle>
-        <Txt>Best rates at {props.role}</Txt>
+      <S.Header>
+        <Txt>Best rates at {props.championRoleRow}</Txt>
 
         {/* PE 1/3 - componentize this  */}
-        {props.role === "TOP" && (
-          <FormControl size="small" variant="outlined">
-            <InputLabel id={`input-label-${props.role}`}>Show</InputLabel>
-            <Select
-              labelId={`input-label-${props.role}`}
-              value={props.sortBy}
-              onChange={(e) => props.setSortBy(e.target.value as any)}
-              label="Sort by"
-            >
-              <MenuItem value={"All" as FilterBy}>All</MenuItem>
-              <MenuItem value={"Over 51% WR" as FilterBy}>Over 51%</MenuItem>
-            </Select>
-          </FormControl>
+        {props.championRoleRow === "TOP" && (
+          <DraftFilter
+            championRole={props.championRoleRow}
+            setSortBy={props.setSortBy}
+            sortBy={props.sortBy}
+          />
         )}
-      </S.BestRatesTitle>
+      </S.Header>
       {/* Showing champion icons */}
       <S.ChampionImgs>
         {getBestChampions().map((championRate, i) => (

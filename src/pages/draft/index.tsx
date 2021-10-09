@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { parseCookies } from "nookies";
 import React from "react";
+import styled from "styled-components";
 import DraftSelector from "../../components/domain/draft/DraftSelector/DraftSelector";
 import DraftSidebarContent from "../../components/domain/draft/DraftSidebarContent/DraftSidebarContent";
 import TotalChampionRadar from "../../components/domain/draft/TotalChampionRadar/TotalChampionRadar";
@@ -12,7 +13,6 @@ import Flex from "../../components/UI/Flexboxes/Flex";
 import MySidebar from "../../components/UI/MySidebar";
 import useLolRatesQuery from "../../hooks/react-query/domain/rates/useLolRatesQuery";
 import useSidebarStore from "../../hooks/zustand-stores/useSidebarStore";
-import S from './styles';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`
@@ -72,6 +72,12 @@ const DraftPage = () => {
       </S.DraftPageContent>
     </Layout>
   );
+};
+
+const S = {
+  DraftPageContent: styled(Flex)({
+    height: "100%",
+  }),
 };
 
 const useStyles = makeStyles((theme) => ({
