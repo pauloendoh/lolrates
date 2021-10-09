@@ -4,7 +4,7 @@ import { ChampionDto } from "../../../../../../types/domain/draft/ChampionDto";
 import MyTextField from "../../../../../_common/inputs/MyTextField";
 
 // PE 2/3
-const SelectChampion = (props: {
+const SelectChampionAtRow = (props: {
   championOptions: ChampionDto[];
   selectedChampionId: number | "";
   onChange: (championId: number) => void;
@@ -45,4 +45,4 @@ const SelectChampion = (props: {
   );
 };
 
-export default SelectChampion;
+export default SelectChampionAtRow;

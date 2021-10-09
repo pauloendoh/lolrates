@@ -1,3 +1,4 @@
+import ChampionRadar from "@/components/DraftPage/_common/ChampionRadar";
 import { spacing } from "@/utils/theme";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import { Form, Formik } from "formik";
@@ -13,11 +14,10 @@ import {
 import { PlayerChampionDto } from "../../../../../../types/domain/draft/PlayerChampionDto";
 import SaveCancelButtons from "../../../../../_common/buttons/SaveCancelButton/SaveCancelButtons";
 import MyTextField from "../../../../../_common/inputs/MyTextField";
-import ChampionRadar from "../../../../_common/ChampionRadar/ChampionRadar";
-import SelectChampion from "../../_common/SelectChampion";
+import SelectChampionAtRow from "../../_common/SelectChampionAtRow/SelectChampionAtRow";
+import S from "./PlayerChampionDialog.styles";
 import RoleSelector from "./RoleSelector/RoleSelector";
 import SkillLevelSelector from "./SkillLevelSelector/SkillLevelSelector";
-import S from "./styles";
 
 const PlayerChampionDialog = (props: {
   open: boolean;
@@ -94,7 +94,7 @@ const PlayerChampionDialog = (props: {
             <DialogContent>
               <S.SelectorLine>
                 {champions?.length > 0 && (
-                  <SelectChampion
+                  <SelectChampionAtRow
                     championOptions={champions}
                     onChange={(championId) => {
                       setSelectedChampionId(championId);

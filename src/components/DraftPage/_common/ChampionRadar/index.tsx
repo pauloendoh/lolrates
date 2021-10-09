@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import { ChampionRadarDto } from "../../../../types/domain/draft/ChampionRadarDto";
 import Txt from "../../../_common/text/Txt";
-import S from "./S.ChampionRadar";
+import S from "./styles";
 
 export default function ChampionRadar({
   values,

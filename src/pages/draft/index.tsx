@@ -1,4 +1,4 @@
-import DraftPage from "@/components/DraftPage";
+import DraftPage from "@/components/DraftPage/DraftPage";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { parseCookies } from "nookies";

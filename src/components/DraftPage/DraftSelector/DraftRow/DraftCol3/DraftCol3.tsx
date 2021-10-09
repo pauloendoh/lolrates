@@ -1,4 +1,4 @@
-import ChampionTooltipTitle from "@/components/WinRatesPage/ChampionSitesTooltip";
+import ChampionTooltipTitle from "@/components/WinratesPage/ChampionSitesTooltip";
 import Txt from "@/components/_common/text/Txt";
 import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import { Tooltip } from "@material-ui/core";
@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
 import { getChampionImageBorder } from "utils/domain/rates/getChampionImageBorder";
 import DraftFilter from "./DraftChampionFilter/DraftFilter";
-import S from "./styles";
+import S from "./DraftCol3.styles";
 type FilterBy = "All" | "Over 51% WR";
 
 const DraftRowCol3 = (props: {

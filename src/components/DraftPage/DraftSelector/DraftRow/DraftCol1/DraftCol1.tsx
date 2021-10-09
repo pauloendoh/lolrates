@@ -8,9 +8,9 @@ import { ChampionRoleType } from "../../../../../types/domain/rates/ChampionRole
 import { LolRateChampionDto } from "../../../../../types/domain/rates/LolRateChampionDto";
 import { formatWinPickRate } from "../../../../../utils/domain/rates/formatWinPickRate";
 import Txt from "../../../../_common/text/Txt";
-import SelectChampion from "../_common/SelectChampion";
+import SelectChampionAtRow from "../_common/SelectChampionAtRow/SelectChampionAtRow";
+import S from "./DraftCol1.styles";
 import PlayerSelector from "./PlayerSelector/PlayerSelector";
-import S from "./styles";
 
 const DraftRowCol1 = (props: {
   role: ChampionRoleType;
@@ -75,7 +75,7 @@ const DraftRowCol1 = (props: {
           </S.InfoColContent>
         )}
         <S.InfoColContent>
-          <SelectChampion
+          <SelectChampionAtRow
             championOptions={allChampions ? allChampions : []}
             onChange={props.onChangeChampionId}
             selectedChampionId={props.champion ? props.champion.id : null}

@@ -17,11 +17,11 @@ import {
   LolRateChampionDto,
 } from "../../../../../types/domain/rates/LolRateChampionDto";
 import Txt from "../../../../_common/text/Txt";
-import PlayerChampionDialog from "./PlayerChampionDialog";
-import PlayerChampionImage from "./PlayerChampionImage";
-import S from "./styles";
+import S from "./DraftCol2.styles";
+import PlayerChampionDialog from "./PlayerChampionDialog/PlayerChampionDialog";
+import PlayerChampionImage from "./PlayerChampionImage/PlayerChampionImage";
 
-const DraftRowCol2 = (props: {
+const DraftCol2 = (props: {
   role: ChampionRoleType;
   roleRates: LolRateChampionDto[];
 
@@ -208,4 +208,4 @@ const DraftRowCol2 = (props: {
   );
 };
 
-export default DraftRowCol2;
+export default DraftCol2;

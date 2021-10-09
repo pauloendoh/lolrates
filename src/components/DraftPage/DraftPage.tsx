@@ -8,9 +8,9 @@ import useSidebarStore from "../../hooks/zustand-stores/useSidebarStore";
 import Flex from "../_common/flexboxes/Flex";
 import MainLayout from "../_common/_layout/MainLayout";
 import AsideChampionRadar from "./AsideChampionRadar";
+import S from "./DraftPage.styles";
 import DraftSelector from "./DraftSelector";
 import DraftSidebarContent from "./DraftSidebar";
-import S from "./styles";
 
 const DraftPage = () => {
   const classes = useStyles();

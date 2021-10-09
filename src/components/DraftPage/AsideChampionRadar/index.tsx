@@ -4,7 +4,7 @@ import useChampionsQuery from "../../../hooks/react-query/domain/draft/useChampi
 import useSelectedChampionsStore from "../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { ChampionDto } from "../../../types/domain/draft/ChampionDto";
 import { getChampionRadarDto } from "../../../types/domain/draft/ChampionRadarDto";
-import ChampionRadar from "../_common/ChampionRadar/ChampionRadar";
+import ChampionRadar from "../_common/ChampionRadar";
 import S from "./styles";
 
 export default function AsideChampionRadar() {

@@ -1,3 +1,4 @@
+import ChampionTooltipTitle from "@/components/WinratesPage/ChampionSitesTooltip";
 import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@material-ui/core";
@@ -8,8 +9,7 @@ import { PlayerChampionDto } from "../../../../../../types/domain/draft/PlayerCh
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import { getChampionImageBorder } from "../../../../../../utils/domain/rates/getChampionImageBorder";
 import theme from "../../../../../../utils/theme";
-import ChampionTooltipTitle from "../../../../../WinRatesPage/ChampionSitesTooltip";
-import S from "./styles";
+import S from "./PlayerChampionImage.styles";
 
 // PE 2/3
 const PlayerChampionImage = (props: {

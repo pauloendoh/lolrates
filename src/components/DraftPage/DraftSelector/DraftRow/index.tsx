@@ -6,9 +6,9 @@ import {
   getLolRateChampionDto,
   LolRateChampionDto,
 } from "../../../../types/domain/rates/LolRateChampionDto";
-import DraftRowCol1 from "./DraftRowCol1";
-import DraftRowCol2 from "./DraftRowCol2";
-import DraftRowCol3 from "./DraftRowCol3";
+import DraftRowCol1 from "./DraftCol1/DraftCol1";
+import DraftCol2 from "./DraftCol2/DraftCol2";
+import DraftRowCol3 from "./DraftCol3/DraftCol3";
 import S from "./styles";
 
 type FilterBy = "All" | "Over 51% WR";
@@ -77,7 +77,7 @@ const DraftRow = (props: {
       />
 
       {/* PE 2/3 */}
-      <DraftRowCol2
+      <DraftCol2
         role={props.role}
         roleRates={props.roleRates}
         selectedPlayerId={selectedPlayerId}
