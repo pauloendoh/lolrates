@@ -3,7 +3,7 @@ import React from "react";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";
-import { getPatchHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
+import { getChampionHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
 import { urls } from "../../../../utils/urls";
 import S from "./styles";
 
@@ -44,7 +44,7 @@ const ChampionTooltip = ({
           <Box mt={2}>
             <a
               target="_blank"
-              href={getPatchHistoryUrl(championRate.championName)}
+              href={getChampionHistoryUrl(championRate.championName)}
             >
               Patch history
             </a>

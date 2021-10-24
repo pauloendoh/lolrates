@@ -5,13 +5,14 @@ import { parseCookies } from "nookies";
 import React from "react";
 import MainLayout from "../../components/_common/_layout/MainLayout";
 
+// PE 2/3 - could be used as DRY ?
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const cookies = parseCookies(ctx); // Add logic to extract token from `req.headers.cookie`
+  const cookies = parseCookies(ctx);
   const userStr = cookies.user;
-  // const authUser = JSON.parse(userStr) as AuthUserGetDto
 
   if (!userStr) {
-    // Redirect to index page
+    // 2/3
+    // redirect to winrates page
     return {
       redirect: {
         destination: "/",
@@ -25,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-const DraftPageWrapper = () => {
+const DraftPageRoute = () => {
   return (
     <MainLayout>
       <Head>
@@ -37,4 +38,4 @@ const DraftPageWrapper = () => {
   );
 };
 
-export default DraftPageWrapper;
+export default DraftPageRoute;

@@ -10,6 +10,7 @@
     "unused": "ts-unused-exports"
   },
   "dependencies": {
+    "@emotion/css": "^11.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -26,8 +27,11 @@
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
     "dotenv": "^8.6.0",
+    "draft-js": "^0.11.7",
+    "emotion": "^11.0.0",
     "formik": "^2.2.9",
     "immer": "^9.0.5",
+    "mui-rte": "^1.29.0",
     "next": "latest",
     "nookies": "^2.5.2",
     "react": "^17.0.1",
@@ -36,11 +40,15 @@
     "react-query": "^3.19.6",
     "react-timeago": "^6.2.1",
     "recharts": "^2.1.2",
+    "slate": "^0.66.5",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.67.0",
     "string-similarity": "^4.0.4",
     "styled-components": "^5.3.1",
     "zustand": "^3.5.8"
   },
   "devDependencies": {
+    "@types/draft-js": "^0.11.6",
     "@types/node": "^12.20.19",
     "@types/react": "^17.0.18",
     "@types/react-dom": "^17.0.9",

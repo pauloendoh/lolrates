@@ -2,7 +2,7 @@ import { Box } from "@material-ui/core";
 import React from "react";
 import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";
-import { getPatchHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
+import { getChampionHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
 import { urls } from "../../../../utils/urls";
 import S from "./styles";
 
@@ -19,7 +19,7 @@ const ChampionTooltipTitle = ({ championName }: { championName: string }) => {
         u.gg
       </a>
       <Box mt={2}>
-        <a target="_blank" href={getPatchHistoryUrl(championName)}>
+        <a target="_blank" href={getChampionHistoryUrl(championName)}>
           Patch history
         </a>
       </Box>
