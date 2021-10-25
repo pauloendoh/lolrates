@@ -1,10 +1,10 @@
 import { AxiosInstance } from "axios";
 import { useQuery } from "react-query";
-import { apiRoutes } from "../../../../utils/apiRoutes";
 import { LolRateDto } from "../../../../types/domain/rates/LolRateDto";
+import { apiUrls } from "../../../../utils/apiUrls";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
 
-const url = apiRoutes.lolRates;
+const url = apiUrls.lolRates;
 
 // fetch
 export async function fetchLolRates(customAxios: AxiosInstance) {

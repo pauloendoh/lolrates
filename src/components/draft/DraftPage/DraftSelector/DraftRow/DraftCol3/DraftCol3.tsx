@@ -1,4 +1,4 @@
-import ChampionTooltipTitle from "@/components/index/WinratesPage/ChampionSitesTooltip";
+import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
 import Txt from "@/components/_common/text/Txt";
 import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import { Tooltip } from "@material-ui/core";

@@ -21,9 +21,7 @@ const theme = createTheme({
   },
   overrides: {
     MuiTextField: {
-      root: {
-        background: "#1E1E1E",
-      },
+      root: {},
     },
     MuiSelect: {
       root: {

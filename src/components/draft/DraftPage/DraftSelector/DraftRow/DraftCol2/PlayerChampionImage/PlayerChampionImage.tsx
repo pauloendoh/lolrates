@@ -1,4 +1,4 @@
-import ChampionTooltipTitle from "@/components/index/WinratesPage/ChampionSitesTooltip";
+import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
 import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@material-ui/core";

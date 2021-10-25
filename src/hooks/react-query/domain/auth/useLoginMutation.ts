@@ -1,23 +1,22 @@
 import { setCookie } from "nookies";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { apiRoutes } from "../../../../utils/apiRoutes";
+import { useMutation, useQueryClient } from "react-query";
 import { AuthUserGetDto } from "../../../../types/domain/auth/AuthUserGetDto";
 import { IAuthData } from "../../../../types/domain/auth/IAuthData";
+import { apiUrls } from "../../../../utils/apiUrls";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 
 export default function useLoginMutation() {
   // const { setUsername } = useAuthStore()
 
-
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   return useMutation(
     (authData: IAuthData) =>
       myClientAxios
-        .post<AuthUserGetDto>(apiRoutes.auth.login, authData)
+        .post<AuthUserGetDto>(apiUrls.auth.login, authData)
         .then((res) => res.data),
     {
       onSuccess: (authUser) => {
@@ -28,7 +27,7 @@ export default function useLoginMutation() {
         myClientAxios.defaults.headers["x-auth-token"] = authUser.token;
 
         // refreshing query cache
-        queryClient.setQueryData(apiRoutes.auth.me, authUser);
+        queryClient.setQueryData(apiUrls.auth.me, authUser);
 
         setSuccessMessage("Successful login!");
       },

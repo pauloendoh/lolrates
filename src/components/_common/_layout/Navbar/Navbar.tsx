@@ -16,9 +16,9 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import useMeQuery from "../../../../hooks/react-query/domain/auth/useMeQuery";
 import useSnackbarStore from "../../../../hooks/zustand-stores/useSnackbarStore";
-import { apiRoutes } from "../../../../utils/apiRoutes";
+import { apiUrls } from "../../../../utils/apiUrls";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
-import { pageRoutes } from "../../../../utils/pageRoutes";
+import { pageUrls } from "../../../../utils/pageUrls";
 import { urls } from "../../../../utils/urls";
 import NextImage from "../../next-overrides/NextImage/NextImage";
 import NextLink from "../../next-overrides/NextLink/NextLink";
@@ -34,7 +34,6 @@ const Navbar = () => {
     refetchOnWindowFocus: false,
     retry: false,
   });
-
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
   const { pathname } = useRouter();
@@ -43,8 +42,10 @@ const Navbar = () => {
   const { setSuccessMessage } = useSnackbarStore();
 
   useEffect(() => {
-    if (pathname.startsWith(pageRoutes.draft)) {
+    if (pathname.startsWith(pageUrls.draft)) {
       setTabIndex(1);
+    } else if (pathname.startsWith(pageUrls.playground)) {
+      setTabIndex(2);
     } else setTabIndex(0);
   }, [pathname]);
 
@@ -53,7 +54,7 @@ const Navbar = () => {
     // put this into an utils?...
     destroyCookie(null, "user");
     delete myClientAxios.defaults.headers["x-auth-token"];
-    queryClient.setQueryData(apiRoutes.auth.me, null);
+    queryClient.setQueryData(apiUrls.auth.me, null);
     setSuccessMessage("Successful logout!");
   };
 
@@ -89,7 +90,7 @@ const Navbar = () => {
             indicatorColor="primary"
             textColor="primary"
           >
-            <Link href={pageRoutes.index} passHref>
+            <Link href={pageUrls.index} passHref>
               {/* PE 1/3 - DRY */}
               <Tab
                 id="home-tab"
@@ -99,12 +100,22 @@ const Navbar = () => {
                 label={`Home`}
               />
             </Link>
-            <Link href={pageRoutes.draft} passHref>
+            <Link href={pageUrls.draft} passHref>
               <Tab
                 id="draft-tab"
                 label={`Draft`}
                 className={classNames(classes.tab, {
                   [`${classes.selectedTab}`]: tabIndex === 1,
+                })}
+              />
+            </Link>
+
+            <Link href={pageUrls.playground} passHref>
+              <Tab
+                id="playground-tab"
+                label="Playground"
+                className={classNames(classes.tab, {
+                  [`${classes.selectedTab}`]: tabIndex === 2,
                 })}
               />
             </Link>
