@@ -6,6 +6,8 @@ export const apiUrls = {
   },
   lolRates: "/lolRates",
   playground: {
-    dragContainer: "/playground/drag-container",
+    dragContainers: "/playground/drag-containers",
+    dragItems: `/playground/drag-items`,
+    dragItemsPositions: `/playground/drag-items/positions`,
   },
 };

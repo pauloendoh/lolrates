@@ -2,12 +2,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { AppProps } from "next/app";
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Hydrate } from "react-query/hydration";
 import theme from "../utils/theme";
-import './styles.css'
-
+import "./styles.css";
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -31,7 +32,9 @@ export default function MyApp(props: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <Component {...pageProps} />
+          <DndProvider backend={HTML5Backend}>
+            <Component {...pageProps} />
+          </DndProvider>
         </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>

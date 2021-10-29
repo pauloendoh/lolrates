@@ -1,9 +1,9 @@
-import useSaveDragContainerMutation from "@/hooks/react-query/domain/playground/useSaveDragContainerMutation";
+import useSaveDragItemMutation from "@/hooks/react-query/domain/playground/drag-item/useSaveDragItemMutation";
 import { useMyEffect } from "@/hooks/useMyEffect";
 import {
-  DragContainerDto,
-  dragContainerSchema,
-} from "@/types/domain/playground/dnd/DragContainerDto";
+  DragItemDto,
+  dragItemSchema,
+} from "@/types/domain/playground/dnd/DragItemDto";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import React from "react";
@@ -11,12 +11,12 @@ import { Controller, useForm } from "react-hook-form";
 import SaveCancelButtons from "../../../../_common/buttons/SaveCancelButton/SaveCancelButtons";
 import MyTextField from "../../../../_common/inputs/MyTextField";
 
-const DragContainerDialog = (props: {
+const DragItemDialog = (props: {
   open: boolean;
-  initialValue: DragContainerDto;
+  initialValue: DragItemDto;
   onClose: () => void;
 }) => {
-  const { mutate: saveContainer, isLoading } = useSaveDragContainerMutation();
+  const { mutate: saveItem, isLoading } = useSaveDragItemMutation();
 
   const {
     handleSubmit,
@@ -24,17 +24,17 @@ const DragContainerDialog = (props: {
     control,
     reset,
     formState: { errors },
-  } = useForm<DragContainerDto>({
+  } = useForm<DragItemDto>({
     defaultValues: props.initialValue,
-    resolver: yupResolver(dragContainerSchema),
+    resolver: yupResolver(dragItemSchema),
   });
 
   useMyEffect([props.open], () => {
     if (props.open) reset();
   });
 
-  const onSubmit = (formData: DragContainerDto) => {
-    saveContainer(formData, {
+  const onSubmit = (formData: DragItemDto) => {
+    saveItem(formData, {
       onSuccess: props.onClose,
     });
   };
@@ -48,8 +48,8 @@ const DragContainerDialog = (props: {
       aria-labelledby="auth-dialog"
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle id="drag-container-dialog-title">
-          {watch("id") ? "Edit drag container" : "New drag container"}
+        <DialogTitle id="drag-item-dialog-title">
+          {watch("id") ? "Edit drag item" : "New drag item"}
         </DialogTitle>
         <DialogContent>
           <Controller
@@ -60,7 +60,7 @@ const DragContainerDialog = (props: {
                 id="name"
                 {...field}
                 size="small"
-                label="Drag container name"
+                label="Drag item name"
                 className="mt-3"
                 fullWidth
                 autoFocus
@@ -78,4 +78,4 @@ const DragContainerDialog = (props: {
   );
 };
 
-export default DragContainerDialog;
+export default DragItemDialog;

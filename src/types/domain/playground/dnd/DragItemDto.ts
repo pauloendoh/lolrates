@@ -1,28 +1,25 @@
 import * as yup from "yup";
-import { DragItemDto } from "./DragItemDto";
 
-export interface DragContainerDto {
+export interface DragItemDto {
   id: number;
   userId: number;
-
-  dragItems?: DragItemDto[];
-
+  containerId: number;
   name: string;
-
   position: number;
 }
 
-export const newDragContainer = (): DragContainerDto => ({
+export const newDragItemDto = (containerId: number): DragItemDto => ({
   id: null,
   userId: null,
+  containerId,
   name: "",
   position: null,
 });
 
-export const dragContainerSchema: yup.SchemaOf<DragContainerDto> = yup.object({
+export const dragItemSchema: yup.SchemaOf<DragItemDto> = yup.object({
   id: yup.number().nullable().notRequired(),
   userId: yup.number().nullable().notRequired(),
-  dragItems: yup.array(),
+  containerId: yup.number().nullable().notRequired(),
   name: yup.string().required("Container name is required"),
   position: yup.number().nullable().notRequired(),
 });

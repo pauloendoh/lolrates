@@ -6,7 +6,7 @@ import { pushOrReplace } from "../../../../utils/pushOrReplace";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 
 export default function useSaveDragContainerMutation() {
-  const urlQueryKey = apiUrls.playground.dragContainer;
+  const urlQueryKey = apiUrls.playground.dragContainers;
 
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
