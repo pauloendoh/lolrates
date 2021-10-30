@@ -1,7 +1,7 @@
 import Flex from "@/components/_common/flexboxes/Flex";
 import useFetchDragItems from "@/hooks/react-query/domain/playground/drag-item/useFetchDragItems";
 import { newDragContainer } from "@/types/domain/playground/dnd/DragContainerDto";
-import { Box, Button, useTheme } from "@material-ui/core";
+import { Box, Button, CircularProgress, useTheme } from "@material-ui/core";
 import useDragContainersQuery from "hooks/react-query/domain/playground/useDragContainersQuery";
 import React, { useMemo, useState } from "react";
 import { byNumber, byValue } from "sort-es";
@@ -14,7 +14,7 @@ export default function DndContainers() {
   const { data: containers } = useDragContainersQuery();
 
   // required for windows on focus after moving items between containers
-  const { data: items } = useFetchDragItems();
+  const { data: items, isFetching } = useFetchDragItems();
 
   const theme = useTheme();
 
@@ -28,7 +28,24 @@ export default function DndContainers() {
   }, [containers, items]);
 
   return (
-    <Box style={{ overflowX: "auto" }}>
+    <Box style={{ overflowX: "auto" }} position="relative">
+      {isFetching && (
+        <div // maybe this can become a component
+          style={{
+            position: "absolute",
+            background: "#15151599",
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
+
       <Flex style={{ gap: theme.spacing(2), marginBottom: theme.spacing(2) }}>
         {sortedContainers?.map((container) => (
           <DragContainer key={container.id} container={container} />

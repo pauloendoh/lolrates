@@ -1,11 +1,13 @@
 import useChangeDragItemPosition from "@/hooks/react-query/domain/playground/drag-item/useChangeDragItemPosition";
+import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
 import { useTheme } from "@material-ui/core";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import S from "./DragItem.styles";
 
-interface DndItem {
+// PE 1/3 - jogar no types... ou common ? sei la xD
+export interface DndItem {
   id: number;
   position: number;
   containerId: number;
@@ -13,6 +15,7 @@ interface DndItem {
 
 export default function DragItem(props: { dragItem: DragItemDto }) {
   const changeDragItemPosition = useChangeDragItemPosition();
+  const { setDraggingItemId, draggingItemId: isDraggingItemId } = useDndStore();
 
   const [collected, dragRef] = useDrag({
     type: "dnd-item",
@@ -21,14 +24,25 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       position: props.dragItem.position,
       containerId: props.dragItem.containerId, // será usado depois
     } as DndItem,
-    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+      canDrag: monitor.canDrag(),
+    }),
+
+    end: () => {
+      setDraggingItemId(null);
+    },
   });
+
+  useEffect(() => {
+    if (collected?.isDragging) {
+      setDraggingItemId(props.dragItem.id);
+      return;
+    }
+  }, [collected?.isDragging]);
 
   const dragHtmlRef = useRef<HTMLDivElement>();
   const dropHtmlRef = useRef<HTMLDivElement>();
-
-  const [lastDrag, setLastDrag] =
-    useState<{ fromPosition: number; toPosition: number }>();
 
   const [, dropRef] = useDrop({
     accept: "dnd-item",
@@ -41,29 +55,62 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       const targetSize = dragHtmlRef.current.getBoundingClientRect();
       const targetCenterY = (targetSize.bottom - targetSize.top) / 2;
 
-      if (fromPosition === toPosition) return; // required to avoid multiple events
+      if (dndItem.containerId === toContainerId && fromPosition === toPosition)
+        return; // required to avoid multiple events
 
       const cursorCoord = monitor.getClientOffset();
       const draggedTopY = cursorCoord.y - targetSize.top;
 
-      if (fromPosition < toPosition && draggedTopY < targetCenterY) {
-        return; // ex: tentar arrastar o primeiro antes do segundo
-      }
-      if (fromPosition > toPosition && draggedTopY > targetCenterY) {
+      // ex: tentar arrastar o primeiro antes do segundo
+      if (
+        dndItem.containerId === toContainerId &&
+        fromPosition < toPosition &&
+        draggedTopY < targetCenterY
+      )
         return;
-      }
 
-      console.log(`from ${fromPosition} to ${toPosition}`);
+      if (
+        dndItem.containerId === toContainerId &&
+        fromPosition > toPosition &&
+        draggedTopY > targetCenterY
+      )
+        return;
+
+      // ex: drag one item to another container's last position
+      const toFinalPosition =
+        dndItem.containerId !== toContainerId && draggedTopY > targetCenterY
+          ? toPosition + 1
+          : undefined;
+
+      const toFirstPosition =
+        dndItem.containerId !== toContainerId &&
+        toPosition === 0 &&
+        draggedTopY > targetCenterY
+          ? 0
+          : undefined;
+
+      console.log({
+        from: {
+          containerId: dndItem.containerId,
+          position: fromPosition,
+        },
+        to: {
+          containerId: toContainerId,
+          position: toFirstPosition || toFinalPosition || toPosition,
+        },
+      });
 
       changeDragItemPosition({
         itemId: dndItem.id,
         fromPosition: dndItem.position,
         fromContainerId: dndItem.containerId,
-        toPosition: toPosition,
+        toPosition: toFirstPosition || toFinalPosition || toPosition,
         toContainerId: toContainerId,
       });
 
-      dndItem.position = toPosition; // required to avoid multiple events
+      // required to avoid multiple events
+      dndItem.position = toPosition;
+      dndItem.containerId = toContainerId;
     },
   });
 
@@ -74,7 +121,10 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
 
   return (
     <div style={{ paddingTop: theme.spacing(1) }} ref={dropHtmlRef}>
-      <S.DragItemPaper ref={dragHtmlRef} isDragging={collected.isDragging}>
+      <S.DragItemPaper
+        ref={dragHtmlRef}
+        isDragging={isDraggingItemId === props.dragItem.id}
+      >
         {props.dragItem.name}
       </S.DragItemPaper>
     </div>

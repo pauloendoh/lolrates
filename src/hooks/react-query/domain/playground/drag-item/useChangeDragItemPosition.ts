@@ -1,8 +1,8 @@
+import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
 import { INewDragItemPosition } from "@/types/domain/playground/dnd/INewDragItemPosition";
 import { apiUrls } from "@/utils/apiUrls";
 import myClientAxios from "@/utils/axios/myClientAxios";
-import { useState } from "react";
 import { useQueryClient } from "react-query";
 import { queryKeys } from "utils/consts/queryKeys";
 import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
@@ -10,7 +10,7 @@ import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
 export default function useChangeDragItemPosition() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
-  const [throttle, setThrottle] = useState<NodeJS.Timeout>(null);
+  const { throttle, setThrottle } = useDndStore();
 
   const queryClient = useQueryClient();
 
@@ -24,6 +24,7 @@ export default function useChangeDragItemPosition() {
     itemId: number;
     fromPosition: number;
     toPosition: number;
+
     fromContainerId: number;
     toContainerId: number;
   }) => {
@@ -31,28 +32,58 @@ export default function useChangeDragItemPosition() {
       queryKeys.dragItems
     );
 
-    const containerItems = dragItems.filter(
+    const toContainerItems = dragItems.filter(
       (item) => item.containerId === toContainerId
     );
 
+    const fromContainerItems = dragItems.filter(
+      (item) => item.containerId === fromContainerId
+    );
+
     // save -> remove -> splice -> normalize
-    const dragItemIndex = containerItems.findIndex(
+    const dragItemIndex = fromContainerItems.findIndex(
       (item) => item.id === itemId
     );
-    const dragItem = { ...containerItems[dragItemIndex] } as DragItemDto;
-    containerItems.splice(dragItemIndex, 1);
-    containerItems.splice(toPosition, 0, dragItem);
-    const newContainerItems = containerItems.map(
+    const dragItem = { ...fromContainerItems[dragItemIndex] } as DragItemDto;
+
+    // para garantir o "remove" nas duas situações
+    if (fromContainerId === toContainerId) {
+      toContainerItems.splice(dragItemIndex, 1);
+    } else {
+      fromContainerItems.splice(dragItemIndex, 1);
+    }
+
+    toContainerItems.splice(toPosition, 0, dragItem);
+    const newToContainerItems = toContainerItems.map(
       (item, index) =>
         ({
           ...item,
           position: index,
+          containerId: toContainerId,
         } as DragItemDto)
     );
 
+    // se estiver mexendo no mesmo container, "ignore" essa etapa criando um array vazio
+    const newFromContainerItems =
+      fromContainerId === toContainerId
+        ? []
+        : fromContainerItems.map(
+            (item, index) =>
+              ({
+                ...item,
+                position: index,
+                containerId: fromContainerId,
+              } as DragItemDto)
+          );
+
     const newDragItems = [
-      ...dragItems.filter((item) => item.containerId !== toContainerId),
-      ...newContainerItems,
+      ...dragItems.filter(
+        (item) =>
+          item.containerId !== toContainerId &&
+          item.containerId !== fromContainerId
+      ),
+      ...newFromContainerItems,
+      ...newToContainerItems,
     ];
 
     queryClient.setQueryData(queryKeys.dragItems, newDragItems);
@@ -74,10 +105,7 @@ export default function useChangeDragItemPosition() {
       setTimeout(() => {
         myClientAxios
           .put(apiUrls.playground.dragItemsPositions, newPositions)
-          .then((res) => {
-            alert("Nice");
-          })
-          .catch((err) => alert("Error"));
+          .catch(console.error);
       }, 1000)
     );
   };
