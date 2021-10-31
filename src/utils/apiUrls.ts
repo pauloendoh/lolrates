@@ -9,5 +9,6 @@ export const apiUrls = {
     dragContainers: "/playground/drag-containers",
     dragItems: `/playground/drag-items`,
     dragItemsPositions: `/playground/drag-items/positions`,
+    dragContainerPositions: `/playground/drag-containers/positions`,
   },
 };

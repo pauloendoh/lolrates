@@ -1,20 +1,28 @@
 import Flex from "@/components/_common/flexboxes/Flex";
 import Txt from "@/components/_common/text/Txt";
+import useChangeContainerPosition from "@/hooks/react-query/domain/playground/drag-container/useChangeContainerPosition";
 import useChangeDragItemPosition from "@/hooks/react-query/domain/playground/drag-item/useChangeDragItemPosition";
 import useFetchDragItemsByContainer from "@/hooks/react-query/domain/playground/drag-item/useFetchDragItemsByContainer";
 import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragContainerDto } from "@/types/domain/playground/dnd/DragContainerDto";
 import { newDragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
-import { Box, Button, Paper, useTheme } from "@material-ui/core";
+import { Button, Paper, useTheme } from "@material-ui/core";
 import React, { useMemo, useRef, useState } from "react";
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import DragItemDialog from "../DragItemDialog/DragItemDialog";
 import DragItem, { DndItem } from "./DragItem/DragItem";
 
+interface DndContainer {
+  id: number;
+  position: number;
+}
+
 export default function DragContainer({
   container,
+  hasSpacingLeft,
 }: {
   container: DragContainerDto;
+  hasSpacingLeft: boolean;
 }) {
   const [itemDialog, setItemDialog] = useState(false);
 
@@ -30,13 +38,77 @@ export default function DragContainer({
   }, [dragItems]);
 
   const changeDragItemPosition = useChangeDragItemPosition();
+  const changeContainerPosition = useChangeContainerPosition();
 
-  const [, dropRef] = useDrop({
+  const [{ isDragging: isDraggingContainer }, dragContainerRef] = useDrag({
+    type: "dnd-container",
+    item: {
+      id: container.id,
+      position: container.position,
+    } as DndContainer,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+
+  const [, dropContainerRef] = useDrop({
+    accept: "dnd-container",
+    hover(item, monitor) {
+      const fromContainer = item as DndContainer;
+      const toContainer = {
+        id: container.id,
+        position: container.position,
+      } as DndContainer;
+
+      if (fromContainer.position === toContainer.position) return;
+
+      const targetSize = htmlDragContainerRef.current.getBoundingClientRect();
+      const targetCenterX = (targetSize.right - targetSize.left) / 2;
+
+      const cursorCoord = monitor.getClientOffset();
+      const draggedLeftX = cursorCoord.x - targetSize.left;
+
+      // evita bugs em elementos de larguras diferentes
+      if (
+        fromContainer.position < toContainer.position &&
+        draggedLeftX < targetCenterX
+      )
+        return;
+
+      if (
+        fromContainer.position > toContainer.position &&
+        draggedLeftX > targetCenterX
+      )
+        return;
+
+      console.log(
+        `from position ${fromContainer.position} to ${toContainer.position}`
+      );
+
+      changeContainerPosition({
+        containerId: fromContainer.id,
+        fromPosition: fromContainer.position,
+        toPosition: toContainer.position,
+      });
+
+      fromContainer.position = toContainer.position;
+    },
+  });
+
+  // quando dropar um item em cima de "+ add item" deve jogar no fim do container
+  const [, dropItemRef] = useDrop({
     accept: "dnd-item",
     hover(item, monitor) {
       const dndItem = item as DndItem;
       const toPosition = orderedDragItems.length;
       const toContainerId = container.id;
+
+      // tava lagando se eu ficasse spamando o drag em cima do + Add item
+      if (
+        dndItem.containerId === toContainerId &&
+        dndItem.position === toPosition
+      )
+        return;
 
       changeDragItemPosition({
         itemId: dndItem.id,
@@ -56,40 +128,53 @@ export default function DragContainer({
     },
   });
 
-  const htmlDropRef = useRef<HTMLButtonElement>();
+  const htmlDragContainerRef = useRef<HTMLDivElement>();
+  dragContainerRef(htmlDragContainerRef);
 
-  dropRef(htmlDropRef);
+  const htmlDropContainerRef = useRef<HTMLDivElement>();
+  dropContainerRef(htmlDropContainerRef);
+
+  const htmlDropItemRef = useRef<HTMLButtonElement>();
+  dropItemRef(htmlDropItemRef);
 
   const theme = useTheme();
 
   return (
-    <Paper
-      key={container.id}
+    <div
       style={{
-        padding: theme.spacing(2),
         minWidth: 150,
-        background: theme.palette.grey[800],
+        paddingLeft: hasSpacingLeft ? theme.spacing(2) : undefined,
       }}
+      ref={htmlDropContainerRef}
     >
-      <Box>
-        <Txt variant="h6">{container.name}</Txt>
-      </Box>
+      <Paper
+        style={{
+          padding: theme.spacing(2),
 
-      <Flex style={{ flexDirection: "column" }}>
-        {orderedDragItems.map((item) => (
-          <DragItem key={item.id} dragItem={item} />
-        ))}
-      </Flex>
+          background: theme.palette.grey[800],
+          width: "100%",
+        }}
+      >
+        <div ref={htmlDragContainerRef} style={{ cursor: "grab" }}>
+          <Txt variant="h6">{container.name}</Txt>
+        </div>
 
-      <Button onClick={() => setItemDialog(true)} ref={htmlDropRef}>
-        + Add item
-      </Button>
+        <Flex style={{ flexDirection: "column" }}>
+          {orderedDragItems.map((item) => (
+            <DragItem key={item.id} dragItem={item} />
+          ))}
+        </Flex>
 
-      <DragItemDialog
-        open={itemDialog}
-        initialValue={newDragItemDto(container.id)}
-        onClose={() => setItemDialog(false)}
-      />
-    </Paper>
+        <Button onClick={() => setItemDialog(true)} ref={htmlDropItemRef}>
+          + Add item
+        </Button>
+
+        <DragItemDialog
+          open={itemDialog}
+          initialValue={newDragItemDto(container.id)}
+          onClose={() => setItemDialog(false)}
+        />
+      </Paper>
+    </div>
   );
 }

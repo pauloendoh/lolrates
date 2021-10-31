@@ -18,6 +18,7 @@ export default function useFetchDragItems() {
       onError: (err) => {
         setErrorMessage(JSON.stringify(err));
       },
+      refetchOnWindowFocus: false,
     }
   );
 }

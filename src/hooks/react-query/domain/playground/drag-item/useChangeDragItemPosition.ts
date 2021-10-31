@@ -44,7 +44,7 @@ export default function useChangeDragItemPosition() {
     const dragItemIndex = fromContainerItems.findIndex(
       (item) => item.id === itemId
     );
-    const dragItem = { ...fromContainerItems[dragItemIndex] } as DragItemDto;
+    const dragItem = fromContainerItems[dragItemIndex];
 
     // para garantir o "remove" nas duas situações
     if (fromContainerId === toContainerId) {

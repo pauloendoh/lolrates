@@ -62,6 +62,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       const draggedTopY = cursorCoord.y - targetSize.top;
 
       // ex: tentar arrastar o primeiro antes do segundo
+      // também evita bugs em elementos de alturas diferentes
       if (
         dndItem.containerId === toContainerId &&
         fromPosition < toPosition &&
@@ -76,8 +77,8 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       )
         return;
 
-      // ex: drag one item to another container's last position
-      const toFinalPosition =
+      // ex: drag one item to another container item's "after" position
+      const toAfterPosition =
         dndItem.containerId !== toContainerId && draggedTopY > targetCenterY
           ? toPosition + 1
           : undefined;
@@ -96,7 +97,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
         },
         to: {
           containerId: toContainerId,
-          position: toFirstPosition || toFinalPosition || toPosition,
+          position: toFirstPosition || toAfterPosition || toPosition,
         },
       });
 
@@ -104,7 +105,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
         itemId: dndItem.id,
         fromPosition: dndItem.position,
         fromContainerId: dndItem.containerId,
-        toPosition: toFirstPosition || toFinalPosition || toPosition,
+        toPosition: toFirstPosition || toAfterPosition || toPosition,
         toContainerId: toContainerId,
       });
 

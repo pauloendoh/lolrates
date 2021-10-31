@@ -1,7 +1,7 @@
 import Flex from "@/components/_common/flexboxes/Flex";
 import useFetchDragItems from "@/hooks/react-query/domain/playground/drag-item/useFetchDragItems";
 import { newDragContainer } from "@/types/domain/playground/dnd/DragContainerDto";
-import { Box, Button, CircularProgress, useTheme } from "@material-ui/core";
+import { Box, Button, useTheme } from "@material-ui/core";
 import useDragContainersQuery from "hooks/react-query/domain/playground/useDragContainersQuery";
 import React, { useMemo, useState } from "react";
 import { byNumber, byValue } from "sort-es";
@@ -29,32 +29,19 @@ export default function DndContainers() {
 
   return (
     <Box style={{ overflowX: "auto" }} position="relative">
-      {isFetching && (
-        <div // maybe this can become a component
-          style={{
-            position: "absolute",
-            background: "#15151599",
-            width: "100%",
-            height: "100%",
-            zIndex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <CircularProgress />
-        </div>
-      )}
-
-      <Flex style={{ gap: theme.spacing(2), marginBottom: theme.spacing(2) }}>
-        {sortedContainers?.map((container) => (
-          <DragContainer key={container.id} container={container} />
+      <Flex style={{ marginBottom: theme.spacing(2) }}>
+        {sortedContainers?.map((container, index) => (
+          <DragContainer
+            key={container.id}
+            container={container}
+            hasSpacingLeft={index !== 0}
+          />
         ))}
 
         <Button
           variant="contained"
           color="primary"
-          style={{ minWidth: 150 }}
+          style={{ minWidth: 150, marginLeft: theme.spacing(2) }}
           onClick={() => setContainerDialog(true)}
         >
           + New container
