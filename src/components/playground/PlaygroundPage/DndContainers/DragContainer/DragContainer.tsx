@@ -81,10 +81,6 @@ export default function DragContainer({
       )
         return;
 
-      console.log(
-        `from position ${fromContainer.position} to ${toContainer.position}`
-      );
-
       changeContainerPosition({
         containerId: fromContainer.id,
         fromPosition: fromContainer.position,
@@ -142,7 +138,7 @@ export default function DragContainer({
   return (
     <div
       style={{
-        minWidth: 150,
+        minWidth: 250,
         paddingLeft: hasSpacingLeft ? theme.spacing(2) : undefined,
       }}
       ref={htmlDropContainerRef}

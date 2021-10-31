@@ -1,8 +1,8 @@
 import theme from "@/utils/theme";
-import styled from "styled-components";
+import { Box, styled } from "@material-ui/core";
 
 export default {
-  Root: styled.div({
+  Root: styled(Box)({
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2),

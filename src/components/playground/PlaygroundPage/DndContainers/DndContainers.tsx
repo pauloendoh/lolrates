@@ -41,7 +41,11 @@ export default function DndContainers() {
         <Button
           variant="contained"
           color="primary"
-          style={{ minWidth: 150, marginLeft: theme.spacing(2) }}
+          style={{
+            minWidth: 150,
+            marginLeft: theme.spacing(2),
+            height: "fit-content",
+          }}
           onClick={() => setContainerDialog(true)}
         >
           + New container

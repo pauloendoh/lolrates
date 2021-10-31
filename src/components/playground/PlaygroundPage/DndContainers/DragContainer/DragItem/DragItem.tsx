@@ -1,8 +1,9 @@
+import Icons from "@/components/_common/Icons/Icons";
 import useChangeDragItemPosition from "@/hooks/react-query/domain/playground/drag-item/useChangeDragItemPosition";
 import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
 import { useTheme } from "@material-ui/core";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import S from "./DragItem.styles";
 
@@ -17,7 +18,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
   const changeDragItemPosition = useChangeDragItemPosition();
   const { setDraggingItemId, draggingItemId: isDraggingItemId } = useDndStore();
 
-  const [collected, dragRef] = useDrag({
+  const [collected, dragRef, previewRef] = useDrag({
     type: "dnd-item",
     item: {
       id: props.dragItem.id,
@@ -42,6 +43,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
   }, [collected?.isDragging]);
 
   const dragHtmlRef = useRef<HTMLDivElement>();
+  const previewHtmlRef = useRef<HTMLDivElement>();
   const dropHtmlRef = useRef<HTMLDivElement>();
 
   const [, dropRef] = useDrop({
@@ -52,11 +54,15 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       const toPosition = props.dragItem.position;
       const toContainerId = props.dragItem.containerId;
 
-      const targetSize = dragHtmlRef.current.getBoundingClientRect();
+      const targetSize = previewHtmlRef.current.getBoundingClientRect();
       const targetCenterY = (targetSize.bottom - targetSize.top) / 2;
 
-      if (dndItem.containerId === toContainerId && fromPosition === toPosition)
+      if (
+        dndItem.containerId === toContainerId &&
+        fromPosition === toPosition
+      ) {
         return; // required to avoid multiple events
+      }
 
       const cursorCoord = monitor.getClientOffset();
       const draggedTopY = cursorCoord.y - targetSize.top;
@@ -67,15 +73,17 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
         dndItem.containerId === toContainerId &&
         fromPosition < toPosition &&
         draggedTopY < targetCenterY
-      )
+      ) {
         return;
+      }
 
       if (
         dndItem.containerId === toContainerId &&
         fromPosition > toPosition &&
         draggedTopY > targetCenterY
-      )
+      ) {
         return;
+      }
 
       // ex: drag one item to another container item's "after" position
       const toAfterPosition =
@@ -90,41 +98,59 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
           ? 0
           : undefined;
 
-      console.log({
-        from: {
-          containerId: dndItem.containerId,
-          position: fromPosition,
-        },
-        to: {
-          containerId: toContainerId,
-          position: toFirstPosition || toAfterPosition || toPosition,
-        },
-      });
+      const toFinalPosition = toFirstPosition || toAfterPosition || toPosition;
 
       changeDragItemPosition({
         itemId: dndItem.id,
         fromPosition: dndItem.position,
         fromContainerId: dndItem.containerId,
-        toPosition: toFirstPosition || toAfterPosition || toPosition,
+        toPosition: toFinalPosition,
         toContainerId: toContainerId,
       });
 
       // required to avoid multiple events
-      dndItem.position = toPosition;
+      dndItem.position = toFinalPosition;
       dndItem.containerId = toContainerId;
     },
   });
 
   dragRef(dragHtmlRef);
+  previewRef(previewHtmlRef);
   dropRef(dropHtmlRef);
 
   const theme = useTheme();
 
+  const [hover, setHover] = useState(false);
+
   return (
-    <div style={{ paddingTop: theme.spacing(1) }} ref={dropHtmlRef}>
-      <S.DragItemPaper
+    <div
+      style={{
+        paddingTop: theme.spacing(1),
+        position: "relative",
+        display: "flex",
+        gap: theme.spacing(1),
+      }}
+      ref={dropHtmlRef}
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
+    >
+      <div
+        style={{
+          cursor: "grab",
+          position: "relative",
+          top: 6,
+        }}
         ref={dragHtmlRef}
-        isDragging={isDraggingItemId === props.dragItem.id}
+      >
+        <Icons.DragHandle />
+      </div>
+      <S.DragItemPaper
+        $isDragging={isDraggingItemId === props.dragItem.id}
+        ref={previewHtmlRef}
       >
         {props.dragItem.name}
       </S.DragItemPaper>

@@ -1,5 +1,4 @@
 import {
-  AppBar,
   Box,
   Button,
   makeStyles,
@@ -61,7 +60,7 @@ const Navbar = () => {
   const isLoggedOut = !authUser && !isLoading;
 
   return (
-    <AppBar className={classes.root} position="fixed" elevation={0}>
+    <S.AppBar position="fixed" elevation={0}>
       <Toolbar
         className={classes.toolbar}
         style={{
@@ -135,7 +134,7 @@ const Navbar = () => {
           />
         </S.RightIcons>
       </Toolbar>
-    </AppBar>
+    </S.AppBar>
   );
 };
 
