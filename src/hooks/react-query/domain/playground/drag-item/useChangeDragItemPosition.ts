@@ -1,6 +1,6 @@
 import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
-import { INewDragItemPosition } from "@/types/domain/playground/dnd/INewDragItemPosition";
+import { INewItemPosition } from "@/types/domain/playground/dnd/INewItemPosition";
 import { apiUrls } from "@/utils/apiUrls";
 import myClientAxios from "@/utils/axios/myClientAxios";
 import { useQueryClient } from "react-query";
@@ -95,7 +95,7 @@ export default function useChangeDragItemPosition() {
     // SAVE on database
     clearTimeout(throttle);
 
-    const newPositions: INewDragItemPosition[] = dragItems.map((item) => ({
+    const newPositions: INewItemPosition[] = dragItems.map((item) => ({
       id: item.id,
       containerId: item.containerId,
       position: item.position,

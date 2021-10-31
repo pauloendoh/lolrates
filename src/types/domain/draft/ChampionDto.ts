@@ -1,6 +1,3 @@
-import { SkillLevelTypes } from "./SkillLevelTypes";
-import { ChampionRoleType } from "../rates/ChampionRoleType";
-
 export interface ChampionDto {
   id: number;
 
@@ -11,6 +8,4 @@ export interface ChampionDto {
   createdAt: string;
 
   updatedAt: string;
-
-
 }
