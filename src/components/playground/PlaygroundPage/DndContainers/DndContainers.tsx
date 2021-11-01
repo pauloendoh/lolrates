@@ -1,10 +1,10 @@
-import Flex from "@/components/_common/flexboxes/Flex";
 import useFetchDragItems from "@/hooks/react-query/domain/playground/drag-item/useFetchDragItems";
 import { newDragContainer } from "@/types/domain/playground/dnd/DragContainerDto";
-import { Box, Button, useTheme } from "@material-ui/core";
+import { Button, useTheme } from "@material-ui/core";
 import useDragContainersQuery from "hooks/react-query/domain/playground/useDragContainersQuery";
 import React, { useMemo, useState } from "react";
 import { byNumber, byValue } from "sort-es";
+import S from "./DndContainers.styles";
 import DragContainer from "./DragContainer/DragContainer";
 import DragContainerDialog from "./DragContainerDialog/DragContainerDialog";
 
@@ -28,8 +28,8 @@ export default function DndContainers() {
   }, [containers, items]);
 
   return (
-    <Box style={{ overflowX: "auto" }} position="relative">
-      <Flex style={{ marginBottom: theme.spacing(2) }}>
+    <S.DndContainersRoot>
+      <S.ContainersWrapper>
         {sortedContainers?.map((container, index) => (
           <DragContainer
             key={container.id}
@@ -50,13 +50,13 @@ export default function DndContainers() {
         >
           + New container
         </Button>
-      </Flex>
+      </S.ContainersWrapper>
 
       <DragContainerDialog
         open={containerDialog}
         initialValue={newDragContainer()}
         onClose={() => setContainerDialog(false)}
       />
-    </Box>
+    </S.DndContainersRoot>
   );
 }

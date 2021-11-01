@@ -1,4 +1,3 @@
-import Flex from "@/components/_common/flexboxes/Flex";
 import Txt from "@/components/_common/text/Txt";
 import useChangeContainerPosition from "@/hooks/react-query/domain/playground/drag-container/useChangeContainerPosition";
 import useChangeDragItemPosition from "@/hooks/react-query/domain/playground/drag-item/useChangeDragItemPosition";
@@ -6,10 +5,11 @@ import useFetchDragItemsByContainer from "@/hooks/react-query/domain/playground/
 import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragContainerDto } from "@/types/domain/playground/dnd/DragContainerDto";
 import { newDragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
-import { Button, Paper, useTheme } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React, { useMemo, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import DragItemDialog from "../DragItemDialog/DragItemDialog";
+import S from "./DragContainer.styles";
 import DragItem, { DndItem } from "./DragItem/DragItem";
 
 interface DndContainer {
@@ -133,33 +133,18 @@ export default function DragContainer({
   const htmlDropItemRef = useRef<HTMLButtonElement>();
   dropItemRef(htmlDropItemRef);
 
-  const theme = useTheme();
-
   return (
-    <div
-      style={{
-        minWidth: 250,
-        paddingLeft: hasSpacingLeft ? theme.spacing(2) : undefined,
-      }}
-      ref={htmlDropContainerRef}
-    >
-      <Paper
-        style={{
-          padding: theme.spacing(2),
-
-          background: theme.palette.grey[800],
-          width: "100%",
-        }}
-      >
-        <div ref={htmlDragContainerRef} style={{ cursor: "grab" }}>
+    <S.DragContainer hasSpacingLeft={hasSpacingLeft} ref={htmlDropContainerRef}>
+      <S.Paper>
+        <S.TitleWrapper ref={htmlDragContainerRef}>
           <Txt variant="h6">{container.name}</Txt>
-        </div>
+        </S.TitleWrapper>
 
-        <Flex style={{ flexDirection: "column" }}>
+        <S.ItemsWrapper>
           {orderedDragItems.map((item) => (
             <DragItem key={item.id} dragItem={item} />
           ))}
-        </Flex>
+        </S.ItemsWrapper>
 
         <Button onClick={() => setItemDialog(true)} ref={htmlDropItemRef}>
           + Add item
@@ -170,7 +155,7 @@ export default function DragContainer({
           initialValue={newDragItemDto(container.id)}
           onClose={() => setItemDialog(false)}
         />
-      </Paper>
-    </div>
+      </S.Paper>
+    </S.DragContainer>
   );
 }

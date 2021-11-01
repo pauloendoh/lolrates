@@ -2,8 +2,7 @@ import Icons from "@/components/_common/Icons/Icons";
 import useChangeDragItemPosition from "@/hooks/react-query/domain/playground/drag-item/useChangeDragItemPosition";
 import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
-import { useTheme } from "@material-ui/core";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import S from "./DragItem.styles";
 
@@ -118,42 +117,17 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
   previewRef(previewHtmlRef);
   dropRef(dropHtmlRef);
 
-  const theme = useTheme();
-
-  const [hover, setHover] = useState(false);
-
   return (
-    <div
-      style={{
-        paddingTop: theme.spacing(1),
-        position: "relative",
-        display: "flex",
-        gap: theme.spacing(1),
-      }}
-      ref={dropHtmlRef}
-      onMouseEnter={() => {
-        setHover(true);
-      }}
-      onMouseLeave={() => {
-        setHover(false);
-      }}
-    >
-      <div
-        style={{
-          cursor: "grab",
-          position: "relative",
-          top: 6,
-        }}
-        ref={dragHtmlRef}
-      >
+    <S.DragItemRoot ref={dropHtmlRef}>
+      <S.DragHandleWrapper ref={dragHtmlRef}>
         <Icons.DragHandle />
-      </div>
+      </S.DragHandleWrapper>
       <S.DragItemPaper
         $isDragging={isDraggingItemId === props.dragItem.id}
         ref={previewHtmlRef}
       >
         {props.dragItem.name}
       </S.DragItemPaper>
-    </div>
+    </S.DragItemRoot>
   );
 }

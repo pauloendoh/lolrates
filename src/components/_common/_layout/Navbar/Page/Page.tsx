@@ -1,9 +1,9 @@
-import FlexCenter from "@/components/_common/flexboxes/FlexCenter";
 import { pageUrls } from "@/utils/pageUrls";
 import { CircularProgress } from "@material-ui/core";
 import useMeQuery from "hooks/react-query/domain/auth/useMeQuery";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
+import S from "./Page.styles";
 
 interface Props {
   type: "auth" | "unauth" | "public";
@@ -21,9 +21,9 @@ export default function Page(props: Props) {
   if (props.type === "auth") {
     if (isFetching)
       return (
-        <FlexCenter height="100%" width="100%">
+        <S.PageRoot>
           <CircularProgress />
-        </FlexCenter>
+        </S.PageRoot>
       );
 
     if (authUser === null) router.push(pageUrls.index);
