@@ -11,10 +11,12 @@ import {
 import "draft-js/dist/Draft.css";
 import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
+import FileSystem from "./FileSystem/FileSystem";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
 export default function PlaygroundPage() {
-  const [dndIsOpened, openDnd] = useState(true);
+  const [fileSystemIsOpened, openFileSystem] = useState(true);
+  const [dndIsOpened, openDnd] = useState(false);
   const [rteIsOpened, openRte] = useState(false);
 
   const theme = useTheme();
@@ -22,6 +24,18 @@ export default function PlaygroundPage() {
     <Container>
       <Txt variant="h6">Playground</Txt>
       <Flex flexDirection="column" mt={2} style={{ gap: theme.spacing(2) }}>
+        <Accordion expanded={fileSystemIsOpened}>
+          <AccordionSummary
+            expandIcon={<Icons.ExpandMore />}
+            onClick={() => openFileSystem(!dndIsOpened)}
+          >
+            <Txt>File System</Txt>
+          </AccordionSummary>
+          <AccordionDetails>
+            <FileSystem />
+          </AccordionDetails>
+        </Accordion>
+
         <Accordion expanded={dndIsOpened}>
           <AccordionSummary
             expandIcon={<Icons.ExpandMore />}
