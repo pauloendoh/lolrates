@@ -10,5 +10,7 @@ export const apiUrls = {
     dragItems: `/playground/drag-items`,
     dragItemsPositions: `/playground/drag-items/positions`,
     dragContainerPositions: `/playground/drag-containers/positions`,
+    folders: `/playground/folders`,
+    files: `/playground/files`,
   },
 };

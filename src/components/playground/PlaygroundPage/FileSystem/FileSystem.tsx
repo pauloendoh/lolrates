@@ -1,29 +1,72 @@
+import Flex from "@/components/_common/flexboxes/Flex";
+import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
 import Icons from "@/components/_common/Icons/Icons";
-import { TreeItem, TreeView } from "@material-ui/lab";
-import React from "react";
+import Txt from "@/components/_common/text/Txt";
+import useFetchFolders from "@/hooks/react-query/domain/playground/file-system/folder/useFetchFolders";
+import useFileSystemStore from "@/hooks/zustand-stores/useFileSystemStore";
+import { newFileDto } from "@/types/domain/playground/file-system/FileDto";
+import { newFolderDto } from "@/types/domain/playground/file-system/FolderDto";
+import { IconButton, useTheme } from "@material-ui/core";
+import { TreeView } from "@material-ui/lab";
+import React, { useMemo } from "react";
+import { byString, byValue } from "sort-es";
+import FolderDialog from "./FolderDialog/FolderDialog";
+import FileDialog from "./FolderTreeItem/FolderMoreIcon/FileDialog/FileDialog";
+import FolderTreeItem from "./FolderTreeItem/FolderTreeItem";
 
 export default function FileSystem() {
+  const {
+    fileDialogParentFolderId,
+    setFileDialogParentFolderId,
+
+    openFolderDialog,
+    setOpenFolderDialog,
+    folderDialogParentFolderId,
+    setFolderDialogParentFolderId,
+  } = useFileSystemStore();
+
+  const { data: userFolders } = useFetchFolders();
+
+  const sortedFolders = useMemo(() => {
+    if (userFolders?.length > 0) {
+      return userFolders.sort(byValue((folder) => folder.name, byString()));
+    }
+    return [];
+  }, [userFolders]);
+
+  const theme = useTheme();
   return (
-    <div>
+    <Flex
+      style={{ flexDirection: "column", width: 300, gap: theme.spacing(2) }}
+    >
+      <FlexVCenter justifyContent="space-between">
+        <Txt>ROOT</Txt>
+        <FlexVCenter>
+          <IconButton size="small" onClick={() => setOpenFolderDialog(true)}>
+            <Icons.CreateNewFolder fontSize="small" />
+          </IconButton>
+        </FlexVCenter>
+      </FlexVCenter>
       <TreeView
         defaultCollapseIcon={<Icons.ExpandMore />}
         defaultExpandIcon={<Icons.ChevronRight />}
       >
-        <TreeItem nodeId="1" label="Applications">
-          <TreeItem nodeId="2" label="Calendar" />
-          <TreeItem nodeId="3" label="Chrome" />
-          <TreeItem nodeId="4" label="Webstorm" />
-        </TreeItem>
-        <TreeItem nodeId="5" label="Documents">
-          <TreeItem nodeId="10" label="OSS" />
-          <TreeItem nodeId="6" label="Material-UI">
-            <TreeItem nodeId="7" label="src">
-              <TreeItem nodeId="8" label="index.js" />
-              <TreeItem nodeId="9" label="tree-view.js" />
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
-      </TreeView>{" "}
-    </div>
+        {sortedFolders.map((folder) => (
+          <FolderTreeItem folder={folder} key={folder.id} />
+        ))}
+      </TreeView>
+
+      <FolderDialog
+        open={openFolderDialog}
+        initialValue={newFolderDto(folderDialogParentFolderId)}
+        onClose={() => setOpenFolderDialog(false)}
+      />
+
+      <FileDialog
+        open={!!fileDialogParentFolderId}
+        initialValue={newFileDto(fileDialogParentFolderId)}
+        onClose={() => setFileDialogParentFolderId(null)}
+      />
+    </Flex>
   );
 }

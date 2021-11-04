@@ -1,10 +1,10 @@
 import { Box } from "@material-ui/core";
 import React from "react";
 
-// PE 3/3 
+// PE 3/3
 const FlexVCenter = (props: Props) => {
   return (
-    <Box display="flex" alignItems="center"  {...props} >
+    <Box display="flex" alignItems="center" {...props}>
       {props.children}
     </Box>
   );
