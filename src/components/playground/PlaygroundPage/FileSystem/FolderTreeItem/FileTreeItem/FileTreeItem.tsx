@@ -1,6 +1,7 @@
 import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
 import Icons from "@/components/_common/Icons/Icons";
 import Txt from "@/components/_common/text/Txt";
+import useFileSystemStore from "@/hooks/zustand-stores/useFileSystemStore";
 import FileDto from "@/types/domain/playground/file-system/FileDto";
 import { useTheme } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
@@ -18,6 +19,7 @@ export interface DndFile {
 
 export default function FileTreeItem({ file }: Props) {
   const theme = useTheme();
+  const { setSelectedFile } = useFileSystemStore();
 
   const [{}, dragFileRef] = useDrag({
     type: "file",
@@ -32,6 +34,10 @@ export default function FileTreeItem({ file }: Props) {
     <TreeItem
       ref={htmlDragFileRef}
       nodeId={file.parentFolderId.toString() + "-" + file.id.toString()}
+      onClick={(e) => {
+        e.preventDefault();
+        setSelectedFile(file);
+      }}
       label={
         <FlexVCenter style={{ justifyContent: "space-between", minHeight: 30 }}>
           <FlexVCenter style={{ gap: theme.spacing(1) }}>

@@ -1,4 +1,5 @@
 import Icons from "@/components/_common/Icons/Icons";
+import useDeleteFolder from "@/hooks/react-query/domain/playground/file-system/folder/useDeleteFolder";
 import useFileSystemStore from "@/hooks/zustand-stores/useFileSystemStore";
 import FolderWithSubfoldersDto from "@/types/domain/playground/file-system/FolderWithSubfoldersDto";
 import {
@@ -7,6 +8,7 @@ import {
   Menu,
   MenuItem,
   Typography,
+  useTheme,
 } from "@material-ui/core";
 import React, { useState } from "react";
 
@@ -16,6 +18,7 @@ interface Props {
 
 export default function FolderMoreIcon({ folder }: Props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { mutate: deleteFolder } = useDeleteFolder();
 
   const {
     setFileDialogParentFolderId,
@@ -27,14 +30,18 @@ export default function FolderMoreIcon({ folder }: Props) {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
   const handleCloseMore = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
     event.preventDefault();
+    event.stopPropagation();
     setAnchorEl(null); // avoids error "The `anchorEl` prop provided to the component is invalid"
   };
+
+  const theme = useTheme();
 
   return (
     <>
@@ -77,6 +84,23 @@ export default function FolderMoreIcon({ folder }: Props) {
           </ListItemIcon>
           <Typography variant="inherit" noWrap>
             New folder
+          </Typography>
+        </MenuItem>
+
+        <MenuItem
+          onClick={(e) => {
+            handleCloseMore(e);
+            if (confirm("Delete folder and its files?")) {
+              deleteFolder(folder.id);
+            }
+          }}
+          style={{ color: theme.palette.error.main }}
+        >
+          <ListItemIcon style={{ width: 16 }}>
+            <Icons.Delete fontSize="small" color="error" />
+          </ListItemIcon>
+          <Typography variant="inherit" noWrap>
+            Delete folder
           </Typography>
         </MenuItem>
       </Menu>

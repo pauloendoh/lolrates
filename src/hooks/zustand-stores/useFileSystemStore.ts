@@ -1,3 +1,4 @@
+import FileDto from "@/types/domain/playground/file-system/FileDto";
 import create from "zustand";
 import { devtools, NamedSet } from "zustand/middleware";
 
@@ -10,11 +11,17 @@ interface IFileSystemStore {
 
   folderDialogParentFolderId: number;
   setFolderDialogParentFolderId: (parentFolderId: number) => void;
+
+  selectedFile: FileDto;
+  setSelectedFile: (file: FileDto) => void;
+
+  expandedNodes: string[];
+  toggleNode: (nodeId: string) => void;
 }
 
 const useFileSystemStore = create<IFileSystemStore>(
   devtools(
-    (set: NamedSet<IFileSystemStore>) => ({
+    (set: NamedSet<IFileSystemStore>, get) => ({
       fileDialogParentFolderId: null,
       setFileDialogParentFolderId: (parentFolderId) => {
         set({ fileDialogParentFolderId: parentFolderId });
@@ -30,6 +37,27 @@ const useFileSystemStore = create<IFileSystemStore>(
       folderDialogParentFolderId: null,
       setFolderDialogParentFolderId: (parentFolderId) => {
         set({ folderDialogParentFolderId: parentFolderId });
+      },
+
+      selectedFile: null,
+      setSelectedFile: (file) => {
+        set({ selectedFile: file });
+      },
+
+      expandedNodes: [],
+      toggleNode: (nodeId) => {
+        const { expandedNodes } = get();
+        if (expandedNodes.includes(nodeId))
+          // remove
+          set({
+            expandedNodes: expandedNodes.filter(
+              (expandedNodeId) => expandedNodeId !== nodeId
+            ),
+          });
+        else {
+          // add
+          set({ expandedNodes: [...expandedNodes, nodeId] });
+        }
       },
     }),
     "@FileSystemStore"

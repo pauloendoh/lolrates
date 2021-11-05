@@ -11,6 +11,7 @@ export const apiUrls = {
     dragItemsPositions: `/playground/drag-items/positions`,
     dragContainerPositions: `/playground/drag-containers/positions`,
     folders: `/playground/folders`,
+    folderId: (folderId: number) => `/playground/folders/${folderId}`,
     files: `/playground/files`,
   },
 };

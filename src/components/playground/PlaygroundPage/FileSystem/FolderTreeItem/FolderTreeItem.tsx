@@ -3,6 +3,7 @@ import Icons from "@/components/_common/Icons/Icons";
 import Txt from "@/components/_common/text/Txt";
 import useSaveFile from "@/hooks/react-query/domain/playground/file-system/file/useSaveFile";
 import useSaveFolder from "@/hooks/react-query/domain/playground/file-system/folder/useSaveFolder";
+import useFileSystemStore from "@/hooks/zustand-stores/useFileSystemStore";
 import FileDto from "@/types/domain/playground/file-system/FileDto";
 import { partialFolderDto } from "@/types/domain/playground/file-system/FolderDto";
 import FolderWithSubfoldersDto from "@/types/domain/playground/file-system/FolderWithSubfoldersDto";
@@ -22,6 +23,8 @@ export default function FolderTreeItem({ folder }: Props) {
   const [hover, setHover] = useState(false);
   const { mutate: saveFile } = useSaveFile();
   const { mutate: saveFolder } = useSaveFolder();
+
+  const { toggleNode } = useFileSystemStore();
 
   const theme = useTheme();
 
@@ -85,6 +88,12 @@ export default function FolderTreeItem({ folder }: Props) {
   return (
     <TreeItem
       nodeId={folder.id.toString()}
+      onClick={(e) => {
+        e.preventDefault();
+
+        if (folder.files.length > 0 || folder.subfolders.length > 0)
+          toggleNode(folder.id.toString());
+      }}
       label={
         <div
           ref={htmlDropFileRef}
