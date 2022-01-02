@@ -139,7 +139,7 @@ const LolRatesPageContent = () => {
           label={
             <S.SearchLabel>
               <FontAwesomeIcon icon={faSearch} />
-              <span>New Champion name</span>
+              <span>Champion name</span>
             </S.SearchLabel>
           }
           className="mt-3"
