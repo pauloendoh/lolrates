@@ -12,12 +12,14 @@ import "draft-js/dist/Draft.css";
 import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
 import FileSystem from "./FileSystem/FileSystem";
+import Friends from "./Friends/Friends";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
 export default function PlaygroundPage() {
-  const [fileSystemIsOpened, openFileSystem] = useState(true);
+  const [fileSystemIsOpened, openFileSystem] = useState(false);
   const [dndIsOpened, openDnd] = useState(false);
   const [rteIsOpened, openRte] = useState(false);
+  const [friendIsOpened, openFriend] = useState(true);
 
   const theme = useTheme();
   return (
@@ -57,6 +59,18 @@ export default function PlaygroundPage() {
           </AccordionSummary>
           <AccordionDetails>
             <RichTextEditor />
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion expanded={friendIsOpened}>
+          <AccordionSummary
+            expandIcon={<Icons.ExpandMore />}
+            onClick={() => openFriend(!friendIsOpened)}
+          >
+            <Txt>Friends</Txt>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Friends />
           </AccordionDetails>
         </Accordion>
       </Flex>

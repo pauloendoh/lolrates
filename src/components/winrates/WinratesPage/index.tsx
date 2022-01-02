@@ -17,6 +17,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useState } from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
@@ -36,6 +37,8 @@ type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg";
 
 // PE 1/3 - Change to LolRatesPageContent
 const LolRatesPageContent = () => {
+  const router = useRouter();
+  const routerQuery = router.query as { q?: string };
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();
 
   const [checked51, setChecked51] = useState(false);
@@ -43,14 +46,14 @@ const LolRatesPageContent = () => {
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");
   const [sortDescBy, setSortDescBy] = useState<SortDescBy>("AvgAvg");
-  const [textFilter, setTextFilter] = useState("");
+  const [textFilter, setTextFilter] = useState(routerQuery.q || "");
 
   const getFilteredRates = useCallback(() => {
     let filteredRates = [...allChampionRates];
 
-    if (textFilter.trim().length > 0) {
+    if (routerQuery?.q?.trim().length > 0) {
       return filteredRates.filter((r) =>
-        stringAreVerySimilar(textFilter, r.championName)
+        stringAreVerySimilar(routerQuery?.q, r.championName)
       );
     }
 
@@ -77,11 +80,11 @@ const LolRatesPageContent = () => {
     }
 
     return filteredRates;
-  }, [allChampionRates, selectedRole, checked51, sortDescBy, textFilter]);
+  }, [allChampionRates, selectedRole, checked51, sortDescBy, routerQuery.q]);
 
   const shouldShowRate = (rate: LolRateChampionDto) => {
-    if (textFilter.trim().length > 0) {
-      return stringAreVerySimilar(textFilter, rate.championName);
+    if (routerQuery?.q?.trim().length > 0) {
+      return stringAreVerySimilar(routerQuery?.q, rate.championName);
     }
     if (selectedRole === "ALL") return true;
     if (selectedRole === rate.role) return true;
@@ -89,6 +92,21 @@ const LolRatesPageContent = () => {
   };
 
   const classes = useStyles();
+
+  const [throttle, setThrottle] = useState<NodeJS.Timeout>();
+
+  const handleChangeTextFilter = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setTextFilter(e.target.value);
+      clearTimeout(throttle);
+      setThrottle(
+        setTimeout(() => {
+          router.push(urls.pages.indexSearch(e.target.value));
+        }, 500)
+      );
+    },
+    []
+  );
 
   return (
     <Box p={3}>
@@ -116,12 +134,12 @@ const LolRatesPageContent = () => {
           id="text-filter"
           name="text-filter"
           value={textFilter}
-          onChange={(e) => setTextFilter(e.target.value)}
+          onChange={handleChangeTextFilter}
           size="small"
           label={
             <S.SearchLabel>
               <FontAwesomeIcon icon={faSearch} />
-              <span>Champion name</span>
+              <span>New Champion name</span>
             </S.SearchLabel>
           }
           className="mt-3"

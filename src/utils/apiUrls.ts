@@ -13,5 +13,6 @@ export const apiUrls = {
     folders: `/playground/folders`,
     folderId: (folderId: number) => `/playground/folders/${folderId}`,
     files: `/playground/files`,
+    friends: "/playground/friends",
   },
 };
