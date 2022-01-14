@@ -1,4 +1,5 @@
 import { pageUrls } from "@/utils/pageUrls";
+import { urls } from "@/utils/urls";
 
 interface INavbarTabOption {
   href: string;
@@ -25,5 +26,11 @@ export const navbarTabOptions: INavbarTabOption[] = [
     tabIndex: 2,
     id: "playground-tab",
     label: "Playground",
+  },
+  {
+    href: urls.pages.rationSearch("", "movie"),
+    tabIndex: 3,
+    id: "ration-tab",
+    label: "Ration",
   },
 ];

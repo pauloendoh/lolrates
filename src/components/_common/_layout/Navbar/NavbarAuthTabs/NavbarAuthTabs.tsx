@@ -16,6 +16,8 @@ const NavbarAuthTabs = () => {
       setTabIndex(1);
     } else if (pathname.startsWith(pageUrls.playground)) {
       setTabIndex(2);
+    } else if (pathname.startsWith(pageUrls.ration)) {
+      setTabIndex(3);
     } else setTabIndex(0);
   }, [pathname]);
 

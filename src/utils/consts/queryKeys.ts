@@ -3,4 +3,5 @@ export const queryKeys = {
   folders: "folders",
   files: "files",
   friends: "friends",
+  paginatedResources: (page: number) => ["paginatedResources", page],
 };

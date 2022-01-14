@@ -1,3 +1,6 @@
+import RationItemType from "@/types/domain/ration/RationItemType";
+import buildUrl from "build-url-ts";
+
 export const urls = {
   opgg: "https://www.op.gg/champion/statistics",
   lolgraph: "https://www.leagueofgraphs.com/champions/builds",
@@ -15,6 +18,11 @@ export const urls = {
     index: "/",
     indexSearch: (q: string) => `?q=${q}`,
     draft: "/draft",
+    rationSearch: (q?: string, type?: RationItemType) =>
+      buildUrl({
+        path: "/ration",
+        queryParams: { q, type },
+      }),
   },
   image: (fileName: string) => `/images/${fileName}`,
 };

@@ -13,13 +13,14 @@ import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
 import FileSystem from "./FileSystem/FileSystem";
 import Friends from "./Friends/Friends";
+import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
 export default function PlaygroundPage() {
   const [fileSystemIsOpened, openFileSystem] = useState(false);
   const [dndIsOpened, openDnd] = useState(false);
   const [rteIsOpened, openRte] = useState(false);
-  const [friendIsOpened, openFriend] = useState(true);
+  const [friendIsOpened, openFriend] = useState(false);
 
   const theme = useTheme();
   return (
@@ -73,6 +74,8 @@ export default function PlaygroundPage() {
             <Friends />
           </AccordionDetails>
         </Accordion>
+
+        <PaginationAccordion />
       </Flex>
     </Container>
   );

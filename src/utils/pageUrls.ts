@@ -3,4 +3,5 @@ export const pageUrls = {
   index: "/",
   draft: "/draft",
   playground: "/playground",
+  ration: "/ration",
 };
