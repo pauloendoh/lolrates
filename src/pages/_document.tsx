@@ -24,6 +24,12 @@ export default class MyDocument extends Document {
             title="lolrates"
             href="/search.xml"
           />
+
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4626613938283539"
+            crossOrigin="anonymous"
+          ></script>
         </Head>
         <body>
           <Main />

@@ -1,3 +1,5 @@
+import Flex from "@/components/_common/flexboxes/Flex";
+import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import Txt from "@/components/_common/text/Txt";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,7 +7,6 @@ import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   FormControlLabel,
   makeStyles,
   Paper,
@@ -17,6 +18,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useState } from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
@@ -160,7 +162,20 @@ const LolRatesPageContent = () => {
       </Box>
 
       {isLoading ? (
-        <CircularProgress />
+        <FlexCol style={{ gap: 16 }}>
+          {/* <CircularProgress /> */}
+
+          <Skeleton variant="text" />
+          <Skeleton variant="text" />
+          <Skeleton variant="text" />
+          <Flex style={{ justifyContent: "space-evenly" }}>
+            <Skeleton variant="circle" width={30} height={30} />
+            <Skeleton variant="circle" width={30} height={30} />
+            <Skeleton variant="circle" width={30} height={30} />
+          </Flex>
+
+          <Skeleton variant="rect" />
+        </FlexCol>
       ) : (
         <>
           <FlexVCenter mt={2} style={{ gap: 16 }}>
