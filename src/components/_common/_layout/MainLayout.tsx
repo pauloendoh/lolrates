@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 import Navbar from "./Navbar/Navbar";
 
 type Props = {
-  children?: ReactNode;
+  children?: ReactNode; // could inherit React.FC instead of passing children props
   title?: string;
 };
 

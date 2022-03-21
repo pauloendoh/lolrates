@@ -1,4 +1,4 @@
-import { pageUrls } from "@/utils/pageUrls";
+import { urls } from "@/utils/urls";
 import { CircularProgress } from "@material-ui/core";
 import useMeQuery from "hooks/react-query/domain/auth/useMeQuery";
 import { useRouter } from "next/dist/client/router";
@@ -26,7 +26,7 @@ export default function Page(props: Props) {
         </S.PageRoot>
       );
 
-    if (authUser === null) router.push(pageUrls.index);
+    if (authUser === null) router.push(urls.pages.index);
   }
 
   return <>{props.children}</>;

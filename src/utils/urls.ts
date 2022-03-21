@@ -18,6 +18,7 @@ export const urls = {
     index: "/",
     indexSearch: (q: string) => `?q=${q}`,
     draft: "/draft",
+    playground: "/playground",
     rationSearch: (q?: string, type?: RationItemType) =>
       buildUrl({
         path: "/ration",

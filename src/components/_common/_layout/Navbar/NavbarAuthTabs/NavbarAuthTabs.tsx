@@ -1,8 +1,8 @@
+import { urls } from "@/utils/urls";
 import { Tabs } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { pageUrls } from "../../../../../utils/pageUrls";
 import S from "./NavbarAuthTabs.styles";
 import * as utils from "./NavbarAuthTabs.utils";
 
@@ -12,11 +12,11 @@ const NavbarAuthTabs = () => {
   const [tabIndex, setTabIndex] = useState<number | boolean>(false);
 
   useEffect(() => {
-    if (pathname.startsWith(pageUrls.draft)) {
+    if (pathname.startsWith(urls.pages.draft)) {
       setTabIndex(1);
-    } else if (pathname.startsWith(pageUrls.playground)) {
+    } else if (pathname.startsWith(urls.pages.playground)) {
       setTabIndex(2);
-    } else if (pathname.startsWith(pageUrls.ration)) {
+    } else if (pathname.startsWith(urls.pages.rationSearch())) {
       setTabIndex(3);
     } else setTabIndex(0);
   }, [pathname]);

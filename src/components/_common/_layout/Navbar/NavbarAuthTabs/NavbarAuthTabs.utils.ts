@@ -1,4 +1,3 @@
-import { pageUrls } from "@/utils/pageUrls";
 import { urls } from "@/utils/urls";
 
 interface INavbarTabOption {
@@ -10,19 +9,19 @@ interface INavbarTabOption {
 
 export const navbarTabOptions: INavbarTabOption[] = [
   {
-    href: pageUrls.index,
+    href: urls.pages.index,
     tabIndex: 0,
     id: "home-tab",
     label: "Home",
   },
   {
-    href: pageUrls.draft,
+    href: urls.pages.draft,
     tabIndex: 1,
     id: "draft-tab",
     label: "Draft",
   },
   {
-    href: pageUrls.playground,
+    href: urls.pages.playground,
     tabIndex: 2,
     id: "playground-tab",
     label: "Playground",

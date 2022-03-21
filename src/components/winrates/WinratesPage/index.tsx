@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
@@ -48,7 +48,11 @@ const LolRatesPageContent = () => {
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");
   const [sortDescBy, setSortDescBy] = useState<SortDescBy>("AvgAvg");
-  const [textFilter, setTextFilter] = useState(routerQuery.q || "");
+  const [textFilter, setTextFilter] = useState("");
+
+  useEffect(() => {
+    if (router.isReady && routerQuery.q) setTextFilter(routerQuery.q);
+  }, [router.isReady]);
 
   const getFilteredRates = useCallback(() => {
     let filteredRates = [...allChampionRates];
