@@ -13,6 +13,7 @@ import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
 import FileSystem from "./FileSystem/FileSystem";
 import Friends from "./Friends/Friends";
+import MarkdownAccordion from "./MarkdownAccordion/MarkdownAccordion";
 import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 
@@ -76,6 +77,7 @@ export default function PlaygroundPage() {
         </Accordion>
 
         <PaginationAccordion />
+        <MarkdownAccordion />
       </Flex>
     </Container>
   );

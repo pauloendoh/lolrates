@@ -20,7 +20,7 @@ import {
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { useRouter } from "next/dist/client/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
@@ -54,7 +54,7 @@ const LolRatesPageContent = () => {
     if (router.isReady && routerQuery.q) setTextFilter(routerQuery.q);
   }, [router.isReady]);
 
-  const getFilteredRates = useCallback(() => {
+  const filteredRates = useMemo(() => {
     let filteredRates = [...allChampionRates];
 
     if (routerQuery?.q?.trim().length > 0) {
@@ -253,7 +253,7 @@ const LolRatesPageContent = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {getFilteredRates().map((rate, i) => (
+                  {filteredRates.map((rate, i) => (
                     <TableRow
                       key={i}
                       style={{

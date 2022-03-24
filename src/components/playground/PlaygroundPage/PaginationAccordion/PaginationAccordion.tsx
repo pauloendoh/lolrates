@@ -11,7 +11,7 @@ import "draft-js/dist/Draft.css";
 import { useEffect, useState } from "react";
 
 const PaginationAccordion = () => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const { data: paginated, refetch } = usePaginatedResourcesQuery(currentPage);
