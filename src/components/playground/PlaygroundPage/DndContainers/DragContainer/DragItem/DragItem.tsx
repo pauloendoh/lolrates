@@ -4,14 +4,8 @@ import useDndStore from "@/hooks/zustand-stores/useDndStore";
 import { DragItemDto } from "@/types/domain/playground/dnd/DragItemDto";
 import React, { useEffect, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { IDndItem } from "../../_common/IDndItem";
 import S from "./DragItem.styles";
-
-// PE 1/3 - jogar no types... ou common ? sei la xD
-export interface DndItem {
-  id: number;
-  position: number;
-  containerId: number;
-}
 
 export default function DragItem(props: { dragItem: DragItemDto }) {
   const changeDragItemPosition = useChangeDragItemPosition();
@@ -23,7 +17,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       id: props.dragItem.id,
       position: props.dragItem.position,
       containerId: props.dragItem.containerId, // será usado depois
-    } as DndItem,
+    } as IDndItem,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       canDrag: monitor.canDrag(),
@@ -48,7 +42,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
   const [, dropRef] = useDrop({
     accept: "dnd-item",
     hover(item, monitor) {
-      const dndItem = item as DndItem;
+      const dndItem = item as IDndItem;
       const fromPosition = dndItem.position;
       const toPosition = props.dragItem.position;
       const toContainerId = props.dragItem.containerId;

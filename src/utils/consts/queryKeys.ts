@@ -4,4 +4,5 @@ export const queryKeys = {
   files: "files",
   friends: "friends",
   paginatedResources: (page: number) => ["paginatedResources", page],
+  paginatedResourcesInfinite: "paginatedResourcesInfinite",
 };

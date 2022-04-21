@@ -1,4 +1,4 @@
-export interface ResourcesDto {
+export interface ResourceDto {
   id: number;
   userId: number;
   title: string;
@@ -25,5 +25,5 @@ export interface PaginatedResourcesResponseDto {
   prev_page?: any;
   next_page: number;
   last_page: number;
-  data: ResourcesDto[];
+  data: ResourceDto[];
 }

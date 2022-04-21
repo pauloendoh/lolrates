@@ -1,5 +1,7 @@
 import { GAnalyticsScript } from "@/utils/google-analytics/GAnalyticsScript";
 import * as gtag from "@/utils/google-analytics/gtag";
+import myApolloClient from "@/utils/graphql/myApolloClient";
+import { ApolloProvider } from "@apollo/client";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { AppProps } from "next/app";
@@ -48,14 +50,16 @@ export default function MyApp(props: AppProps) {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <ReactQueryDevtools initialIsOpen={false} />
-            <DndProvider backend={HTML5Backend}>
-              <Component {...pageProps} />
-            </DndProvider>
-          </Hydrate>
-        </QueryClientProvider>
+        <ApolloProvider client={myApolloClient}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <ReactQueryDevtools initialIsOpen={false} />
+              <DndProvider backend={HTML5Backend}>
+                <Component {...pageProps} />
+              </DndProvider>
+            </Hydrate>
+          </QueryClientProvider>
+        </ApolloProvider>
       </ThemeProvider>
     </MuiThemeProvider>
   );

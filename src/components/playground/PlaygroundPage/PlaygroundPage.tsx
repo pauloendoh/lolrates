@@ -5,6 +5,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Container,
   useTheme,
 } from "@material-ui/core";
@@ -13,9 +14,14 @@ import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
 import FileSystem from "./FileSystem/FileSystem";
 import Friends from "./Friends/Friends";
+import GraphQLAccordion from "./GraphQLAccordion/GraphQLAccordion";
+import InfiniteQueryAccordion from "./InfiniteQueryAccordion/InfiniteQueryAccordion";
+import LinkifyAccordion from "./LinkifyAccordion/LinkifyAccordion";
 import MarkdownAccordion from "./MarkdownAccordion/MarkdownAccordion";
+import MetascraperAccordion from "./MetascraperAccordion/MetascraperAccordion";
 import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
+import ScrollPaginationAccordion from "./ScrollPaginationAccordion/ScrollPaginationAccordion";
 
 export default function PlaygroundPage() {
   const [fileSystemIsOpened, openFileSystem] = useState(false);
@@ -78,6 +84,12 @@ export default function PlaygroundPage() {
 
         <PaginationAccordion />
         <MarkdownAccordion />
+        <LinkifyAccordion />
+        <ScrollPaginationAccordion />
+        <InfiniteQueryAccordion />
+        <GraphQLAccordion />
+        <MetascraperAccordion />
+        <Box mt={4} />
       </Flex>
     </Container>
   );

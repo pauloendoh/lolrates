@@ -19,7 +19,7 @@ const converter = new Showdown.Converter({
 });
 
 const MarkdownAccordion = () => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
   const [value, setValue] = useState("**Hello world!!!**");
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 

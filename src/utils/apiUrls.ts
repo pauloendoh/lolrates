@@ -16,9 +16,9 @@ export const apiUrls = {
     folderId: (folderId: number) => `/playground/folders/${folderId}`,
     files: `/playground/files`,
     friends: "/playground/friends",
-    paginatedResources: (page: number) =>
+    paginatedResources: (page: number, perPage = 10) =>
       buildUrl("/lolRates/paginated2", {
-        queryParams: { per_page: 10, page },
+        queryParams: { per_page: perPage, page },
       }),
   },
   ration: {
@@ -27,4 +27,6 @@ export const apiUrls = {
     mangaResults: "https://jikan1.p.rapidapi.com/search/manga",
     gameResults: "https://whatoplay.p.rapidapi.com/search",
   },
+
+  myLinkPreview: `/api/link-preview`,
 };

@@ -43,7 +43,6 @@ const DraftRowCol3 = (props: {
       <S.Header>
         <Txt>Best rates at {props.championRoleRow}</Txt>
 
-        {/* PE 1/3 - componentize this  */}
         {props.championRoleRow === "TOP" && (
           <DraftFilter
             championRole={props.championRoleRow}

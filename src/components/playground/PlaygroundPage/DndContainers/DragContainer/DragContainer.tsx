@@ -9,8 +9,9 @@ import { Button } from "@material-ui/core";
 import React, { useMemo, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import DragItemDialog from "../DragItemDialog/DragItemDialog";
+import { IDndItem } from "../_common/IDndItem";
 import S from "./DragContainer.styles";
-import DragItem, { DndItem } from "./DragItem/DragItem";
+import DragItem from "./DragItem/DragItem";
 
 interface DndContainer {
   id: number;
@@ -95,7 +96,7 @@ export default function DragContainer({
   const [, dropItemRef] = useDrop({
     accept: "dnd-item",
     hover(item, monitor) {
-      const dndItem = item as DndItem;
+      const dndItem = item as IDndItem;
       const toPosition = orderedDragItems.length;
       const toContainerId = container.id;
 
