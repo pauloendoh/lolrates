@@ -22,7 +22,7 @@ export interface Response {
 }
 
 const MetascraperAccordion = () => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
 
   const [text, setText] = useState("");
 

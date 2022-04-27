@@ -9,14 +9,13 @@ import DragContainer from "./DragContainer/DragContainer";
 import DragContainerDialog from "./DragContainerDialog/DragContainerDialog";
 
 export default function DndContainers() {
-  const [containerDialog, setContainerDialog] = useState(false);
-
-  const { data: containers } = useDragContainersQuery();
+  const theme = useTheme();
 
   // required for windows on focus after moving items between containers
-  const { data: items, isFetching } = useFetchDragItems();
+  const { data: items } = useFetchDragItems();
+  const { data: containers } = useDragContainersQuery();
 
-  const theme = useTheme();
+  const [containerDialog, setContainerDialog] = useState(false);
 
   const sortedContainers = useMemo(() => {
     if (containers) {

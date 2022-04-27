@@ -11,15 +11,12 @@ interface Props {
 }
 
 export default function Page(props: Props) {
-  const { data: authUser, isFetching } = useMeQuery({
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const { data: authUser, isLoading } = useMeQuery();
 
   const router = useRouter();
 
   if (props.type === "auth") {
-    if (isFetching)
+    if (isLoading)
       return (
         <S.PageRoot>
           <CircularProgress />

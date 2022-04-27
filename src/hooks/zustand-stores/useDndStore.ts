@@ -5,7 +5,7 @@ interface IDndStore {
   draggingItemId: number;
   setDraggingItemId: (id: number) => void;
 
-  throttle: NodeJS.Timeout;
+  throttle: NodeJS.Timeout; // for saving in database
   setThrottle: (timeout: NodeJS.Timeout) => void;
 }
 

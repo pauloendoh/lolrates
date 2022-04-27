@@ -1,6 +1,6 @@
 import { apiUrls } from "@/utils/apiUrls";
 import { AxiosInstance } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 import { AuthUserGetDto } from "../../../../types/domain/auth/AuthUserGetDto";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
 
@@ -12,10 +12,9 @@ export async function fetchMe(axios: AxiosInstance) {
 }
 
 // query
-export default function useMeQuery(
-  queryOptions: UseQueryOptions<AuthUserGetDto>
-) {
-  if (queryOptions)
-    return useQuery(queryKeyUrl, () => fetchMe(myClientAxios), queryOptions);
-  return useQuery(queryKeyUrl, () => fetchMe(myClientAxios));
+export default function useMeQuery() {
+  return useQuery(queryKeyUrl, () => fetchMe(myClientAxios), {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 }

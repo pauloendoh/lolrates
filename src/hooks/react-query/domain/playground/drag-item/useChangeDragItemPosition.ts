@@ -40,7 +40,7 @@ export default function useChangeDragItemPosition() {
       (item) => item.containerId === fromContainerId
     );
 
-    // save -> remove -> splice -> normalize
+    // backup item -> remove -> splice (insert) -> normalize
     const dragItemIndex = fromContainerItems.findIndex(
       (item) => item.id === itemId
     );

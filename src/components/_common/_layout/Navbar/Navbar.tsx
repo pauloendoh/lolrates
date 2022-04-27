@@ -18,10 +18,7 @@ import SidebarToggleButton from "./SidebarToggleButton/SidebarToggleButton";
 const Navbar = () => {
   const classes = useStyles();
 
-  const { data: authUser, isLoading } = useMeQuery({
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const { data: authUser, isLoading } = useMeQuery();
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
   const { setSuccessMessage } = useSnackbarStore();

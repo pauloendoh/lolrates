@@ -42,8 +42,8 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
   const [, dropRef] = useDrop({
     accept: "dnd-item",
     hover(item, monitor) {
-      const dndItem = item as IDndItem;
-      const fromPosition = dndItem.position;
+      const fromItem = item as IDndItem;
+      const fromPosition = fromItem.position;
       const toPosition = props.dragItem.position;
       const toContainerId = props.dragItem.containerId;
 
@@ -51,7 +51,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       const targetCenterY = (targetSize.bottom - targetSize.top) / 2;
 
       if (
-        dndItem.containerId === toContainerId &&
+        fromItem.containerId === toContainerId &&
         fromPosition === toPosition
       ) {
         return; // required to avoid multiple events
@@ -63,7 +63,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       // ex: tentar arrastar o primeiro antes do segundo
       // também evita bugs em elementos de alturas diferentes
       if (
-        dndItem.containerId === toContainerId &&
+        fromItem.containerId === toContainerId &&
         fromPosition < toPosition &&
         draggedTopY < targetCenterY
       ) {
@@ -71,7 +71,7 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
       }
 
       if (
-        dndItem.containerId === toContainerId &&
+        fromItem.containerId === toContainerId &&
         fromPosition > toPosition &&
         draggedTopY > targetCenterY
       ) {
@@ -80,30 +80,32 @@ export default function DragItem(props: { dragItem: DragItemDto }) {
 
       // ex: drag one item to another container item's "after" position
       const toAfterPosition =
-        dndItem.containerId !== toContainerId && draggedTopY > targetCenterY
+        fromItem.containerId !== toContainerId && draggedTopY > targetCenterY
           ? toPosition + 1
           : undefined;
 
-      const toFirstPosition =
-        dndItem.containerId !== toContainerId &&
-        toPosition === 0 &&
-        draggedTopY > targetCenterY
-          ? 0
-          : undefined;
+      // PE 1/3 - unecessary?
+      // const toFirstPosition =
+      //   fromItem.containerId !== toContainerId &&
+      //   toPosition === 0 &&
+      //   draggedTopY > targetCenterY
+      //     ? 0
+      //     : undefined;
 
-      const toFinalPosition = toFirstPosition || toAfterPosition || toPosition;
+      // const toFinalPosition = toFirstPosition || toAfterPosition || toPosition;
+      const toFinalPosition = toAfterPosition || toPosition;
 
       changeDragItemPosition({
-        itemId: dndItem.id,
-        fromPosition: dndItem.position,
-        fromContainerId: dndItem.containerId,
+        itemId: fromItem.id,
+        fromPosition: fromItem.position,
+        fromContainerId: fromItem.containerId,
         toPosition: toFinalPosition,
         toContainerId: toContainerId,
       });
 
       // required to avoid multiple events
-      dndItem.position = toFinalPosition;
-      dndItem.containerId = toContainerId;
+      fromItem.position = toFinalPosition;
+      fromItem.containerId = toContainerId;
     },
   });
 
