@@ -13,7 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 import { io } from "socket.io-client";
 
 const SocketIOAccordion = () => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
 
   const { data: authUser } = useMeQuery();
   const socket = useMemo(() => io("http://localhost:3001"), []);

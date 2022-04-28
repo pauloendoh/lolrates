@@ -14,6 +14,7 @@ import { useState } from "react";
 import DndContainers from "./DndContainers/DndContainers";
 import FileSystem from "./FileSystem/FileSystem";
 import Friends from "./Friends/Friends";
+import FullTextSearchAccordion from "./FullTextSearchAccordion/FullTextSearchAccordion.tsx";
 import GraphQLAccordion from "./GraphQLAccordion/GraphQLAccordion";
 import InfiniteQueryAccordion from "./InfiniteQueryAccordion/InfiniteQueryAccordion";
 import LinkifyAccordion from "./LinkifyAccordion/LinkifyAccordion";
@@ -91,6 +92,7 @@ export default function PlaygroundPage() {
         <GraphQLAccordion />
         <MetascraperAccordion />
         <SocketIOAccordion />
+        <FullTextSearchAccordion />
         <Box mt={4} />
       </Flex>
     </Container>

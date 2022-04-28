@@ -13,6 +13,11 @@ export const urls = {
     playerChampionId: (id: number) => `/lolrates/playerChampion/${id}`,
     champion: "/lolrates/champion",
     championRadar: "/lolrates/championRadar",
+
+    playground: {
+      fullTextSeachResources: (query: string) =>
+        `/playground/full-text-search/resources?query=${query}`,
+    },
   },
   pages: {
     index: "/",
