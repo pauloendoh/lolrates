@@ -548,3 +548,6 @@ export const useRestaurantsQuery = <
       fetcher<RestaurantsQuery, RestaurantsQueryVariables>(client, RestaurantsDocument, variables, headers),
       options
     );
+
+useRestaurantsQuery.getKey = (variables?: RestaurantsQueryVariables) => variables === undefined ? ['Restaurants'] : ['Restaurants', variables];
+;

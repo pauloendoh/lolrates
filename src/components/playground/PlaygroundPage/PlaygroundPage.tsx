@@ -18,12 +18,13 @@ import FullTextSearchAccordion from "./FullTextSearchAccordion/FullTextSearchAcc
 import GraphQLAccordion from "./GraphQLAccordion/GraphQLAccordion";
 import InfiniteQueryAccordion from "./InfiniteQueryAccordion/InfiniteQueryAccordion";
 import LinkifyAccordion from "./LinkifyAccordion/LinkifyAccordion";
+import MantineRTEAccordion from "./MantineRTEAccordion/MantineRTEAccordion";
 import MarkdownAccordion from "./MarkdownAccordion/MarkdownAccordion";
 import MetascraperAccordion from "./MetascraperAccordion/MetascraperAccordion";
 import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 import ScrollPaginationAccordion from "./ScrollPaginationAccordion/ScrollPaginationAccordion";
-import SocketIOAccordion from "./SocketIOAccordion/SocketIOAccordion";
+import SocketIOHookAccordion from "./SocketIOHookAccordion/SocketIOHookAccordion";
 
 export default function PlaygroundPage() {
   const [fileSystemIsOpened, openFileSystem] = useState(false);
@@ -36,6 +37,12 @@ export default function PlaygroundPage() {
     <Container>
       <Txt variant="h6">Playground</Txt>
       <Flex flexDirection="column" mt={2} style={{ gap: theme.spacing(2) }}>
+        <MantineRTEAccordion />
+
+        <SocketIOHookAccordion />
+        <FullTextSearchAccordion />
+        {/* <SocketIOAccordion /> */}
+
         <Accordion expanded={fileSystemIsOpened}>
           <AccordionSummary
             expandIcon={<Icons.ExpandMore />}
@@ -91,8 +98,7 @@ export default function PlaygroundPage() {
         <InfiniteQueryAccordion />
         <GraphQLAccordion />
         <MetascraperAccordion />
-        <SocketIOAccordion />
-        <FullTextSearchAccordion />
+
         <Box mt={4} />
       </Flex>
     </Container>

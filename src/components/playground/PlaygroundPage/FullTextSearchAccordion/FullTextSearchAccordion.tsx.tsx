@@ -15,24 +15,26 @@ import {
 import { useEffect, useState } from "react";
 
 const FullTextSearchAccordion = () => {
-  const [value, setValue] = useState("");
-  const [isOpened, setIsOpened] = useState(true);
-
   const { setErrorMessage } = useSnackbarStore();
 
+  const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   const [resources, setResources] = useState<ResourceDto[]>([]);
+
   const debouncedValue = useDebounce(value, 250);
 
   useEffect(() => {
+    setLoading(true);
     myClientAxios
       .get<ResourceDto[]>(
         urls.api.playground.fullTextSeachResources(debouncedValue)
       )
       .then((res) => {
-        if (res.data.length === 0) setErrorMessage("No results found");
         setResources(res.data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err.message))
+      .finally(() => setLoading(false));
   }, [debouncedValue]);
 
   return (
@@ -51,7 +53,9 @@ const FullTextSearchAccordion = () => {
               onChange={(e) => setValue(e.target.value)}
             />
           </div>
+
           <Flex mt={2} style={{ flexDirection: "column", gap: 16 }}>
+            {loading && <div>Loading...</div>}
             {resources.map((resource) => (
               <Flex key={resource.id}>{JSON.stringify(resource)}</Flex>
             ))}

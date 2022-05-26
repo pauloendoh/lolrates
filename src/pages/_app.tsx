@@ -12,6 +12,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Hydrate } from "react-query/hydration";
+import { IoProvider } from "socket.io-react-hook";
 import { ThemeProvider } from "styled-components";
 import theme from "../utils/theme";
 import "./styles.css";
@@ -55,7 +56,9 @@ export default function MyApp(props: AppProps) {
             <Hydrate state={pageProps.dehydratedState}>
               <ReactQueryDevtools initialIsOpen={false} />
               <DndProvider backend={HTML5Backend}>
-                <Component {...pageProps} />
+                <IoProvider>
+                  <Component {...pageProps} />
+                </IoProvider>
               </DndProvider>
             </Hydrate>
           </QueryClientProvider>
