@@ -4,7 +4,7 @@ import {
   DragItemDto,
   dragItemSchema,
 } from "@/types/domain/playground/dnd/DragItemDto";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
