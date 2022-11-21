@@ -1,6 +1,6 @@
-import { Box, Button, makeStyles, Theme, Toolbar } from "@material-ui/core";
+import { Box, Button, Toolbar } from "@material-ui/core";
 import { destroyCookie } from "nookies";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
 import useMeQuery from "../../../../hooks/react-query/domain/auth/useMeQuery";
 import useSnackbarStore from "../../../../hooks/zustand-stores/useSnackbarStore";
@@ -16,8 +16,6 @@ import SidebarToggleButton from "./SidebarToggleButton/SidebarToggleButton";
 
 // PE 2/3
 const Navbar = () => {
-  const classes = useStyles();
-
   const { data: authUser, isLoading } = useMeQuery();
   const [openAuthDialog, setOpenAuthDialog] = useState(false);
 
@@ -74,20 +72,5 @@ const Navbar = () => {
     </S.AppBar>
   );
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    flexGrow: 1,
-    background: "#202020",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-    zIndex: 1201,
-  },
-
-  fireIcon: {
-    color: theme.palette.secondary.main,
-    height: "24px !important",
-    width: "18px !important",
-  },
-}));
 
 export default Navbar;

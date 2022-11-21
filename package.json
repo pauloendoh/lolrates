@@ -48,7 +48,7 @@
     "metascraper-image": "^5.29.3",
     "metascraper-title": "^5.29.3",
     "mui-rte": "^1.29.0",
-    "next": "latest",
+    "next": "^12.3.3",
     "next-pwa": "^5.5.2",
     "nookies": "^2.5.2",
     "postcss": "^8.4.14",
@@ -64,7 +64,7 @@
     "react-number-format": "^4.7.3",
     "react-query": "^3.35.0",
     "react-timeago": "^6.2.1",
-    "recharts": "^2.1.2",
+    "recharts": "^0.22.5",
     "showdown": "^2.0.3",
     "slate": "^0.66.5",
     "slate-history": "^0.66.0",
@@ -108,12 +108,6 @@
     "tailwindcss": "^3.0.21",
     "ts-unused-exports": "^7.0.3",
     "typescript": "^4.4.3"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "license": "MIT"
 }

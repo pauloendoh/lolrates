@@ -28,11 +28,9 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
 };
 
 export default function WinratePageRoute(props: Props) {
-  const {
-    rates: allChampionRates,
+  const {    rates: allChampionRates,
     updatedAt,
-    isLoading,
-  } = useLolRatesQuery(props.initialData);
+    isLoading,} = useLolRatesQuery(props.initialData);
 
   return (
     <MainLayout>

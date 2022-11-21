@@ -8,7 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import useLoginMutation from "../../../../../hooks/react-query/domain/auth/useLoginMutation";
 import { newAuthData } from "../../../../../types/domain/auth/IAuthData";
 import { IResponseError } from "../../../../../types/IResponseError";
@@ -73,28 +73,9 @@ const AuthDialog = (props: Props) => {
                   return;
                 }
 
-                const authData = {
-                  username: values.username,
-                  email: values.email,
-                  password: values.password,
-                };
-
-                const endpoint =
-                  formType === "register" ? "/auth/register" : "/auth/login";
-
                 setResponseErrors([]);
                 if (formType === "login")
                   login(values, { onSuccess: () => props.onClose() });
-                // axios.post<AuthUserGetDto>(endpoint, authData)
-                //   .then((res) => {
-                //     const authUser = res.data
-                //     props.setAuthUser(authUser)
-
-                //   })
-                //   .catch((err: MyAxiosError) => {
-                //     setResponseErrors(err.response.data.errors)
-                //     setSubmitting(false)
-                //   })
               }}
             >
               {({ handleChange, errors }) => (

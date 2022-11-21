@@ -17,7 +17,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "../utils/theme";
 import "./styles.css";
 
-export default function MyApp(props: AppProps) {
+export default function MyApp(props: AppProps<{ dehydratedState: unknown }>) {
   const { Component, pageProps } = props;
 
   const router = useRouter();

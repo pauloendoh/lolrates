@@ -1,5 +1,4 @@
-import { TableCell, Tooltip } from "@material-ui/core";
-import React from "react";
+import { Box, TableCell, Tooltip } from "@material-ui/core";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import ChampionTooltipTitle from "../ChampionSitesTooltip";
 import S from "./styles";
@@ -13,12 +12,14 @@ const ChampionInfo1stTD = ({ rate }: { rate: LolRateChampionDto }) => {
       >
         <S.TooltipHovearable>
           <img src={rate.iconUrl} style={{ width: 30, borderRadius: 100 }} />
-          <S.ChampionNameRole>
+          <Box ml={1}>
             <span style={{ textDecoration: "underline" }}>
               {rate.championName}
             </span>
-            <i style={{ fontSize: "smaller" }}>{rate.role}</i>
-          </S.ChampionNameRole>
+            <div>
+              <i style={{ fontSize: "smaller" }}>{rate.role}</i>
+            </div>
+          </Box>
         </S.TooltipHovearable>
       </Tooltip>
     </TableCell>
