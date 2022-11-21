@@ -7,7 +7,6 @@ import { Box } from "@material-ui/core";
 import { fetchLolRates } from "hooks/react-query/domain/rates/useLolRatesQuery";
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import React from "react";
 import MainLayout from "../components/_common/_layout/MainLayout";
 import useLolRatesQuery from "../hooks/react-query/domain/rates/useLolRatesQuery";
 

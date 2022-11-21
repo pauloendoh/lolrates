@@ -25,6 +25,7 @@ import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import RichTextEditor from "./RichTextEditor/RichTextEditor";
 import ScrollPaginationAccordion from "./ScrollPaginationAccordion/ScrollPaginationAccordion";
 import SocketIOHookAccordion from "./SocketIOHookAccordion/SocketIOHookAccordion";
+import StripeAccordion from "./StripeAccordion/StripeAccordion";
 
 export default function PlaygroundPage() {
   const [fileSystemIsOpened, openFileSystem] = useState(false);
@@ -98,7 +99,7 @@ export default function PlaygroundPage() {
         <InfiniteQueryAccordion />
         <GraphQLAccordion />
         <MetascraperAccordion />
-
+        <StripeAccordion />
         <Box mt={4} />
       </Flex>
     </Container>

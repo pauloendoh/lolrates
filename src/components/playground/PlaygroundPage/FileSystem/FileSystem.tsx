@@ -13,7 +13,7 @@ import {
 import FolderWithSubfoldersDto from "@/types/domain/playground/file-system/FolderWithSubfoldersDto";
 import { IconButton, useTheme } from "@material-ui/core";
 import { TreeItem, TreeView } from "@material-ui/lab";
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useDrop } from "react-dnd";
 import { byString, byValue } from "sort-es";
 import FolderDialog from "./FolderDialog/FolderDialog";
@@ -28,7 +28,6 @@ export default function FileSystem() {
     openFolderDialog,
     setOpenFolderDialog,
     folderDialogParentFolderId,
-    setFolderDialogParentFolderId,
   } = useFileSystemStore();
 
   const { data: userFolders } = useFetchFolders();

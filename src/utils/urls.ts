@@ -17,7 +17,9 @@ export const urls = {
     playground: {
       fullTextSeachResources: (query: string) =>
         `/playground/full-text-search/resources?query=${query}`,
+      stripeCheckout: "/create-checkout-session",
     },
+    publicTags: "/playground/all-public-tags",
   },
   pages: {
     index: "/",
