@@ -4,9 +4,8 @@ import {
   DragContainerDto,
   dragContainerSchema,
 } from "@/types/domain/playground/dnd/DragContainerDto";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
-import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import SaveCancelButtons from "../../../../_common/buttons/SaveCancelButton/SaveCancelButtons";
 import MyTextField from "../../../../_common/inputs/MyTextField";
