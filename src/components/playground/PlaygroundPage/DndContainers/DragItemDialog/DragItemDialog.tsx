@@ -25,6 +25,7 @@ const DragItemDialog = (props: {
     formState: { errors },
   } = useForm<DragItemDto>({
     defaultValues: props.initialValue,
+    //@ts-ignore
     resolver: yupResolver(dragItemSchema),
   });
 
