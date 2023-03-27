@@ -32,4 +32,10 @@ export const navbarTabOptions: INavbarTabOption[] = [
     id: "ration-tab",
     label: "Ration",
   },
+  {
+    href: urls.pages.aramHelper,
+    tabIndex: 4,
+    id: "aram-helper",
+    label: "Aram Helper",
+  },
 ];

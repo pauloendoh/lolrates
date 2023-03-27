@@ -2,6 +2,20 @@ import RationItemType from "@/types/domain/ration/RationItemType";
 import buildUrl from "build-url-ts";
 
 export const urls = {
+  pages: {
+    index: "/",
+    indexSearch: (q: string) => `?q=${q}`,
+    draft: "/draft",
+    playground: "/playground",
+    rationSearch: (q?: string, type?: RationItemType) =>
+      buildUrl({
+        path: "/ration",
+        queryParams: { q, type },
+      }),
+
+    aramHelper: "/aram-helper",
+  },
+
   opgg: "https://www.op.gg/champion/statistics",
   lolgraph: "https://www.leagueofgraphs.com/champions/builds",
   ugg: "https://u.gg/lol/champions/",
@@ -20,17 +34,9 @@ export const urls = {
       stripeCheckout: "/create-checkout-session",
     },
     publicTags: "/playground/all-public-tags",
+    aramChampionWinRates: "/aram-champions-win-rates",
+    myAramChampions: "/my-aram-champions",
   },
-  pages: {
-    index: "/",
-    indexSearch: (q: string) => `?q=${q}`,
-    draft: "/draft",
-    playground: "/playground",
-    rationSearch: (q?: string, type?: RationItemType) =>
-      buildUrl({
-        path: "/ration",
-        queryParams: { q, type },
-      }),
-  },
+
   image: (fileName: string) => `/images/${fileName}`,
 };

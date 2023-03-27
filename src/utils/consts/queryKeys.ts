@@ -5,4 +5,6 @@ export const queryKeys = {
   friends: "friends",
   paginatedResources: (page: number) => ["paginatedResources", page],
   paginatedResourcesInfinite: "paginatedResourcesInfinite",
+  aramChampionsWinRates: "aramChampionsWinRates",
+  myAramChampions: "myAramChampions",
 };
