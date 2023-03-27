@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import "draft-js/dist/Draft.css";
 import AramChampionTableRow from "./AramChampionTableRow/AramChampionTableRow";
-import SelectedChampionPaper from "./SelectedChampionPaper/SelectedChampionPaper";
+import SelectedChampionSection from "./SelectedChampionSection/SelectedChampionSection";
 
 export default function AramUtilsPage() {
   const { data } = useAramChampionsWinRatesQuery();
@@ -112,7 +112,7 @@ export default function AramUtilsPage() {
           </Box>
         </Paper>
 
-        <SelectedChampionPaper />
+        <SelectedChampionSection />
       </Flex>
     </Container>
   );
