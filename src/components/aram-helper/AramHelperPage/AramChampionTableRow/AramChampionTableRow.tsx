@@ -64,7 +64,8 @@ const AramChampionTableRow = ({ championRate, index }: Props) => {
       <TableCell>
         <IconButton
           size="small"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             const updated = availableChampions.filter(
               (c) => c.championName !== championRate.championName
             );
