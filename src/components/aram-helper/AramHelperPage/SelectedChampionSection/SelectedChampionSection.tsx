@@ -71,7 +71,8 @@ const SelectedChampionPaper = (props: Props) => {
                 {selectedChampion.championName}
               </Typography>
 
-              {/* @ts-ignore */}
+              {/* 
+              // @ts-ignore */}
               <Controller
                 control={control}
                 name="fun"
