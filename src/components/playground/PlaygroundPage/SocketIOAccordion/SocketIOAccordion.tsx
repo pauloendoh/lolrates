@@ -23,7 +23,6 @@ const SocketIOAccordion = () => {
       text: "",
     },
   });
-
   const onSubmit = (values: { text: string }) => {
     socket.emit("message", {
       username: authUser?.username,
