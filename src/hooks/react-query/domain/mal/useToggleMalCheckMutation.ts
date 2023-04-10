@@ -1,26 +1,24 @@
-import { queryKeys } from "@/utils/consts/queryKeys";
 import { pushOrReplace } from "@/utils/pushOrReplace";
-import { urls } from "@/utils/urls";
 import { useMutation, useQueryClient } from "react-query";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
+import { urls } from "../../../../utils/urls";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
-import { UserAramChampionDto } from "./types/UserAramChampionDto";
 
-export default function useSaveAramChampionMutation() {
+export default function useToggleMalCheckMutation() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data: UserAramChampionDto) =>
+    (id: number) =>
       myClientAxios
-        .post<UserAramChampionDto>(urls.api.myAramChampions, data)
+        .post<MalSimilarityDto>(urls.api.toggleMalCheck(id))
         .then((res) => res.data),
     {
       onSuccess: (saved) => {
-        queryClient.setQueryData<UserAramChampionDto[]>(
-          queryKeys.myAramChampions,
-          (curr) => pushOrReplace(curr, saved, "id")
+        queryClient.setQueryData<MalSimilarityDto[]>(
+          urls.api.malSimilarity,
+          (old) => pushOrReplace(old, saved, "id")
         );
       },
       onError: (err) => {

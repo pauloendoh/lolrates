@@ -8,10 +8,10 @@ import {
 import { useMyAramChampionsQuery } from "@/hooks/react-query/domain/aram-helper/useMyAramChampionsQuery";
 import useSaveAramChampionMutation from "@/hooks/react-query/domain/aram-helper/useSaveAramChampionMutation";
 import useChampionsQuery from "@/hooks/react-query/domain/draft/useChampionsQuery";
+import useDebounce from "@/hooks/useDebounce";
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
-import { Box, Button, Paper, Typography } from "@material-ui/core";
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Box, Paper, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
@@ -19,10 +19,9 @@ const SelectedChampionPaper = (props: Props) => {
   const { data: champions } = useChampionsQuery();
   const { selectedChampion } = useAramHelperStore();
 
-  const { data: myAramChampions } = useMyAramChampionsQuery();
+  const [localChampion, setLocalChampion] = useState<UserAramChampionDto>();
 
-  const { reset, watch, handleSubmit, control } =
-    useForm<UserAramChampionDto>();
+  const { data: myAramChampions } = useMyAramChampionsQuery();
 
   useEffect(() => {
     if (selectedChampion && myAramChampions && champions) {
@@ -35,18 +34,19 @@ const SelectedChampionPaper = (props: Props) => {
         (x) => x.championId === champion.id
       );
       if (myAramChampion) {
-        reset(myAramChampion);
+        setLocalChampion(myAramChampion);
         return;
       }
 
       const userAramChampionDto = buildUserAramChampionDto({
         championId: champion.id,
       });
-      reset(userAramChampionDto);
+
+      setLocalChampion(userAramChampionDto);
       return;
     }
 
-    reset(buildUserAramChampionDto());
+    setLocalChampion(buildUserAramChampionDto());
   }, [selectedChampion, myAramChampions, champions]);
 
   const { mutate } = useSaveAramChampionMutation();
@@ -55,95 +55,95 @@ const SelectedChampionPaper = (props: Props) => {
     mutate(data);
   };
 
+  const debouncedChampion = useDebounce(localChampion, 500);
+
+  useEffect(() => {
+    if (!debouncedChampion?.championId) return;
+
+    mutate(debouncedChampion);
+  }, [debouncedChampion]);
+
   if (!selectedChampion) return null;
   return (
     <Box>
       <Paper>
         <Box p={2}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FlexVCenter style={{ gap: 8 }}>
-              <img
-                src={selectedChampion.iconUrl}
-                alt={selectedChampion.championName}
-                style={{ width: 40, height: 40, borderRadius: 40 }}
-              />
-              <Typography variant="h6">
-                {selectedChampion.championName}
-              </Typography>
+          <FlexVCenter style={{ gap: 8 }}>
+            <img
+              src={selectedChampion.iconUrl}
+              alt={selectedChampion.championName}
+              style={{ width: 40, height: 40, borderRadius: 40 }}
+            />
+            <Typography variant="h6">
+              {selectedChampion.championName}
+            </Typography>
 
-              <Controller
-                control={control}
-                name="fun"
-                render={({ field }) => (
-                  <MyTextField
-                    {...field}
-                    label="Fun"
-                    type="number"
-                    style={{
-                      marginLeft: 16,
-                      width: 80,
-                    }}
-                  />
-                )}
-              />
-            </FlexVCenter>
+            <MyTextField
+              label="Fun"
+              type="number"
+              style={{
+                marginLeft: 16,
+                width: 80,
+              }}
+              value={localChampion?.fun}
+              onChange={(e) => {
+                setLocalChampion({
+                  ...localChampion,
+                  fun: Number(e.target.value),
+                });
+              }}
+            />
+          </FlexVCenter>
 
-            <Flex mt={2} style={{ gap: 16 }}>
-              <Controller
-                control={control}
-                name="runes"
-                render={({ field }) => (
-                  <MyTextField
-                    {...field}
-                    label="Runes & spells"
-                    type="text"
-                    multiline
-                    minRows={3}
-                  />
-                )}
-              />
+          <Flex mt={2} style={{ gap: 16 }}>
+            <MyTextField
+              label="Runes & spells"
+              type="text"
+              multiline
+              minRows={3}
+              value={localChampion?.runes}
+              onChange={(e) => {
+                setLocalChampion({
+                  ...localChampion,
+                  runes: e.target.value,
+                });
+              }}
+            />
 
-              <Controller
-                control={control}
-                name="items"
-                render={({ field }) => (
-                  <MyTextField
-                    {...field}
-                    label="Items"
-                    type="text"
-                    multiline
-                    minRows={3}
-                    style={{
-                      width: 280,
-                    }}
-                  />
-                )}
-              />
-            </Flex>
+            <MyTextField
+              label="Items"
+              type="text"
+              multiline
+              minRows={3}
+              style={{
+                width: 280,
+              }}
+              value={localChampion?.items}
+              onChange={(e) => {
+                setLocalChampion({
+                  ...localChampion,
+                  items: e.target.value,
+                });
+              }}
+            />
+          </Flex>
 
-            <Flex mt={2}>
-              <Controller
-                control={control}
-                name="extraNotes"
-                render={({ field }) => (
-                  <MyTextField
-                    {...field}
-                    label="Extra notes"
-                    type="text"
-                    multiline
-                    minRows={3}
-                    fullWidth
-                  />
-                )}
-              />
-            </Flex>
-
-            <FlexVCenter mt={3}>
-              <Button type="submit" variant="contained" color="primary">
-                Save
-              </Button>
-            </FlexVCenter>
-          </form>
+          <Flex mt={2}>
+            <MyTextField
+              label="Extra notes"
+              type="text"
+              multiline
+              minRows={3}
+              fullWidth
+              value={localChampion?.extraNotes}
+              onChange={(e) => {
+                setLocalChampion({
+                  ...localChampion,
+                  extraNotes: e.target.value,
+                });
+              }}
+            />
+          </Flex>
         </Box>
       </Paper>
     </Box>

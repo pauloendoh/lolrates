@@ -38,4 +38,10 @@ export const navbarTabOptions: INavbarTabOption[] = [
     id: "aram-helper",
     label: "Aram Helper",
   },
+  {
+    href: urls.pages.mal,
+    tabIndex: 5,
+    id: "mal",
+    label: "MAL",
+  },
 ];

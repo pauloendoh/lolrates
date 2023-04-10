@@ -14,6 +14,7 @@ export const urls = {
       }),
 
     aramHelper: "/aram-helper",
+    mal: "/mal",
   },
 
   opgg: "https://www.op.gg/champion/statistics",
@@ -36,6 +37,10 @@ export const urls = {
     publicTags: "/playground/all-public-tags",
     aramChampionWinRates: "/aram-champions-win-rates",
     myAramChampions: "/my-aram-champions",
+
+    malUser: "/mal-user",
+    malSimilarity: "/mal-similarities",
+    toggleMalCheck: (id: number) => `/mal-similarities/${id}/check`,
   },
 
   image: (fileName: string) => `/images/${fileName}`,
