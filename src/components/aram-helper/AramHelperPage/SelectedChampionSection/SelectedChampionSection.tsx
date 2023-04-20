@@ -13,20 +13,21 @@ import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAra
 import { Box, Paper, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
-type Props = {};
+// PE 1/3 - rename?
+const SelectedChampionPaper = () => {
+  const { data: allChampionsInfo } = useChampionsQuery();
+  const { selectedChampion: selectedAramChampion } = useAramHelperStore();
 
-const SelectedChampionPaper = (props: Props) => {
-  const { data: champions } = useChampionsQuery();
-  const { selectedChampion } = useAramHelperStore();
-
-  const [localChampion, setLocalChampion] = useState<UserAramChampionDto>();
+  const [localAramChampion, setLocalAramChampion] =
+    useState<UserAramChampionDto>();
 
   const { data: myAramChampions } = useMyAramChampionsQuery();
 
+  // PE 1/3
   useEffect(() => {
-    if (selectedChampion && myAramChampions && champions) {
-      const champion = champions.find(
-        (x) => x.name === selectedChampion.championName
+    if (selectedAramChampion && myAramChampions && allChampionsInfo) {
+      const champion = allChampionsInfo.find(
+        (x) => x.name === selectedAramChampion.championName
       );
       if (!champion) return;
 
@@ -34,7 +35,7 @@ const SelectedChampionPaper = (props: Props) => {
         (x) => x.championId === champion.id
       );
       if (myAramChampion) {
-        setLocalChampion(myAramChampion);
+        setLocalAramChampion(myAramChampion);
         return;
       }
 
@@ -42,20 +43,21 @@ const SelectedChampionPaper = (props: Props) => {
         championId: champion.id,
       });
 
-      setLocalChampion(userAramChampionDto);
+      setLocalAramChampion(userAramChampionDto);
       return;
     }
 
-    setLocalChampion(buildUserAramChampionDto());
-  }, [selectedChampion, myAramChampions, champions]);
+    setLocalAramChampion(buildUserAramChampionDto());
+  }, [
+    selectedAramChampion,
+    // don't want to re-run this effect when myAramChampions changes
+    // only when it's length changes
+    myAramChampions?.length,
+  ]);
 
   const { mutate } = useSaveAramChampionMutation();
 
-  const onSubmit = (data: UserAramChampionDto) => {
-    mutate(data);
-  };
-
-  const debouncedChampion = useDebounce(localChampion, 500);
+  const debouncedChampion = useDebounce(localAramChampion, 500);
 
   useEffect(() => {
     if (!debouncedChampion?.championId) return;
@@ -63,19 +65,19 @@ const SelectedChampionPaper = (props: Props) => {
     mutate(debouncedChampion);
   }, [debouncedChampion]);
 
-  if (!selectedChampion) return null;
+  if (!selectedAramChampion) return null;
   return (
     <Box>
       <Paper>
         <Box p={2}>
           <FlexVCenter style={{ gap: 8 }}>
             <img
-              src={selectedChampion.iconUrl}
-              alt={selectedChampion.championName}
+              src={selectedAramChampion.iconUrl}
+              alt={selectedAramChampion.championName}
               style={{ width: 40, height: 40, borderRadius: 40 }}
             />
             <Typography variant="h6">
-              {selectedChampion.championName}
+              {selectedAramChampion.championName}
             </Typography>
 
             <MyTextField
@@ -85,10 +87,10 @@ const SelectedChampionPaper = (props: Props) => {
                 marginLeft: 16,
                 width: 80,
               }}
-              value={localChampion?.fun}
+              value={localAramChampion?.fun}
               onChange={(e) => {
-                setLocalChampion({
-                  ...localChampion,
+                setLocalAramChampion({
+                  ...localAramChampion,
                   fun: Number(e.target.value),
                 });
               }}
@@ -101,10 +103,10 @@ const SelectedChampionPaper = (props: Props) => {
               type="text"
               multiline
               minRows={3}
-              value={localChampion?.runes}
+              value={localAramChampion?.runes}
               onChange={(e) => {
-                setLocalChampion({
-                  ...localChampion,
+                setLocalAramChampion({
+                  ...localAramChampion,
                   runes: e.target.value,
                 });
               }}
@@ -118,10 +120,10 @@ const SelectedChampionPaper = (props: Props) => {
               style={{
                 width: 280,
               }}
-              value={localChampion?.items}
+              value={localAramChampion?.items}
               onChange={(e) => {
-                setLocalChampion({
-                  ...localChampion,
+                setLocalAramChampion({
+                  ...localAramChampion,
                   items: e.target.value,
                 });
               }}
@@ -135,10 +137,10 @@ const SelectedChampionPaper = (props: Props) => {
               multiline
               minRows={3}
               fullWidth
-              value={localChampion?.extraNotes}
+              value={localAramChampion?.extraNotes}
               onChange={(e) => {
-                setLocalChampion({
-                  ...localChampion,
+                setLocalAramChampion({
+                  ...localAramChampion,
                   extraNotes: e.target.value,
                 });
               }}
