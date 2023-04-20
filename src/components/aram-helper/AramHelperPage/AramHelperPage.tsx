@@ -23,8 +23,12 @@ import SelectedChampionSection from "./SelectedChampionSection/SelectedChampionS
 export default function AramUtilsPage() {
   const { data } = useAramChampionsWinRatesQuery();
 
-  const { availableChampions, setAvailableChampions, selectedChampion } =
-    useAramHelperStore();
+  const {
+    availableChampions,
+    setAvailableChampions,
+    selectedChampion,
+    setSelectedChampion,
+  } = useAramHelperStore();
 
   return (
     <Container>
@@ -44,17 +48,18 @@ export default function AramUtilsPage() {
               options={data?.map((champion) => champion.championName) ?? []}
               value={selectedChampion?.championName}
               onChange={(e, value) => {
-                const selectedChampion = data?.find(
+                const selectedAramChampion = data?.find(
                   (champion) => champion.championName === value
                 );
 
-                if (!selectedChampion) return;
+                if (!selectedAramChampion) return;
                 const updated = pushOrReplace(
                   availableChampions,
-                  selectedChampion,
+                  selectedAramChampion,
                   "championName"
                 );
                 setAvailableChampions(updated);
+                setSelectedChampion(selectedAramChampion);
               }}
               renderInput={(params) => (
                 <MyTextField
@@ -62,6 +67,9 @@ export default function AramUtilsPage() {
                   label="Champion"
                   variant="outlined"
                   size="small"
+                  style={{
+                    marginTop: 16,
+                  }}
                 />
               )}
               renderOption={(option) => {

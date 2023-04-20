@@ -12,7 +12,7 @@ type Props = {
   index: number;
 };
 
-const AramChampionTableRow = ({ championRate, index }: Props) => {
+const AramChampionTableRow = ({ championRate: aramChampion, index }: Props) => {
   const {
     availableChampions,
     setAvailableChampions,
@@ -24,22 +24,21 @@ const AramChampionTableRow = ({ championRate, index }: Props) => {
 
   const myChampion = useMemo(() => {
     const champion = champions?.find(
-      (x) => x.name === championRate.championName
+      (x) => x.name === aramChampion.championName
     );
     if (!champion) return;
     return myChampions?.find((x) => x.championId === champion.id);
-  }, [myChampions, championRate, champions]);
+  }, [myChampions, aramChampion, champions]);
 
   return (
     <TableRow
-      key={championRate.championName}
       onClick={() => {
-        setSelectedChampion(championRate);
+        setSelectedChampion(aramChampion);
       }}
       style={{
         cursor: "pointer",
         backgroundColor:
-          selectedChampion?.championName === championRate.championName
+          selectedChampion?.championName === aramChampion.championName
             ? "rgba(0, 0, 0)"
             : undefined,
       }}
@@ -48,18 +47,18 @@ const AramChampionTableRow = ({ championRate, index }: Props) => {
       <TableCell>
         <FlexVCenter style={{ gap: 4 }}>
           <img
-            src={championRate.iconUrl}
-            alt={championRate.championName}
+            src={aramChampion.iconUrl}
+            alt={aramChampion.championName}
             width="24px"
             height="24px"
             style={{
               borderRadius: 24,
             }}
           />
-          <Typography>{championRate.championName}</Typography>
+          <Typography>{aramChampion.championName}</Typography>
         </FlexVCenter>
       </TableCell>
-      <TableCell align="center">{championRate.aramWin} %</TableCell>
+      <TableCell align="center">{aramChampion.aramWin} %</TableCell>
       <TableCell align="center">{myChampion?.fun || "?"}</TableCell>
       <TableCell>
         <IconButton
@@ -67,7 +66,7 @@ const AramChampionTableRow = ({ championRate, index }: Props) => {
           onClick={(e) => {
             e.stopPropagation();
             const updated = availableChampions.filter(
-              (c) => c.championName !== championRate.championName
+              (c) => c.championName !== aramChampion.championName
             );
             setAvailableChampions(updated);
           }}
