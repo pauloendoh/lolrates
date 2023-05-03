@@ -10,6 +10,7 @@ import useSaveAramChampionMutation from "@/hooks/react-query/domain/aram-helper/
 import useChampionsQuery from "@/hooks/react-query/domain/draft/useChampionsQuery";
 import useDebounce from "@/hooks/useDebounce";
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
+import { urls } from "@/utils/urls";
 import { Box, Paper, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
@@ -23,7 +24,6 @@ const SelectedChampionPaper = () => {
 
   const { data: myAramChampions } = useMyAramChampionsQuery();
 
-  // PE 1/3
   useEffect(() => {
     if (selectedAramChampion && myAramChampions && allChampionsInfo) {
       const champion = allChampionsInfo.find(
@@ -70,31 +70,45 @@ const SelectedChampionPaper = () => {
     <Box>
       <Paper>
         <Box p={2}>
-          <FlexVCenter style={{ gap: 8 }}>
-            <img
-              src={selectedAramChampion.iconUrl}
-              alt={selectedAramChampion.championName}
-              style={{ width: 40, height: 40, borderRadius: 40 }}
-            />
-            <Typography variant="h6">
-              {selectedAramChampion.championName}
-            </Typography>
+          <FlexVCenter justifyContent={"space-between"}>
+            <FlexVCenter style={{ gap: 8 }}>
+              <img
+                src={selectedAramChampion.iconUrl}
+                alt={selectedAramChampion.championName}
+                style={{ width: 40, height: 40, borderRadius: 40 }}
+              />
+              <Typography variant="h6">
+                {selectedAramChampion.championName}
+              </Typography>
 
-            <MyTextField
-              label="Fun"
-              type="number"
+              <MyTextField
+                label="Fun"
+                type="number"
+                style={{
+                  marginLeft: 16,
+                  width: 80,
+                }}
+                value={localAramChampion?.fun}
+                onChange={(e) => {
+                  setLocalAramChampion({
+                    ...localAramChampion,
+                    fun: Number(e.target.value),
+                  });
+                }}
+              />
+            </FlexVCenter>
+
+            <a
               style={{
-                marginLeft: 16,
-                width: 80,
+                textDecoration: "underline",
               }}
-              value={localAramChampion?.fun}
-              onChange={(e) => {
-                setLocalAramChampion({
-                  ...localAramChampion,
-                  fun: Number(e.target.value),
-                });
-              }}
-            />
+              href={urls.others.opggAramChampion(
+                selectedAramChampion.championName
+              )}
+              target="_blank"
+            >
+              op.gg
+            </a>
           </FlexVCenter>
 
           <Flex mt={2} style={{ gap: 16 }}>

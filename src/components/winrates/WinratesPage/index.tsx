@@ -37,7 +37,7 @@ const rolesArr: Roles[] = ["ALL", "TOP", "JUNGLE", "MID", "BOT", "SUP"];
 
 type SortDescBy = "AvgPick" | "AvgWin" | "AvgAvg";
 
-// PE 1/3 - Change to LolRatesPageContent
+// PE 1/3 - Change to LolRatesPage
 const LolRatesPageContent = () => {
   const router = useRouter();
   const routerQuery = router.query as { q?: string };

@@ -44,4 +44,13 @@ export const urls = {
   },
 
   image: (fileName: string) => `/images/${fileName}`,
+
+  others: {
+    opggAramChampion: (championName: string) => {
+      const clearName = championName
+        .replace(/[^a-zA-Z ]/g, "")
+        .replace(/\s/g, "");
+      return `https://www.op.gg/aram/${clearName}/statistics`;
+    },
+  },
 };
