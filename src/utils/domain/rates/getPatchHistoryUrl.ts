@@ -1,4 +1,4 @@
-// PE 2/3 - should be in urls?
+// PE 1/3 - should be in urls?
 export const getChampionHistoryUrl = (championName: string) => {
   return `https://leagueoflegends.fandom.com/wiki/${championName
     .split(" ")

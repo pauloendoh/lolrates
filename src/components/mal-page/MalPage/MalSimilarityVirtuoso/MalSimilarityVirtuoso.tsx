@@ -37,14 +37,14 @@ const MalSimilarityVirtuoso = (props: Props) => {
         const isFemaleOrEmpty = item.gender === "Female" || item.gender === "";
 
         const MIN_PERCENTAGE = 40;
-        const MIN_COUNT = 60;
+        const MIN_COUNT = 80;
 
         return (
           item.avgPercentage > MIN_PERCENTAGE &&
           item.gender === "Female" &&
           // isFemaleOrEmpty &&
           item.sumCount > MIN_COUNT &&
-          isBrazil &&
+          // isBrazil &&
           // item.checked === false &&
           // isBrazilOrEmpty &&
           true

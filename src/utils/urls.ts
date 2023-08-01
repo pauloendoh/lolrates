@@ -1,5 +1,6 @@
 import RationItemType from "@/types/domain/ration/RationItemType";
 import buildUrl from "build-url-ts";
+import { getChampionHistoryUrl } from "./domain/rates/getPatchHistoryUrl";
 
 export const urls = {
   pages: {
@@ -52,5 +53,6 @@ export const urls = {
         .replace(/\s/g, "");
       return `https://www.op.gg/aram/${clearName}/statistics`;
     },
+    patchNotes: (championName: string) => getChampionHistoryUrl(championName),
   },
 };

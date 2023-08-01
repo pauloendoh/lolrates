@@ -98,17 +98,34 @@ const SelectedChampionPaper = () => {
               />
             </FlexVCenter>
 
-            <a
+            <div
               style={{
-                textDecoration: "underline",
+                display: "flex",
+                gap: 8,
               }}
-              href={urls.others.opggAramChampion(
-                selectedAramChampion.championName
-              )}
-              target="_blank"
             >
-              op.gg
-            </a>
+              <a
+                style={{
+                  textDecoration: "underline",
+                }}
+                href={urls.others.opggAramChampion(
+                  selectedAramChampion.championName
+                )}
+                target="_blank"
+              >
+                op.gg
+              </a>
+
+              <a
+                style={{
+                  textDecoration: "underline",
+                }}
+                href={urls.others.patchNotes(selectedAramChampion.championName)}
+                target="_blank"
+              >
+                patch notes
+              </a>
+            </div>
           </FlexVCenter>
 
           <Flex mt={2} style={{ gap: 16 }}>
