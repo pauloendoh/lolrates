@@ -5,6 +5,7 @@ export const queryKeys = {
   friends: "friends",
   paginatedResources: (page: number) => ["paginatedResources", page],
   paginatedResourcesInfinite: "paginatedResourcesInfinite",
-  aramChampionsWinRates: "aramChampionsWinRates",
+  aramChampionsWinRates: (lolgraphsUrl: string) =>
+    "aramChampionsWinRates?lolgraphsUrl=" + encodeURIComponent(lolgraphsUrl),
   myAramChampions: "myAramChampions",
 };

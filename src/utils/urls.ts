@@ -36,7 +36,10 @@ export const urls = {
       stripeCheckout: "/create-checkout-session",
     },
     publicTags: "/playground/all-public-tags",
-    aramChampionWinRates: "/aram-champions-win-rates",
+    aramChampionWinRates: (lolgraphsUrl: string) =>
+      "/aram-champions-win-rates?lolgraphsUrl=" +
+      encodeURIComponent(lolgraphsUrl),
+
     myAramChampions: "/my-aram-champions",
 
     malUser: "/mal-user",

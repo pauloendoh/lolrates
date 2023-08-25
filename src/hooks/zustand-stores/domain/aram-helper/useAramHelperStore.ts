@@ -2,6 +2,8 @@ import { AramChampionWinRateDto } from "@/hooks/react-query/domain/aram-helper/t
 import create from "zustand";
 
 interface IStore {
+  lolgraphsUrl: string;
+  setLolgraphsUrl: (summonerName: string) => void;
   availableChampions: AramChampionWinRateDto[];
   setAvailableChampions: (champions: AramChampionWinRateDto[]) => void;
 
@@ -10,6 +12,11 @@ interface IStore {
 }
 
 const useAramHelperStore = create<IStore>((set, get) => ({
+  lolgraphsUrl: "",
+  setLolgraphsUrl: (summonerName) => {
+    set({ lolgraphsUrl: summonerName });
+  },
+
   availableChampions: [],
   setAvailableChampions: (champions) => {
     set({ availableChampions: champions });
