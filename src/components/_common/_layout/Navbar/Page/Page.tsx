@@ -1,4 +1,4 @@
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { CircularProgress } from "@material-ui/core";
 import useMeQuery from "hooks/react-query/domain/auth/useMeQuery";
 import { useRouter } from "next/dist/client/router";

@@ -2,7 +2,7 @@ import Flex from "@/components/_common/flexboxes/Flex";
 import MyTextField from "@/components/_common/inputs/MyTextField";
 import Txt from "@/components/_common/text/Txt";
 import RationItemType from "@/types/domain/ration/RationItemType";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import {
   Container,
   List,

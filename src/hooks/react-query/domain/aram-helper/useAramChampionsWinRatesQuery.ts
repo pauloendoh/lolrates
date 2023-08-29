@@ -1,7 +1,7 @@
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
 import myClientAxios from "@/utils/axios/myClientAxios";
 import { queryKeys } from "@/utils/consts/queryKeys";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { useQuery } from "react-query";
 import { AramChampionWinRateDto } from "./types/AramChampionWinRateDto";
 

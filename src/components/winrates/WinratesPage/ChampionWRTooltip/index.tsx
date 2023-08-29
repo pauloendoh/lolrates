@@ -1,10 +1,9 @@
 import { Box, Tooltip } from "@material-ui/core";
-import React from "react";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import { getLolGraphsUrl } from "../../../../utils/domain/rates/getLolGraphsUrl";
 import { getOpggUrl } from "../../../../utils/domain/rates/getOpggUrl";
 import { getChampionHistoryUrl } from "../../../../utils/domain/rates/getPatchHistoryUrl";
-import { urls } from "../../../../utils/urls";
+import { urls } from "../../../../utils/urls/urls";
 import S from "./styles";
 
 const ChampionTooltip = ({

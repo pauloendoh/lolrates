@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
-import { urls } from "../../../../utils/urls";
+import { urls } from "../../../../utils/urls/urls";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 import { MalUserDto } from "./types/MalUserDto";
 

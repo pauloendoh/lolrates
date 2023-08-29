@@ -65,7 +65,8 @@ export default function AramUtilsPage() {
 
               <Autocomplete
                 options={data?.map((champion) => champion.championName) ?? []}
-                value={selectedChampion?.championName}
+                // value={selectedChampion?.championName}
+                value={""}
                 clearOnBlur
                 onChange={(e, value) => {
                   const selectedAramChampion = data?.find(

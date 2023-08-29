@@ -10,7 +10,7 @@ import useSaveAramChampionMutation from "@/hooks/react-query/domain/aram-helper/
 import useChampionsQuery from "@/hooks/react-query/domain/draft/useChampionsQuery";
 import useDebounce from "@/hooks/useDebounce";
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { Box, Paper, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 

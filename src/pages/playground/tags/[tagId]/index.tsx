@@ -1,5 +1,5 @@
 import myServerAxios from "@/utils/axios/myServerAxios";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 
 function TagIdPage({ tag }) {

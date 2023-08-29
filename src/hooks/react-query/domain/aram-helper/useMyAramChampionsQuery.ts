@@ -1,6 +1,6 @@
 import myClientAxios from "@/utils/axios/myClientAxios";
 import { queryKeys } from "@/utils/consts/queryKeys";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { useQuery } from "react-query";
 import { UserAramChampionDto } from "./types/UserAramChampionDto";
 

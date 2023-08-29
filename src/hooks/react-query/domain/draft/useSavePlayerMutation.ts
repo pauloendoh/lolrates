@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { PlayerDto } from "../../../../types/domain/draft/PlayerDto";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
 import { pushOrReplace } from "../../../../utils/pushOrReplace";
-import { urls } from "../../../../utils/urls";
+import { urls } from "../../../../utils/urls/urls";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 
 export default function useSavePlayerMutation() {

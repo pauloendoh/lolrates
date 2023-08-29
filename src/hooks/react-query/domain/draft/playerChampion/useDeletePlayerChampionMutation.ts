@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
-import { urls } from "../../../../../utils/urls";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
+import { urls } from "../../../../../utils/urls/urls";
 import useSnackbarStore from "../../../../zustand-stores/useSnackbarStore";
 
 export default function useDeletePlayerChampionMutation() {

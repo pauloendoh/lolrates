@@ -1,11 +1,9 @@
-
-import { useMutation, useQueryClient } from "react-query";
+import { urls } from "@/utils/urls/urls";
 import useSnackbarStore from "hooks/zustand-stores/useSnackbarStore";
-import { ChampionRadarDto } from "../../../../../types/domain/draft/ChampionRadarDto";
+import { useMutation, useQueryClient } from "react-query";
 import myClientAxios from "utils/axios/myClientAxios";
 import { pushOrReplace } from "utils/pushOrReplace";
-import { urls } from "utils/urls";
-
+import { ChampionRadarDto } from "../../../../../types/domain/draft/ChampionRadarDto";
 
 export default function useSaveChampionRadarMutation() {
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();

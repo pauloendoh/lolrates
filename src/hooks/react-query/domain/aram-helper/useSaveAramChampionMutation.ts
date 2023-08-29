@@ -1,6 +1,6 @@
 import { queryKeys } from "@/utils/consts/queryKeys";
 import { pushOrReplace } from "@/utils/pushOrReplace";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { useMutation, useQueryClient } from "react-query";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";

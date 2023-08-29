@@ -6,7 +6,7 @@ import useDebounce from "@/hooks/useDebounce";
 import useSnackbarStore from "@/hooks/zustand-stores/useSnackbarStore";
 import { ResourceDto } from "@/types/domain/playground/paginated/PaginatedResourcesResponseDto";
 import myClientAxios from "@/utils/axios/myClientAxios";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import {
   Accordion,
   AccordionDetails,

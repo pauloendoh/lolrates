@@ -2,7 +2,7 @@ import Flex from "@/components/_common/flexboxes/Flex";
 import Icons from "@/components/_common/Icons/Icons";
 import Txt from "@/components/_common/text/Txt";
 import myClientAxios from "@/utils/axios/myClientAxios";
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import {
   Accordion,
   AccordionDetails,

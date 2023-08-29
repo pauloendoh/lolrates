@@ -1,8 +1,8 @@
-import { urls } from "@/utils/urls";
+import { urls } from "@/utils/urls/urls";
 import { Tabs } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import S from "./NavbarAuthTabs.styles";
 import * as utils from "./NavbarAuthTabs.utils";
 

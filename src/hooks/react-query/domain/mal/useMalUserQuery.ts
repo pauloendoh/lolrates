@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from "react-query";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
-import { urls } from "../../../../utils/urls";
+import { urls } from "../../../../utils/urls/urls";
 import { MalUserDto } from "./types/MalUserDto";
 
 const url = urls.api.malUser;

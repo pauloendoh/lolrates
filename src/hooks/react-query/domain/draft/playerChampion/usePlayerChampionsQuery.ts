@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { urls } from "../../../../../utils/urls";
 import { PlayerChampionDto } from "../../../../../types/domain/draft/PlayerChampionDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
+import { urls } from "../../../../../utils/urls/urls";
 
 const url = urls.api.playerChampion;
 
@@ -10,4 +10,3 @@ export default function usePlayerChampionsQuery() {
     myClientAxios.get<PlayerChampionDto[]>(url).then((res) => res.data)
   );
 }
-

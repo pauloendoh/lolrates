@@ -24,7 +24,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
-import { urls } from "../../../utils/urls";
+import { urls } from "../../../utils/urls/urls";
 import FlexVCenter from "../../_common/flexboxes/FlexVCenter";
 import MyTextField from "../../_common/inputs/MyTextField";
 import ChampionInfo1stTD from "./ChampionInfo1stTD";

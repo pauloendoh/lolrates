@@ -6,7 +6,7 @@ import useMeQuery from "../../../../hooks/react-query/domain/auth/useMeQuery";
 import useSnackbarStore from "../../../../hooks/zustand-stores/useSnackbarStore";
 import { apiUrls } from "../../../../utils/apiUrls";
 import myClientAxios from "../../../../utils/axios/myClientAxios";
-import { urls } from "../../../../utils/urls";
+import { urls } from "../../../../utils/urls/urls";
 import NextImage from "../../next-overrides/NextImage/NextImage";
 import NextLink from "../../next-overrides/NextLink/NextLink";
 import AuthDialog from "./AuthDialog/AuthDialog";

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { urls } from "../../../../../utils/urls";
 import { ChampionRadarDto } from "../../../../../types/domain/draft/ChampionRadarDto";
 import myClientAxios from "../../../../../utils/axios/myClientAxios";
+import { urls } from "../../../../../utils/urls/urls";
 
 const url = urls.api.championRadar;
 

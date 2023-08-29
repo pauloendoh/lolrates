@@ -1,9 +1,8 @@
 import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
 import { AramChampionWinRateDto } from "@/hooks/react-query/domain/aram-helper/types/AramChampionWinRateDto";
-import { useMyAramChampionsQuery } from "@/hooks/react-query/domain/aram-helper/useMyAramChampionsQuery";
-import useChampionsQuery from "@/hooks/react-query/domain/draft/useChampionsQuery";
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
+import { urls } from "@/utils/urls/urls";
 import {
   IconButton,
   LinearProgress,
@@ -11,7 +10,6 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { useMemo } from "react";
 import { MdDelete } from "react-icons/md";
 
 type Props = {
@@ -29,17 +27,8 @@ const AramChampionTableRow = ({
     setAvailableChampions,
     selectedChampion,
     setSelectedChampion,
+    lolgraphsUrl,
   } = useAramHelperStore();
-  const { data: myChampions } = useMyAramChampionsQuery();
-  const { data: champions } = useChampionsQuery();
-
-  const myChampion = useMemo(() => {
-    const champion = champions?.find(
-      (x) => x.name === aramChampion.championName
-    );
-    if (!champion) return;
-    return myChampions?.find((x) => x.championId === champion.id);
-  }, [myChampions, aramChampion, champions]);
 
   const normalisePlayed = (value: number) =>
     ((value - 0) * 100) / (props.highestPlayedCount - 0);
@@ -70,7 +59,16 @@ const AramChampionTableRow = ({
               borderRadius: 24,
             }}
           />
-          <Typography>{aramChampion.championName}</Typography>
+          <a
+            href={urls.others.lolGraphsAramChampion(
+              lolgraphsUrl,
+              aramChampion.championName
+            )}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Typography>{aramChampion.championName}</Typography>
+          </a>
         </FlexVCenter>
       </TableCell>
       <TableCell align="center">{aramChampion.aramWin} %</TableCell>
