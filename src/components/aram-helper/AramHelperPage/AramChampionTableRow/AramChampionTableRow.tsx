@@ -10,6 +10,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import { FiExternalLink } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 
 type Props = {
@@ -59,6 +60,8 @@ const AramChampionTableRow = ({
               borderRadius: 24,
             }}
           />
+
+          <Typography>{aramChampion.championName}</Typography>
           <a
             href={urls.others.lolGraphsAramChampion(
               lolgraphsUrl,
@@ -67,7 +70,7 @@ const AramChampionTableRow = ({
             target="_blank"
             rel="noreferrer"
           >
-            <Typography>{aramChampion.championName}</Typography>
+            <FiExternalLink />
           </a>
         </FlexVCenter>
       </TableCell>
