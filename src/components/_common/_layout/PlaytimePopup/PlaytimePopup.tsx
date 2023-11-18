@@ -84,8 +84,6 @@ const PlaytimePopup = ({ ...props }: Props) => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = Math.floor(totalMinutes % 60);
 
-    if (hours > maxHoursAllowed) return `Remaining 0h 0m`;
-
     return `Remaining ${maxHoursAllowed - hours}h ${
       maxMinutesAllowed - minutes
     }m`;
