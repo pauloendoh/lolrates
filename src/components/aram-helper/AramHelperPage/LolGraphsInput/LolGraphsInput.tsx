@@ -41,6 +41,7 @@ const LolGraphsInput = ({ ...props }: Props) => {
         style={{
           height: 38.4,
         }}
+        disabled={value.trim().length === 0}
         onClick={() => {
           localStorage.setItem(localStorageKeys.summonerName, value);
           setSummonerName(value);
@@ -48,7 +49,6 @@ const LolGraphsInput = ({ ...props }: Props) => {
       >
         Save
       </Button>
-      {!summonerName.length && `Invalid url.`}
     </FlexVCenter>
   );
 };

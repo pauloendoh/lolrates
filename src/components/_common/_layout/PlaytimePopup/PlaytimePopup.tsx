@@ -99,7 +99,7 @@ const PlaytimePopup = ({ ...props }: Props) => {
           position: "fixed",
           bottom: 8,
           right: 8,
-          bgcolor: hasPassedLimit ? "red" : "orange",
+          bgcolor: hasPassedLimit ? "red" : "green",
           borderRadius: 4,
           padding: "4px 8px",
         }}
@@ -209,7 +209,14 @@ const PlaytimePopup = ({ ...props }: Props) => {
               >
                 {originalPlaytimeLabel}
               </a>{" "}
-              + {extraHours}h {extraMinutes}m = {finalPlaytimeLabel}
+              + {extraHours}h {extraMinutes}m ={" "}
+              <span
+                style={{
+                  color: hasPassedLimit ? "red" : "green",
+                }}
+              >
+                {finalPlaytimeLabel}
+              </span>
             </Typography>
           </FlexVCenter>
         </DialogContent>
