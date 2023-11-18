@@ -121,7 +121,7 @@ const PlaytimePopup = ({ ...props }: Props) => {
         open={modalOpen}
         maxWidth="sm"
       >
-        <DialogTitle>Time limit</DialogTitle>
+        <DialogTitle>Time limit per week</DialogTitle>
 
         <DialogContent>
           <FlexVCenter
