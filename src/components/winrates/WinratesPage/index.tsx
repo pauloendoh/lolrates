@@ -43,7 +43,7 @@ const LolRatesPageContent = () => {
   const routerQuery = router.query as { q?: string };
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();
 
-  const [checked51, setChecked51] = useState(false);
+  const [onlyHighWinRate, setOnlyHighWinRate] = useState(false);
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");
@@ -70,8 +70,8 @@ const LolRatesPageContent = () => {
       );
     }
 
-    if (checked51) {
-      filteredRates = filteredRates.filter((r) => r.avgWin >= 51);
+    if (onlyHighWinRate) {
+      filteredRates = filteredRates.filter((r) => r.avgWin >= 50.5);
     }
 
     switch (sortDescBy) {
@@ -86,7 +86,13 @@ const LolRatesPageContent = () => {
     }
 
     return filteredRates;
-  }, [allChampionRates, selectedRole, checked51, sortDescBy, routerQuery.q]);
+  }, [
+    allChampionRates,
+    selectedRole,
+    onlyHighWinRate,
+    sortDescBy,
+    routerQuery.q,
+  ]);
 
   const shouldShowRate = (rate: LolRateChampionDto) => {
     if (routerQuery?.q?.trim().length > 0) {
@@ -155,8 +161,8 @@ const LolRatesPageContent = () => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={checked51}
-              onChange={(e) => setChecked51(e.target.checked)}
+              checked={onlyHighWinRate}
+              onChange={(e) => setOnlyHighWinRate(e.target.checked)}
               name="avgWin51"
               color="primary"
             />
