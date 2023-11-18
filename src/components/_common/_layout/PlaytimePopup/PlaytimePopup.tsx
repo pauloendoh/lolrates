@@ -4,7 +4,6 @@ import { localStorageKeys } from "@/utils/consts/localStorageKeys";
 import { useLocalStorage } from "@mantine/hooks";
 import {
   Box,
-  CircularProgress,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -72,8 +71,23 @@ const PlaytimePopup = ({ ...props }: Props) => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = Math.floor(totalMinutes % 60);
 
-    return `${hours}h ${minutes}m`;
+    return `Played ${hours}h ${minutes}m`;
   }, [playtime, extraMinutes]);
+
+  const remainingPlaytimeLabel = useMemo(() => {
+    if (!playtime) return "";
+    // 12h 30m
+
+    const totalMinutes =
+      playtime.playedMinutes + extraMinutes + extraHours * 60;
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = Math.floor(totalMinutes % 60);
+
+    return `Remaining ${maxHoursAllowed - hours}h ${
+      maxMinutesAllowed - minutes
+    }m`;
+  }, [playtime, maxHoursAllowed, maxMinutesAllowed, extraHours, extraMinutes]);
 
   const hasPassedLimit = useMemo(() => {
     const totalMinutes =
@@ -110,9 +124,10 @@ const PlaytimePopup = ({ ...props }: Props) => {
       >
         <FlexCol>
           <Typography>{summonerName}</Typography>
-          {isLoading && <CircularProgress size={12} />}
+          {isLoading && <Typography>Loading...</Typography>}
 
           <span>{finalPlaytimeLabel}</span>
+          <span>{remainingPlaytimeLabel}</span>
         </FlexCol>
       </Box>
 
@@ -121,7 +136,10 @@ const PlaytimePopup = ({ ...props }: Props) => {
         open={modalOpen}
         maxWidth="sm"
       >
-        <DialogTitle>Time limit per week</DialogTitle>
+        <DialogTitle>
+          <div>Time limit per week</div>
+          <div>Starts at</div>
+        </DialogTitle>
 
         <DialogContent>
           <FlexVCenter
