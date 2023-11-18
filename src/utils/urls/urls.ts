@@ -37,15 +37,18 @@ export const urls = {
       stripeCheckout: "/create-checkout-session",
     },
     publicTags: "/playground/all-public-tags",
-    aramChampionWinRates: (lolgraphsUrl: string) =>
+    aramChampionWinRates: (summonerName: string) =>
       "/aram-champions-win-rates?lolgraphsUrl=" +
-      encodeURIComponent(lolgraphsUrl),
-
+      encodeURIComponent(
+        `https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}#championsData-aram`
+      ),
     myAramChampions: "/my-aram-champions",
 
     malUser: "/mal-user",
     malSimilarity: "/mal-similarities",
     toggleMalCheck: (id: number) => `/mal-similarities/${id}/check`,
+    playtime: (offsetHours: number, summonerName: string) =>
+      `/playtime?offsetHours=${offsetHours}&summonerName=${summonerName}`,
   },
 
   image: (fileName: string) => `/images/${fileName}`,

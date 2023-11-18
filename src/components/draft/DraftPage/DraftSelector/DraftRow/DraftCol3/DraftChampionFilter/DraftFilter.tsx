@@ -1,7 +1,6 @@
 import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import React from "react";
-type FilterBy = "All" | "Over 51% WR";
+type FilterBy = "All" | "Over 50.5% WR";
 
 const DraftChampionFilter = (props: {
   championRole: ChampionRoleType;
@@ -18,7 +17,7 @@ const DraftChampionFilter = (props: {
         label="Sort by"
       >
         <MenuItem value={"All" as FilterBy}>All</MenuItem>
-        <MenuItem value={"Over 51% WR" as FilterBy}>Over 51%</MenuItem>
+        <MenuItem value={"Over 50.5% WR" as FilterBy}>Over 50.5%</MenuItem>
       </Select>
     </FormControl>
   );

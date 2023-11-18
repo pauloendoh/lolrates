@@ -18,7 +18,11 @@ const NavbarAuthTabs = () => {
       setTabIndex(2);
     } else if (pathname.startsWith(urls.pages.rationSearch())) {
       setTabIndex(3);
-    } else setTabIndex(0);
+    } else if (pathname.startsWith(urls.pages.aramHelper)) {
+      setTabIndex(4);
+    } else {
+      setTabIndex(0);
+    }
   }, [pathname]);
 
   return (

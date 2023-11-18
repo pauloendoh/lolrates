@@ -161,7 +161,7 @@ const LolRatesPageContent = () => {
               color="primary"
             />
           }
-          label="Only AvgWin >= 51%"
+          label="Only AvgWin >= 50.5%"
         />
       </Box>
 

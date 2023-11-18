@@ -25,12 +25,8 @@ import SelectedChampionSection from "./SelectedChampionSection/SelectedChampionS
 export default function AramUtilsPage() {
   const { data } = useAramChampionsWinRatesQuery();
 
-  const {
-    availableChampions,
-    setAvailableChampions,
-    selectedChampion,
-    setSelectedChampion,
-  } = useAramHelperStore();
+  const { availableChampions, setAvailableChampions, setSelectedChampion } =
+    useAramHelperStore();
 
   const sortedVisibleChampions = useMemo(() => {
     return availableChampions.sort((a, b) => {

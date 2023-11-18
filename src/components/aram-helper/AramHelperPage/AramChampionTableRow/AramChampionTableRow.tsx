@@ -28,7 +28,7 @@ const AramChampionTableRow = ({
     setAvailableChampions,
     selectedChampion,
     setSelectedChampion,
-    lolgraphsUrl,
+    summonerName: lolgraphsUrl,
   } = useAramHelperStore();
 
   const normalisePlayed = (value: number) =>

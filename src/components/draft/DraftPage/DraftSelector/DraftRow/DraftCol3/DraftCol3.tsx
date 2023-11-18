@@ -1,14 +1,14 @@
-import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
 import Txt from "@/components/_common/text/Txt";
+import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
 import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import { Tooltip } from "@material-ui/core";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { LolRateChampionDto } from "types/domain/rates/LolRateChampionDto";
 import { getChampionImageBorder } from "utils/domain/rates/getChampionImageBorder";
 import DraftFilter from "./DraftChampionFilter/DraftFilter";
 import S from "./DraftCol3.styles";
-type FilterBy = "All" | "Over 51% WR";
+type FilterBy = "All" | "Over 50.5% WR";
 
 const DraftRowCol3 = (props: {
   championRoleRow: ChampionRoleType;
@@ -28,7 +28,7 @@ const DraftRowCol3 = (props: {
   }, [props.selectedChampionRate]);
 
   // PE 2/3 - Should be divided into a <DraftSelectRowCol3/> + useMemo()
-  // Returns rates by role, over 51% win rate and in descending order
+  // Returns rates by role, over 50.5% win rate and in descending order
   const getBestChampions = () => {
     if (props.sortBy === "All")
       return [...props.roleRates].sort((a, b) => b.avgAvg - a.avgAvg);

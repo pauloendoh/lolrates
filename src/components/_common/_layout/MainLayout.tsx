@@ -1,8 +1,9 @@
 import SnackbarWrapper from "@/components/_common/_layout/Snackbar/SnackbarWrapper";
 import { Box } from "@material-ui/core";
 import Head from "next/head";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import Navbar from "./Navbar/Navbar";
+import PlaytimePopup from "./PlaytimePopup/PlaytimePopup";
 
 type Props = {
   children?: ReactNode; // could inherit React.FC instead of passing children props
@@ -19,6 +20,8 @@ const MainLayout = ({ children, title = "LoL Rates" }: Props) => (
       {/* <DefaultNavbar /> */}
       <Navbar />
       <Box pt={10}>{children}</Box>
+
+      <PlaytimePopup />
     </Box>
     <SnackbarWrapper />
   </>

@@ -1,15 +1,15 @@
 import { spacing } from "@/utils/theme";
 import { Paper } from "@material-ui/core";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { roles } from "../../../../types/domain/rates/ChampionRoleType";
 import { LolRateChampionDto } from "../../../../types/domain/rates/LolRateChampionDto";
 import DraftRow from "./DraftRow/DraftRow";
 
-type FilterByType = "All" | "Over 51% WR";
+type FilterByType = "All" | "Over 50.5% WR";
 
 // PE 2/3
 const DraftSelector = (props: { rates: LolRateChampionDto[] }) => {
-  const [sortBy, setSortBy] = useState<FilterByType>("Over 51% WR");
+  const [sortBy, setSortBy] = useState<FilterByType>("Over 50.5% WR");
 
   const isLast = useCallback(
     (index: number) => {

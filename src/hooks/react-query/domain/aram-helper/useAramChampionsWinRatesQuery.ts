@@ -6,25 +6,17 @@ import { useQuery } from "react-query";
 import { AramChampionWinRateDto } from "./types/AramChampionWinRateDto";
 
 export const useAramChampionsWinRatesQuery = () => {
-  const { lolgraphsUrl } = useAramHelperStore();
+  const { summonerName } = useAramHelperStore();
   return useQuery(
-    [queryKeys.aramChampionsWinRates(lolgraphsUrl)],
+    [queryKeys.aramChampionsWinRates(summonerName)],
     () =>
       myClientAxios
         .get<AramChampionWinRateDto[]>(
-          urls.api.aramChampionWinRates(lolgraphsUrl)
+          urls.api.aramChampionWinRates(summonerName)
         )
         .then((res) => res.data),
     {
-      enabled: !!lolGraphsUrlIsValid(lolgraphsUrl),
+      enabled: !!summonerName.length,
     }
   );
 };
-
-export function lolGraphsUrlIsValid(lolgraphsUrl: string | undefined) {
-  return (
-    lolgraphsUrl &&
-    lolgraphsUrl.includes("leagueofgraphs.com") &&
-    lolgraphsUrl.includes("championsData-aram")
-  );
-}

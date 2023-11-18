@@ -1,19 +1,22 @@
 import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
 import MyTextField from "@/components/_common/inputs/MyTextField";
-import { lolGraphsUrlIsValid } from "@/hooks/react-query/domain/aram-helper/useAramChampionsWinRatesQuery";
 import useAramHelperStore from "@/hooks/zustand-stores/domain/aram-helper/useAramHelperStore";
+import { localStorageKeys } from "@/utils/consts/localStorageKeys";
 import { Button } from "@material-ui/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
 const LolGraphsInput = ({ ...props }: Props) => {
-  const { lolgraphsUrl, setLolgraphsUrl } = useAramHelperStore();
+  const { summonerName, setSummonerName } = useAramHelperStore();
+
+  const [value, setValue] = useState("");
 
   useEffect(() => {
-    const savedValue = localStorage.getItem("lolGraphsInput");
+    const savedValue = localStorage.getItem(localStorageKeys.summonerName);
     if (savedValue) {
-      setLolgraphsUrl(savedValue);
+      setSummonerName(savedValue);
+      setValue(savedValue);
     }
   }, []);
 
@@ -27,9 +30,9 @@ const LolGraphsInput = ({ ...props }: Props) => {
       <MyTextField
         label="Summoner name"
         size="small"
-        value={lolgraphsUrl}
+        value={value}
         onChange={(e) => {
-          setLolgraphsUrl(e.target.value);
+          setValue(e.target.value);
         }}
       />
       <Button
@@ -39,12 +42,13 @@ const LolGraphsInput = ({ ...props }: Props) => {
           height: 38.4,
         }}
         onClick={() => {
-          localStorage.setItem("lolGraphsInput", lolgraphsUrl);
+          localStorage.setItem(localStorageKeys.summonerName, value);
+          setSummonerName(value);
         }}
       >
         Save
       </Button>
-      {!lolGraphsUrlIsValid(lolgraphsUrl) && `Invalid url.`}
+      {!summonerName.length && `Invalid url.`}
     </FlexVCenter>
   );
 };
