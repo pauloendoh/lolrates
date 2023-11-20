@@ -49,6 +49,19 @@ const LolGraphsInput = ({ ...props }: Props) => {
       >
         Save
       </Button>
+
+      {summonerName && (
+        <a
+          href={`https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}#championsData-aram`}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            marginLeft: 16,
+          }}
+        >
+          Open League of Graphs
+        </a>
+      )}
     </FlexVCenter>
   );
 };
