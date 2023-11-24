@@ -1,3 +1,5 @@
+import { ImSortAmountDesc } from "react-icons/im";
+
 import Flex from "@/components/_common/flexboxes/Flex";
 import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import Txt from "@/components/_common/text/Txt";
@@ -226,6 +228,13 @@ const LolRatesPageContent = () => {
                         }}
                       >
                         Pick
+                        {sortDescBy === "AvgPick" && (
+                          <ImSortAmountDesc
+                            style={{
+                              marginLeft: 4,
+                            }}
+                          />
+                        )}
                       </Button>
                     </TableCell>
                     <TableCell>
@@ -240,6 +249,13 @@ const LolRatesPageContent = () => {
                         }}
                       >
                         Win
+                        {sortDescBy === "AvgWin" && (
+                          <ImSortAmountDesc
+                            style={{
+                              marginLeft: 4,
+                            }}
+                          />
+                        )}
                       </Button>
                     </TableCell>
                     <TableCell>
@@ -254,6 +270,13 @@ const LolRatesPageContent = () => {
                         }}
                       >
                         (Pick+Win)/2
+                        {sortDescBy === "AvgAvg" && (
+                          <ImSortAmountDesc
+                            style={{
+                              marginLeft: 4,
+                            }}
+                          />
+                        )}
                       </Button>
                     </TableCell>
                   </TableRow>
