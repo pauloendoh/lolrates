@@ -74,17 +74,22 @@ const PlaytimePopup = ({ ...props }: Props) => {
     return `Played ${hours}h ${minutes}m`;
   }, [playtime, extraMinutes]);
 
+  const minutesPlayed = useMemo(() => {
+    if (!playtime) return 0;
+    return playtime.playedMinutes + extraMinutes + extraHours * 60;
+  }, [playtime?.playedMinutes, extraMinutes, extraHours]);
+
   const remainingPlaytimeLabel = useMemo(() => {
     if (!playtime) return "";
     // 12h 30m
 
     const _maxMinutesAllowed = 60 * maxHoursAllowed + maxMinutesAllowed;
-    const remaingMinutes = _maxMinutesAllowed - playtime.playedMinutes;
+    const remainingMinutes = _maxMinutesAllowed - minutesPlayed;
 
-    const hours = remaingMinutes / 60;
+    const hours = remainingMinutes / 60;
     const finalHours = hours > 0 ? Math.floor(hours) : Math.ceil(hours);
 
-    const minutes = remaingMinutes % 60;
+    const minutes = remainingMinutes % 60;
     const finalMinutes = minutes > 0 ? Math.floor(minutes) : Math.ceil(minutes);
 
     return `Remaining ${finalHours}h ${finalMinutes}m`;
