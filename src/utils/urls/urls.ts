@@ -40,7 +40,7 @@ export const urls = {
     aramChampionWinRates: (summonerName: string) =>
       "/aram-champions-win-rates?lolgraphsUrl=" +
       encodeURIComponent(
-        `https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}#championsData-aram`
+        `https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}-BR1#championsData-aram`
       ),
     myAramChampions: "/my-aram-champions",
 
