@@ -182,7 +182,7 @@ const PlaytimePopup = ({ ...props }: Props) => {
       <Dialog
         onClose={() => setModalOpen(false)}
         open={modalOpen}
-        maxWidth="sm"
+        maxWidth="xs"
       >
         <DialogTitle>
           <div>Time limit per week</div>
