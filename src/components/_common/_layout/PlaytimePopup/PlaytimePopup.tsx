@@ -169,10 +169,11 @@ const PlaytimePopup = ({ ...props }: Props) => {
       >
         <FlexCol>
           <Typography>{summonerName}</Typography>
-          {isLoading && <Typography>Loading...</Typography>}
 
           <span>{resetInLabel}</span>
           <br />
+
+          {isLoading && <Typography>Loading...</Typography>}
 
           <span>{finalPlaytimeLabel}</span>
           <b>{remainingPlaytimeLabel}</b>
