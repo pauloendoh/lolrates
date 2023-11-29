@@ -47,8 +47,12 @@ export const urls = {
     malUser: "/mal-user",
     malSimilarity: "/mal-similarities",
     toggleMalCheck: (id: number) => `/mal-similarities/${id}/check`,
-    playtime: (offsetHours: number, summonerName: string) =>
-      `/playtime?offsetHours=${offsetHours}&summonerName=${summonerName}`,
+    playtime: (
+      offsetHours: number,
+      summonerName: string,
+      startingWeekday: number
+    ) =>
+      `/playtime?offsetHours=${offsetHours}&summonerName=${summonerName}&startingWeekday=${startingWeekday}`,
   },
 
   image: (fileName: string) => `/images/${fileName}`,

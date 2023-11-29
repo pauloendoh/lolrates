@@ -8,6 +8,10 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   Typography,
 } from "@material-ui/core";
 import { useEffect, useMemo, useState } from "react";
@@ -27,7 +31,15 @@ const PlaytimePopup = ({ ...props }: Props) => {
     }
   }, []);
 
-  const { data: playtime, isLoading } = usePlaytimeQuery(summonerName);
+  const [startingWeekday, setStartingWeekday] = useLocalStorage<number>({
+    key: localStorageKeys.startingWeekday,
+    defaultValue: 1,
+  });
+
+  const { data: playtime, isLoading } = usePlaytimeQuery(
+    summonerName,
+    startingWeekday
+  );
 
   const [maxHoursAllowed, setMaxHoursAllowed] = useLocalStorage<number>({
     key: localStorageKeys.maxHoursAllowed,
@@ -144,7 +156,32 @@ const PlaytimePopup = ({ ...props }: Props) => {
       >
         <DialogTitle>
           <div>Time limit per week</div>
-          <div>Starts at</div>
+          <div
+            style={{
+              marginTop: 16,
+            }}
+          >
+            <FormControl size="small" variant="outlined" fullWidth>
+              <InputLabel id="demo-simple-select-label">Resets on</InputLabel>
+              <Select
+                label="Resets on"
+                value={startingWeekday}
+                onChange={(e) => {
+                  const num = Number(e.target.value);
+                  if (isNaN(num)) return;
+                  setStartingWeekday(num);
+                }}
+              >
+                <MenuItem value={1}>Monday</MenuItem>
+                <MenuItem value={2}>Tuesday</MenuItem>
+                <MenuItem value={3}>Wednesday</MenuItem>
+                <MenuItem value={4}>Thursday</MenuItem>
+                <MenuItem value={5}>Friday</MenuItem>
+                <MenuItem value={6}>Saturday</MenuItem>
+                <MenuItem value={7}>Sunday</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
         </DialogTitle>
 
         <DialogContent>
