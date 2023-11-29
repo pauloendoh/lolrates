@@ -52,7 +52,7 @@ const LolGraphsInput = ({ ...props }: Props) => {
 
       {summonerName && (
         <a
-          href={`https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}#championsData-aram`}
+          href={`https://www.leagueofgraphs.com/summoner/champions/br/${summonerName}-BR1#championsData-aram`}
           target="_blank"
           rel="noreferrer"
           style={{

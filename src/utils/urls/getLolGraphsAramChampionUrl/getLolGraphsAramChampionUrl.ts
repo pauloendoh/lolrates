@@ -12,6 +12,6 @@ export function getLolGraphsAramChampionUrl(
     .replace(/\s/g, "")
     .toLowerCase();
 
-  const newUrl = `https://www.leagueofgraphs.com/summoner/champions/${clearChampionName}/br/${summonerName}/aram`;
+  const newUrl = `https://www.leagueofgraphs.com/summoner/champions/${clearChampionName}/br/${summonerName}-BR1/aram`;
   return newUrl;
 }
