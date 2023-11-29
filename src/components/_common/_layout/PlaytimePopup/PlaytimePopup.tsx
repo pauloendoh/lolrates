@@ -121,6 +121,33 @@ const PlaytimePopup = ({ ...props }: Props) => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  const resetInLabel = useMemo(() => {
+    const today = new Date().getDay();
+
+    // Eg:
+    // Resets in 2 days
+    // Resets in 7 days
+    // Resets tomorrow
+
+    if (today === startingWeekday - 1) {
+      return "Resets tomorrow";
+    }
+
+    if (today === startingWeekday) {
+      return "Resets in 7 days";
+    }
+
+    if (today < startingWeekday) {
+      return `Resets in ${startingWeekday - today} days`;
+    }
+
+    if (today > startingWeekday) {
+      return `Resets in ${7 - today + startingWeekday} days`;
+    }
+
+    return "Resets in 7 days";
+  }, [startingWeekday]);
+
   if (!summonerName) return null;
 
   return (
@@ -144,8 +171,11 @@ const PlaytimePopup = ({ ...props }: Props) => {
           <Typography>{summonerName}</Typography>
           {isLoading && <Typography>Loading...</Typography>}
 
+          <span>{resetInLabel}</span>
+          <br />
+
           <span>{finalPlaytimeLabel}</span>
-          <span>{remainingPlaytimeLabel}</span>
+          <b>{remainingPlaytimeLabel}</b>
         </FlexCol>
       </Box>
 
