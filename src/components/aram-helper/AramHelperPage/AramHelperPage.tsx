@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import "draft-js/dist/Draft.css";
+import Head from "next/head";
 import { useMemo } from "react";
 import AramChampionTableRow from "./AramChampionTableRow/AramChampionTableRow";
 import LolGraphsInput from "./LolGraphsInput/LolGraphsInput";
@@ -46,6 +47,10 @@ export default function AramUtilsPage() {
 
   return (
     <Container>
+      <Head>
+        <title>Aram Helper</title>
+      </Head>
+
       <Typography variant="h4">ARAM Helper</Typography>
 
       <Box mt={3} />
