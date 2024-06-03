@@ -13,7 +13,11 @@ type Props = {
 const ChampionTooltipTitle = ({ rate }: Props) => {
   return (
     <S.Root>
-      <Typography>
+      <Typography
+        style={{
+          fontSize: 12,
+        }}
+      >
         Average: {rate.avgWin > 0 && rate.avgWin.toFixed(1) + "%"}
       </Typography>
 
