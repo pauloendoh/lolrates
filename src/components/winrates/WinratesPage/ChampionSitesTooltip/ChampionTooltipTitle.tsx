@@ -11,6 +11,9 @@ type Props = {
 };
 
 const ChampionTooltipTitle = ({ rate }: Props) => {
+  if (!rate) {
+    return <span>No WR info</span>;
+  }
   return (
     <S.Root>
       <Typography
@@ -26,6 +29,7 @@ const ChampionTooltipTitle = ({ rate }: Props) => {
           op.gg: {rate?.opggWin > 0 && rate?.opggWin.toFixed(1) + "%"}
         </a>
         <br />
+
         <a target="_blank" href={getLolGraphsUrl(rate?.championName)}>
           lolgraphs:{" "}
           {rate?.lolgraphsWin > 0 && rate?.lolgraphsWin.toFixed(1) + "%"}
