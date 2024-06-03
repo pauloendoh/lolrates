@@ -1,5 +1,5 @@
 import Txt from "@/components/_common/text/Txt";
-import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
+import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip/ChampionTooltipTitle";
 import { ChampionRoleType } from "@/types/domain/rates/ChampionRoleType";
 import { Tooltip } from "@material-ui/core";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
@@ -33,7 +33,7 @@ const DraftRowCol3 = (props: {
     if (props.sortBy === "All")
       return [...props.roleRates].sort((a, b) => b.avgAvg - a.avgAvg);
     else {
-      const ratesOver51 = [...props.roleRates].filter((r) => r.avgWin >= 51);
+      const ratesOver51 = [...props.roleRates].filter((r) => r.avgWin >= 50.5);
       return ratesOver51.sort((a, b) => b.avgAvg - a.avgAvg);
     }
   };
@@ -59,9 +59,7 @@ const DraftRowCol3 = (props: {
             enterDelay={500}
             enterNextDelay={500}
             interactive
-            title={
-              <ChampionTooltipTitle championName={championRate.championName} />
-            }
+            title={<ChampionTooltipTitle rate={championRate} />}
           >
             <img
               onClick={() => props.setSelectedChampionRate(championRate)}

@@ -1,5 +1,4 @@
 import { Autocomplete } from "@material-ui/lab";
-import React from "react";
 import {
   skillLevels,
   SkillLevelTypes,
@@ -13,6 +12,7 @@ const SkillLevelSelector = (props: {
 }) => {
   return (
     <Autocomplete
+      fullWidth
       value={props.selectedLevel}
       options={[...skillLevels]}
       renderOption={(skillLevel) => skillLevel}
@@ -21,7 +21,6 @@ const SkillLevelSelector = (props: {
         <MyTextField
           InputProps={{ id: "skill-level-selector" }}
           label="Skill level"
-          style={{ width: 111 }}
           {...params}
           size="small"
         />

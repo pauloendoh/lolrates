@@ -1,8 +1,8 @@
-import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip";
+import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip/ChampionTooltipTitle";
 import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@material-ui/core";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQueryChampionById } from "../../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import { useChampionRateQuery } from "../../../../../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { PlayerChampionDto } from "../../../../../../../types/domain/draft/PlayerChampionDto";
@@ -31,7 +31,7 @@ const PlayerChampionImage = (props: {
       enterDelay={500}
       enterNextDelay={500}
       interactive
-      title={<ChampionTooltipTitle championName={champion.name} />}
+      title={<ChampionTooltipTitle rate={championRate} />}
     >
       <S.ChampionImgWrapper
         onMouseEnter={() => setHover(true)}

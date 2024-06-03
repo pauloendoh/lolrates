@@ -10,13 +10,11 @@ export default function myServerAxios(ctx: any) {
   serverAxios.interceptors.request.use((config) => {
     const { user: userStr } = parseCookies(ctx);
 
-    console.log({ userStr });
     if (userStr) config.headers["x-auth-token"] = JSON.parse(userStr).token;
     return config;
   });
 
   serverAxios.interceptors.response.use((response) => {
-    console.log({ response });
     return response;
   });
 
