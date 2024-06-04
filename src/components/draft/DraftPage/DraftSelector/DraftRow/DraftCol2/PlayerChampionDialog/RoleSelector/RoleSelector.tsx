@@ -1,5 +1,4 @@
 import { Autocomplete } from "@material-ui/lab";
-import React from "react";
 import {
   ChampionRoleType,
   roles,
@@ -21,7 +20,7 @@ const RoleSelector = (props: {
         <MyTextField
           InputProps={{ id: "role-selector" }}
           label="Role"
-          style={{ width: 115 }}
+          style={{ width: 140 }}
           {...params}
           size="small"
         />

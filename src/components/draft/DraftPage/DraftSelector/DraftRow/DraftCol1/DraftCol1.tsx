@@ -1,12 +1,13 @@
+import Flex from "@/components/_common/flexboxes/Flex";
+import FlexCol from "@/components/_common/flexboxes/FlexCol";
+import { formatWinPickRate } from "@/utils/domain/rates/formatWinPickRate";
 import { Link } from "@material-ui/core";
-import React from "react";
 import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import usePlayersQuery from "../../../../../../hooks/react-query/domain/draft/usePlayersQuery";
 import useSelectedChampionsStore from "../../../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { ChampionDto } from "../../../../../../types/domain/draft/ChampionDto";
 import { ChampionRoleType } from "../../../../../../types/domain/rates/ChampionRoleType";
 import { LolRateChampionDto } from "../../../../../../types/domain/rates/LolRateChampionDto";
-import { formatWinPickRate } from "../../../../../../utils/domain/rates/formatWinPickRate";
 import Txt from "../../../../../_common/text/Txt";
 import SelectChampionAtRow from "../_common/SelectChampionAtRow/SelectChampionAtRow";
 import S from "./DraftCol1.styles";
@@ -34,20 +35,6 @@ const DraftRowCol1 = (props: {
 
   return (
     <S.Root>
-      {props.championRate?.iconUrl.length > 0 ? (
-        <img
-          src={props.championRate?.iconUrl}
-          style={{
-            height: 48,
-            borderRadius: 100,
-          }}
-        />
-      ) : (
-        <S.QuestionMarkWrapper>
-          <Txt variant="h5">?</Txt>
-        </S.QuestionMarkWrapper>
-      )}
-
       <S.InfoColumn px={1}>
         <S.RoleNameWrapper>
           <Txt>{props.role}</Txt>
@@ -81,13 +68,36 @@ const DraftRowCol1 = (props: {
             selectedChampionId={props.champion ? props.champion.id : null}
             width="100%"
           />
+        </S.InfoColContent>
+
+        <Flex
+          mt={1}
+          style={{
+            gap: 8,
+          }}
+        >
+          {props.championRate?.iconUrl.length > 0 ? (
+            <img
+              alt="champion icon"
+              src={props.championRate?.iconUrl}
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 100,
+              }}
+            />
+          ) : null}
           {props.championRate?.avgWin > 0 && (
-            <S.RatesWrapper>
+            <FlexCol
+              style={{
+                fontSize: "12px !important",
+              }}
+            >
               <Txt>{formatWinPickRate(props.championRate.avgWin)} win</Txt>
               <Txt>{formatWinPickRate(props.championRate.avgPick)} pick</Txt>
-            </S.RatesWrapper>
+            </FlexCol>
           )}
-        </S.InfoColContent>
+        </Flex>
       </S.InfoColumn>
     </S.Root>
   );

@@ -9,12 +9,13 @@ export default {
   Root: styled(Flex)(() => ({
     minWidth: 216,
     minHeight: 216,
+    padding: 8,
   })),
 
   QuestionMarkWrapper: styled(FlexVCenter)({
     justifyContent: "center",
     height: 48,
-    minWidth: 48,
+    width: 48,
     background: myColors.dark.lightDark,
     borderRadius: 48,
   }),
@@ -28,11 +29,6 @@ export default {
   }),
 
   InfoColContent: styled(Box)({
-    marginTop: theme.spacing(1),
-  }),
-
-  RatesWrapper: styled(Flex)({
-    flexDirection: "column",
     marginTop: theme.spacing(1),
   }),
 };

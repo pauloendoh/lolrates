@@ -52,7 +52,7 @@ const ChampionTooltip = ({
       }
     >
       <S.TextButton isHovering={isHovering}>
-        {championRate[keys.avg] > 0 && championRate[keys.avg].toFixed(1) + "%"}
+        {championRate[keys.avg].toFixed(1) + "%"}
       </S.TextButton>
     </Tooltip>
   );
