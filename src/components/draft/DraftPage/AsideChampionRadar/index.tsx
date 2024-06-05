@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import useChampionRadarsQuery from "../../../../hooks/react-query/domain/draft/championRadar/useChampionRadarsQuery";
 import useChampionsQuery from "../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import useSelectedChampionsStore from "../../../../hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
@@ -66,12 +66,7 @@ export default function AsideChampionRadar() {
   return (
     <S.Root>
       {championsWithRadar.length > 0 && getTotalRadar() && (
-        <>
-          <ChampionRadar showLabel values={getTotalRadar()} />
-          {championsWithRadar.map((champion) => (
-            <span key={champion.id}>{champion.name}</span>
-          ))}
-        </>
+        <ChampionRadar showLabel values={getTotalRadar()} />
       )}
     </S.Root>
   );

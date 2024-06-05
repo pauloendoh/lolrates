@@ -10,7 +10,7 @@ type Props = {
   title?: string;
 };
 
-const MainLayout = ({ children, title = "LoL Rates" }: Props) => (
+const MainLayout = ({ children, title = "LoLRates" }: Props) => (
   <>
     <Head>
       <meta charSet="utf-8" />

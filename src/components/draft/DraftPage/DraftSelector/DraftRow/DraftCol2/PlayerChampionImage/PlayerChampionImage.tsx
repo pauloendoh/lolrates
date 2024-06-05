@@ -1,15 +1,14 @@
+import FlexCenter from "@/components/_common/flexboxes/FlexCenter";
 import ChampionTooltipTitle from "@/components/winrates/WinratesPage/ChampionSitesTooltip/ChampionTooltipTitle";
-import { faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tooltip } from "@material-ui/core";
+import { Box, Tooltip } from "@material-ui/core";
 import { useState } from "react";
+import { MdDelete, MdEdit } from "react-icons/md";
 import { useQueryChampionById } from "../../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
 import { useChampionRateQuery } from "../../../../../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { PlayerChampionDto } from "../../../../../../../types/domain/draft/PlayerChampionDto";
 import { ChampionRoleType } from "../../../../../../../types/domain/rates/ChampionRoleType";
 import { getChampionImageBorder } from "../../../../../../../utils/domain/rates/getChampionImageBorder";
 import theme from "../../../../../../../utils/theme";
-import S from "./PlayerChampionImage.styles";
 
 // PE 2/3
 const PlayerChampionImage = (props: {
@@ -33,11 +32,15 @@ const PlayerChampionImage = (props: {
       interactive
       title={<ChampionTooltipTitle rate={championRate} />}
     >
-      <S.ChampionImgWrapper
+      <Box
+        style={{
+          position: "relative",
+        }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
         <img
+          alt={champion.name}
           src={champion.iconUrl}
           onClick={() => props.onClick(props.pChampion.championId)}
           style={{
@@ -52,30 +55,50 @@ const PlayerChampionImage = (props: {
 
         {hover && (
           <>
-            <S.DeleteIconWrapper
+            <FlexCenter
+              style={{
+                position: "absolute",
+                top: -4,
+                right: -4,
+                cursor: "pointer",
+                width: 16,
+                height: 16,
+                borderRadius: 100,
+                backgroundColor: theme.palette.grey[900],
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: `1px solid ${theme.palette.grey[500]}`,
+              }}
               onClick={() => props.onClickDelete(props.pChampion.id)}
             >
-              <FontAwesomeIcon
-                icon={faTimes}
-                fontSize="8px"
-                color={theme.palette.grey[900]}
-              />
-            </S.DeleteIconWrapper>
+              <MdDelete fontSize={10} />
+            </FlexCenter>
 
-            <S.EditIconWrapper
+            <FlexCenter
+              style={{
+                position: "absolute",
+                bottom: -4,
+                right: -4,
+                cursor: "pointer",
+                width: 16,
+                height: 16,
+                borderRadius: 100,
+                backgroundColor: theme.palette.grey[900],
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: `1px solid ${theme.palette.grey[500]}`,
+              }}
               onClick={() =>
                 props.onClickEditChampion(props.pChampion.championId)
               }
             >
-              <FontAwesomeIcon
-                icon={faPen}
-                size="sm"
-                color={theme.palette.grey[900]}
-              />
-            </S.EditIconWrapper>
+              <MdEdit fontSize={10} />
+            </FlexCenter>
           </>
         )}
-      </S.ChampionImgWrapper>
+      </Box>
     </Tooltip>
   );
 };

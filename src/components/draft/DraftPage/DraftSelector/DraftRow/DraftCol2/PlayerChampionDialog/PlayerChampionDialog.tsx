@@ -33,11 +33,20 @@ const PlayerChampionDialog = (props: {
   const [cRadar, setCRadar] = useState<ChampionRadarDto>(null);
   const [selectedChampionId, setSelectedChampionId] = useState<number>(null);
 
+  const championNameRef = React.useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (props.initialValue?.championId) {
       setSelectedChampionId(props.initialValue.championId);
     } else setSelectedChampionId(null);
   }, [props.initialValue]);
+
+  useEffect(() => {
+    if (props.open) {
+      setTimeout(() => {
+        championNameRef.current?.focus();
+      }, 100);
+    }
+  }, [props.open]);
 
   useEffect(() => {
     if (cRadars?.length > 0 && selectedChampionId) {
@@ -95,6 +104,7 @@ const PlayerChampionDialog = (props: {
               <S.SelectorLine>
                 {champions?.length > 0 && (
                   <SelectChampionAtRow
+                    ref={championNameRef}
                     championOptions={champions}
                     onChange={(championId) => {
                       setSelectedChampionId(championId);

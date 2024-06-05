@@ -33,7 +33,7 @@ export default function WinratePageRoute(props: Props) {
   return (
     <MainLayout>
       <Head>
-        <title>LoL Rates</title>
+        <title>LoLRates</title>
       </Head>
       <Box mx="auto" maxWidth="650px">
         <LolRatesPageContent />

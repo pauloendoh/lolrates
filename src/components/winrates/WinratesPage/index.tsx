@@ -124,7 +124,7 @@ const LolRatesPageContent = () => {
 
   return (
     <Box p={3}>
-      <Typography variant="h3">LoL Rates</Typography>
+      <Typography variant="h3">LoLRates</Typography>
       <Box>
         {/* PE 1/3 - componentize? */}
         <Txt>
