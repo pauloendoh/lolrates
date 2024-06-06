@@ -1,3 +1,5 @@
+import { localStorageKeys } from "@/utils/consts/localStorageKeys";
+import { useLocalStorage } from "@mantine/hooks";
 import useChampionsQuery from "hooks/react-query/domain/draft/useChampionsQuery";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
 import { useEffect, useMemo, useState } from "react";
@@ -32,7 +34,10 @@ const DraftRow = (props: {
   }, [selectedChampionRate]);
 
   // PE 2/3 - could have a selectedPlayers on selectedChampionsStore
-  const [selectedPlayerId, setSelectedPlayerId] = useState<number | "">("");
+  const [selectedPlayerId, setSelectedPlayerId] = useLocalStorage<number | "">({
+    key: localStorageKeys.draftRoleState(props.role),
+    defaultValue: "",
+  });
 
   const { data: allChampions } = useChampionsQuery();
 

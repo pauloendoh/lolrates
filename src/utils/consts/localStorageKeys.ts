@@ -7,4 +7,6 @@ export const localStorageKeys = {
   extraHours: "extraHours",
   extraMinutes: "extraMinutes",
   startingWeekday: "startingWeekday",
+
+  draftRoleState: (role: string) => `draftRoleState-${role}`,
 };
