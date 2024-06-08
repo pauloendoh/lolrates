@@ -8,7 +8,7 @@ export default {
   Root: styled(Box)({
     minWidth: 216,
     minHeight: 128,
-    padding: "0 8px",
+    padding: 8,
     borderRight: myColors.border,
     borderLeft: myColors.border,
   }),

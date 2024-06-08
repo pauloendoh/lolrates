@@ -1,13 +1,13 @@
 import Flex from "@/components/_common/flexboxes/Flex";
 import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
-import theme, { spacing } from "@/utils/theme";
+import { spacing } from "@/utils/theme";
 import { Box } from "@material-ui/core";
 import styled from "styled-components";
 
 export default {
   Root: styled(Box)({
     flexGrow: 1,
-    padding: `0 ${theme.spacing(1)}px`,
+    padding: 8,
   }),
   Header: styled(FlexVCenter)({
     paddingBottom: spacing(1),
