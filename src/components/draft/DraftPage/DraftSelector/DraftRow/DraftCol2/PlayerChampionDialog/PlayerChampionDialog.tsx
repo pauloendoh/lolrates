@@ -70,6 +70,19 @@ const PlayerChampionDialog = (props: {
 
   const { mutate: saveRadar } = useSaveChampionRadarMutation();
 
+  const onSubmit = (formikValues) => {
+    saveChampion(formikValues, {
+      onSettled: () => {
+        props.onClose();
+      },
+    });
+
+    saveRadar({
+      ...cRadar,
+      championId: selectedChampionId,
+    });
+  };
+
   return (
     <Dialog
       onClose={props.onClose}
@@ -226,6 +239,10 @@ const PlayerChampionDialog = (props: {
               <SaveCancelButtons
                 disabled={isLoading}
                 onCancel={props.onClose}
+                onEnabledAndCtrlEnter={() => {
+                  console.log(values);
+                  onSubmit(values);
+                }}
               />
             </DialogTitle>
           </Form>
