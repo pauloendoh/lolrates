@@ -20,8 +20,9 @@ export default function useLoginMutation() {
         .then((res) => res.data),
     {
       onSuccess: (authUser) => {
-        // setUsername(res.username)
-        setCookie(undefined, "user", JSON.stringify(authUser));
+        setCookie(undefined, "user", JSON.stringify(authUser), {
+          maxAge: 60 * 60 * 24 * 365, // one year
+        });
 
         // updating axios default auth header config
         myClientAxios.defaults.headers["x-auth-token"] = authUser.token;
