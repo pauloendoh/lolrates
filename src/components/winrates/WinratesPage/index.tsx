@@ -6,7 +6,6 @@ import Txt from "@/components/_common/text/Txt";
 import { localStorageKeys } from "@/utils/consts/localStorageKeys";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocalStorage } from "@mantine/hooks";
 import {
   Box,
   Button,
@@ -47,11 +46,15 @@ const LolRatesPageContent = () => {
   const routerQuery = router.query as { q?: string };
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();
 
-  const [onlyHighWinRate, setOnlyHighWinRate] = useLocalStorage({
-    key: localStorageKeys.onlyHighWinRate,
-    defaultValue: true,
-    getInitialValueInEffect: true,
-  });
+  const [onlyHighWinRate, setOnlyHighWinRate] = useState(true);
+
+  useEffect(() => {
+    // useLocalStorage was not working. Always setting default value on first render
+    const value = localStorage.getItem(localStorageKeys.onlyHighWinRate);
+    if (value) {
+      setOnlyHighWinRate(JSON.parse(value));
+    }
+  }, []);
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");
@@ -170,7 +173,14 @@ const LolRatesPageContent = () => {
           control={
             <Checkbox
               checked={onlyHighWinRate}
-              onChange={(e) => setOnlyHighWinRate(e.target.checked)}
+              onChange={(e) => {
+                const checked = e.target.checked;
+                setOnlyHighWinRate(checked);
+                localStorage.setItem(
+                  localStorageKeys.onlyHighWinRate,
+                  JSON.stringify(checked)
+                );
+              }}
               name="avgWin51"
               color="primary"
             />

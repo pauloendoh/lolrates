@@ -11,4 +11,4 @@ export const localStorageKeys = {
   startingWeekday: "startingWeekday",
 
   draftRoleState: (role: string) => `draftRoleState-${role}`,
-};
+} as const 
