@@ -7,8 +7,6 @@ import myClientAxios from "../../../../utils/axios/myClientAxios";
 import useSnackbarStore from "../../../zustand-stores/useSnackbarStore";
 
 export default function useLoginMutation() {
-  // const { setUsername } = useAuthStore()
-
   const { setSuccessMessage, setErrorMessage } = useSnackbarStore();
 
   const queryClient = useQueryClient();

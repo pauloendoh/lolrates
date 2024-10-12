@@ -3,8 +3,10 @@ import { ImSortAmountDesc } from "react-icons/im";
 import Flex from "@/components/_common/flexboxes/Flex";
 import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import Txt from "@/components/_common/text/Txt";
+import { localStorageKeys } from "@/utils/consts/localStorageKeys";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocalStorage } from "@mantine/hooks";
 import {
   Box,
   Button,
@@ -45,7 +47,10 @@ const LolRatesPageContent = () => {
   const routerQuery = router.query as { q?: string };
   const { rates: allChampionRates, updatedAt, isLoading } = useLolRatesQuery();
 
-  const [onlyHighWinRate, setOnlyHighWinRate] = useState(false);
+  const [onlyHighWinRate, setOnlyHighWinRate] = useLocalStorage({
+    key: localStorageKeys.onlyHighWinRate,
+    defaultValue: true
+  });
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
   const [selectedRole, setSelectedRole] = useState<Roles>("ALL");

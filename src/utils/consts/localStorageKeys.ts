@@ -1,4 +1,6 @@
 export const localStorageKeys = {
+  onlyHighWinRate: "onlyHighWinRate", 
+  
   editorContent: "editorContent",
 
   summonerName: "summonerName",
