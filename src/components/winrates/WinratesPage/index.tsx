@@ -49,7 +49,8 @@ const LolRatesPageContent = () => {
 
   const [onlyHighWinRate, setOnlyHighWinRate] = useLocalStorage({
     key: localStorageKeys.onlyHighWinRate,
-    defaultValue: true
+    defaultValue: true,
+    getInitialValueInEffect: true,
   });
 
   // PE 2/3 - Should be on a separated component? Eg: <ChampionRateList rates={rates}/>
