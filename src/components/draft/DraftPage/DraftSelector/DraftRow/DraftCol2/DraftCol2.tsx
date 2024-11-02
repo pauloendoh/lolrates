@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import useSelectedChampionsStore from "hooks/zustand-stores/domain/draft/useSelectedChampionsStore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useDeletePlayerChampionMutation from "../../../../../../hooks/react-query/domain/draft/playerChampion/useDeletePlayerChampionMutation";
 import usePlayerChampionsQuery from "../../../../../../hooks/react-query/domain/draft/playerChampion/usePlayerChampionsQuery";
 import useChampionsQuery from "../../../../../../hooks/react-query/domain/draft/useChampionsQuery";
@@ -44,34 +44,38 @@ const DraftCol2 = (props: {
   const [initialValueChampionDialog, setInitialValueChampionDialog] =
     useState<PlayerChampionDto>(null);
 
-  const { data: pChampions } = usePlayerChampionsQuery();
+  const { data: playerChampions } = usePlayerChampionsQuery();
 
   // PE 2/3 - useMemo()
   const getOpChampions = () => {
-    if (!props.selectedPlayerId || !pChampions?.length) {
+    if (!props.selectedPlayerId || !playerChampions?.length) {
       return [];
     }
 
-    return pChampions.filter(
-      (pChampion) =>
-        pChampion.playerId === props.selectedPlayerId &&
-        pChampion.skillLevel === "OP" &&
-        pChampion.role === props.role
-    );
+    return playerChampions
+      .filter(
+        (pChampion) =>
+          pChampion.playerId === props.selectedPlayerId &&
+          pChampion.skillLevel === "OP" &&
+          pChampion.role === props.role
+      )
+      .sort((a, b) => b.rate?.avgWin - a.rate?.avgWin);
   };
 
   // PE 2/3 - useMemo()
   const getDecentChampions = () => {
-    if (!props.selectedPlayerId || !pChampions?.length) {
+    if (!props.selectedPlayerId || !playerChampions?.length) {
       return [];
     }
 
-    return pChampions.filter(
-      (pChampion) =>
-        pChampion.playerId === props.selectedPlayerId &&
-        pChampion.skillLevel === "Decent/Practice" &&
-        pChampion.role === props.role
-    );
+    return playerChampions
+      .filter(
+        (pChampion) =>
+          pChampion.playerId === props.selectedPlayerId &&
+          pChampion.skillLevel === "Decent/Practice" &&
+          pChampion.role === props.role
+      )
+      .sort((a, b) => a.rate?.avgWin - b.rate?.avgWin);
   };
 
   const { mutate: deletePChampion } = useDeletePlayerChampionMutation();
@@ -105,7 +109,7 @@ const DraftCol2 = (props: {
   ) => {
     setChampionDialogIsOpen(true);
 
-    const pChampion = pChampions.find(
+    const pChampion = playerChampions.find(
       (pChampion) =>
         pChampion.playerId === props.selectedPlayerId &&
         pChampion.championId === championId

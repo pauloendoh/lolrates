@@ -1,4 +1,5 @@
 import { ChampionRoleType } from "../rates/ChampionRoleType";
+import { LolRateChampionDto } from "../rates/LolRateChampionDto";
 import { ChampionDto } from "./ChampionDto";
 import { SkillLevelTypes } from "./SkillLevelTypes";
 
@@ -15,6 +16,8 @@ export interface PlayerChampionDto {
 
   createdAt: string;
   updatedAt: string;
+
+  rate?: LolRateChampionDto;
 }
 
 export const getEmptyPlayerChampionDto = (

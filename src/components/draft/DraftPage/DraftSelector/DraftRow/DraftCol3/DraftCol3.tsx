@@ -31,10 +31,10 @@ const DraftRowCol3 = (props: {
   // Returns rates by role, over 50.5% win rate and in descending order
   const getBestChampions = () => {
     if (props.sortBy === "All")
-      return [...props.roleRates].sort((a, b) => b.avgAvg - a.avgAvg);
+      return [...props.roleRates].sort((a, b) => b.avgWin - a.avgWin);
     else {
       const ratesOver51 = [...props.roleRates].filter((r) => r.avgWin >= 50.5);
-      return ratesOver51.sort((a, b) => b.avgAvg - a.avgAvg);
+      return ratesOver51.sort((a, b) => b.avgWin - a.avgWin);
     }
   };
 

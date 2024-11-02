@@ -1,6 +1,6 @@
 import FileDto from "@/types/domain/playground/file-system/FileDto";
 import create from "zustand";
-import { devtools, NamedSet } from "zustand/middleware";
+import { NamedSet } from "zustand/middleware";
 
 interface IFileSystemStore {
   fileDialogParentFolderId: number;
@@ -20,48 +20,45 @@ interface IFileSystemStore {
 }
 
 const useFileSystemStore = create<IFileSystemStore>(
-  devtools(
-    (set: NamedSet<IFileSystemStore>, get) => ({
-      fileDialogParentFolderId: null,
-      setFileDialogParentFolderId: (parentFolderId) => {
-        set({ fileDialogParentFolderId: parentFolderId });
-      },
+  (set: NamedSet<IFileSystemStore>, get) => ({
+    fileDialogParentFolderId: null,
+    setFileDialogParentFolderId: (parentFolderId) => {
+      set({ fileDialogParentFolderId: parentFolderId });
+    },
 
-      openFolderDialog: false,
-      setOpenFolderDialog: (open) => {
-        set({ openFolderDialog: open });
+    openFolderDialog: false,
+    setOpenFolderDialog: (open) => {
+      set({ openFolderDialog: open });
 
-        if (open === false) set({ folderDialogParentFolderId: null });
-      },
+      if (open === false) set({ folderDialogParentFolderId: null });
+    },
 
-      folderDialogParentFolderId: null,
-      setFolderDialogParentFolderId: (parentFolderId) => {
-        set({ folderDialogParentFolderId: parentFolderId });
-      },
+    folderDialogParentFolderId: null,
+    setFolderDialogParentFolderId: (parentFolderId) => {
+      set({ folderDialogParentFolderId: parentFolderId });
+    },
 
-      selectedFile: null,
-      setSelectedFile: (file) => {
-        set({ selectedFile: file });
-      },
+    selectedFile: null,
+    setSelectedFile: (file) => {
+      set({ selectedFile: file });
+    },
 
-      expandedNodes: [],
-      toggleNode: (nodeId) => {
-        const { expandedNodes } = get();
-        if (expandedNodes.includes(nodeId))
-          // remove
-          set({
-            expandedNodes: expandedNodes.filter(
-              (expandedNodeId) => expandedNodeId !== nodeId
-            ),
-          });
-        else {
-          // add
-          set({ expandedNodes: [...expandedNodes, nodeId] });
-        }
-      },
-    }),
-    "@FileSystemStore"
-  )
+    expandedNodes: [],
+    toggleNode: (nodeId) => {
+      const { expandedNodes } = get();
+      if (expandedNodes.includes(nodeId))
+        // remove
+        set({
+          expandedNodes: expandedNodes.filter(
+            (expandedNodeId) => expandedNodeId !== nodeId
+          ),
+        });
+      else {
+        // add
+        set({ expandedNodes: [...expandedNodes, nodeId] });
+      }
+    },
+  })
 );
 
 export default useFileSystemStore;
