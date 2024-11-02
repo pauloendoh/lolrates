@@ -22,7 +22,6 @@ import MantineRTEAccordion from "./MantineRTEAccordion/MantineRTEAccordion";
 import MarkdownAccordion from "./MarkdownAccordion/MarkdownAccordion";
 import MetascraperAccordion from "./MetascraperAccordion/MetascraperAccordion";
 import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
-import RichTextEditor from "./RichTextEditor/RichTextEditor";
 import ScrollPaginationAccordion from "./ScrollPaginationAccordion/ScrollPaginationAccordion";
 import SocketIOHookAccordion from "./SocketIOHookAccordion/SocketIOHookAccordion";
 import StripeAccordion from "./StripeAccordion/StripeAccordion";
@@ -75,9 +74,6 @@ export default function PlaygroundPage() {
           >
             <Txt>Rich Text Editor</Txt>
           </AccordionSummary>
-          <AccordionDetails>
-            <RichTextEditor />
-          </AccordionDetails>
         </Accordion>
 
         <Accordion expanded={friendIsOpened}>
