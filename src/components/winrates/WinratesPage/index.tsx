@@ -4,8 +4,6 @@ import Flex from "@/components/_common/flexboxes/Flex";
 import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import Txt from "@/components/_common/text/Txt";
 import { localStorageKeys } from "@/utils/consts/localStorageKeys";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   Button,
@@ -24,6 +22,7 @@ import {
 import { Skeleton } from "@material-ui/lab";
 import { useRouter } from "next/dist/client/router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { MdSearch } from "react-icons/md";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import { LolRateChampionDto } from "../../../types/domain/rates/LolRateChampionDto";
 import stringAreVerySimilar from "../../../utils/text/stringsAreVerySimilar";
@@ -161,7 +160,7 @@ const LolRatesPageContent = () => {
           size="small"
           label={
             <S.SearchLabel>
-              <FontAwesomeIcon icon={faSearch} />
+              <MdSearch />
               <span>Champion name</span>
             </S.SearchLabel>
           }
