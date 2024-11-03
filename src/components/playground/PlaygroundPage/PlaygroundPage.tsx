@@ -20,7 +20,6 @@ import InfiniteQueryAccordion from "./InfiniteQueryAccordion/InfiniteQueryAccord
 import LinkifyAccordion from "./LinkifyAccordion/LinkifyAccordion";
 import MantineRTEAccordion from "./MantineRTEAccordion/MantineRTEAccordion";
 import MarkdownAccordion from "./MarkdownAccordion/MarkdownAccordion";
-import MetascraperAccordion from "./MetascraperAccordion/MetascraperAccordion";
 import PaginationAccordion from "./PaginationAccordion/PaginationAccordion";
 import ScrollPaginationAccordion from "./ScrollPaginationAccordion/ScrollPaginationAccordion";
 import SocketIOHookAccordion from "./SocketIOHookAccordion/SocketIOHookAccordion";
@@ -94,7 +93,6 @@ export default function PlaygroundPage() {
         <ScrollPaginationAccordion />
         <InfiniteQueryAccordion />
         <GraphQLAccordion />
-        <MetascraperAccordion />
         <StripeAccordion />
         <Box mt={4} />
       </Flex>
