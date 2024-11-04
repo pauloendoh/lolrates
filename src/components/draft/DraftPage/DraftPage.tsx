@@ -2,11 +2,10 @@ import SidebarWrapper from "@/components/_common/_layout/SidebarWrapper/SidebarW
 import { Box, Container, makeStyles } from "@material-ui/core";
 import classNames from "classnames";
 import Head from "next/head";
-import React from "react";
 import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRatesQuery";
 import useSidebarStore from "../../../hooks/zustand-stores/useSidebarStore";
-import Flex from "../../_common/flexboxes/Flex";
 import MainLayout from "../../_common/_layout/MainLayout";
+import Flex from "../../_common/flexboxes/Flex";
 import AsideChampionRadar from "./AsideChampionRadar";
 import S from "./DraftPage.styles";
 import DraftSelector from "./DraftSelector";
@@ -36,7 +35,7 @@ const DraftPage = () => {
           })}
           flexGrow={1}
         >
-          <Box pt={5} pb={10}>
+          <Box pb={10}>
             <Container style={{ minWidth: 900 }}>
               <Flex>
                 <Box>
