@@ -114,7 +114,7 @@ export default function AsideChampionRadar() {
       infos.find((info) => info.role === "BOT"),
       infos.find((info) => info.role === "SUP"),
     ].filter((info) => info);
-  }, [selectedChampions, allChampions]);
+  }, [selectedChampions, allChampions, radars]);
 
   return (
     <S.Root>
