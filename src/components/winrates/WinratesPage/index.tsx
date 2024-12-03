@@ -231,27 +231,7 @@ const LolRatesPageContent = () => {
                 <TableHead className={classes.tableHead}>
                   <TableRow>
                     <TableCell>Champion</TableCell>
-                    <TableCell>
-                      <Button
-                        onClick={() => {
-                          setSortDescBy("AvgPick");
-                        }}
-                        style={{
-                          textTransform: "none",
-                          fontWeight:
-                            sortDescBy === "AvgPick" ? "bold" : "normal",
-                        }}
-                      >
-                        Pick
-                        {sortDescBy === "AvgPick" && (
-                          <ImSortAmountDesc
-                            style={{
-                              marginLeft: 4,
-                            }}
-                          />
-                        )}
-                      </Button>
-                    </TableCell>
+
                     <TableCell>
                       <Button
                         onClick={() => {
@@ -263,7 +243,7 @@ const LolRatesPageContent = () => {
                             sortDescBy === "AvgWin" ? "bold" : "normal",
                         }}
                       >
-                        Win
+                        Win %
                         {sortDescBy === "AvgWin" && (
                           <ImSortAmountDesc
                             style={{
@@ -273,6 +253,29 @@ const LolRatesPageContent = () => {
                         )}
                       </Button>
                     </TableCell>
+
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          setSortDescBy("AvgPick");
+                        }}
+                        style={{
+                          textTransform: "none",
+                          fontWeight:
+                            sortDescBy === "AvgPick" ? "bold" : "normal",
+                        }}
+                      >
+                        Pick %
+                        {sortDescBy === "AvgPick" && (
+                          <ImSortAmountDesc
+                            style={{
+                              marginLeft: 4,
+                            }}
+                          />
+                        )}
+                      </Button>
+                    </TableCell>
+
                     <TableCell>
                       <Button
                         onClick={() => {
@@ -284,7 +287,7 @@ const LolRatesPageContent = () => {
                             sortDescBy === "AvgAvg" ? "bold" : "normal",
                         }}
                       >
-                        (Pick+Win)/2
+                        (Win+Pick)/2
                         {sortDescBy === "AvgAvg" && (
                           <ImSortAmountDesc
                             style={{
@@ -299,7 +302,7 @@ const LolRatesPageContent = () => {
                 <TableBody>
                   {filteredRates.map((rate, i) => (
                     <TableRow
-                      key={i}
+                      key={`${rate.championName}-${rate.role}`}
                       style={{
                         display: shouldShowRate(rate) ? "table-row" : "none",
                       }}
@@ -307,14 +310,14 @@ const LolRatesPageContent = () => {
                       <ChampionInfo1stTD rate={rate} />
 
                       <TableCell>
+                        <ChampionTooltip championRate={rate} isHovering="Win" />
+                      </TableCell>
+
+                      <TableCell>
                         <ChampionTooltip
                           championRate={rate}
                           isHovering="Pick"
                         />
-                      </TableCell>
-
-                      <TableCell>
-                        <ChampionTooltip championRate={rate} isHovering="Win" />
                       </TableCell>
 
                       <TableCell>

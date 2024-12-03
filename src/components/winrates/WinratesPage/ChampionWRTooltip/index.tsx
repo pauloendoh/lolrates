@@ -51,6 +51,7 @@ const ChampionTooltip = ({
         </S.TooltipContent>
       }
     >
+      {/* PE 1/3 - isHovering? Melhor ser outra coisa */}
       <S.TextButton isHovering={isHovering}>
         {championRate[keys.avg].toFixed(1) + "%"}
       </S.TextButton>
