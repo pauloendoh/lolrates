@@ -1,3 +1,4 @@
+import { GlobalDialogs } from "@/components/_common/_dialogs/GlobalDialogs/GlobalDialogs";
 import { GAnalyticsScript } from "@/utils/google-analytics/GAnalyticsScript";
 import * as gtag from "@/utils/google-analytics/gtag";
 import myApolloClient from "@/utils/graphql/myApolloClient";
@@ -58,6 +59,7 @@ export default function MyApp(props: AppProps<{ dehydratedState: unknown }>) {
               <DndProvider backend={HTML5Backend}>
                 <IoProvider>
                   <Component {...pageProps} />
+                  <GlobalDialogs />
                 </IoProvider>
               </DndProvider>
             </Hydrate>

@@ -21,6 +21,7 @@ import MyTextField from "../../inputs/MyTextField";
 
 type Props = {};
 
+// PE 1/3 - não estou usando mais
 const PlaytimePopup = ({ ...props }: Props) => {
   const { summonerName, setSummonerName } = useAramHelperStore();
 

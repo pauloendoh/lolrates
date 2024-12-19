@@ -6,7 +6,7 @@ import useLolRatesQuery from "../../../hooks/react-query/domain/rates/useLolRate
 import useSidebarStore from "../../../hooks/zustand-stores/useSidebarStore";
 import MainLayout from "../../_common/_layout/MainLayout";
 import Flex from "../../_common/flexboxes/Flex";
-import AsideChampionRadar from "./AsideChampionRadar";
+import { ChampionRadarPopup } from "./ChampionRadarPopup/ChampionRadarPopup";
 import S from "./DraftPage.styles";
 import DraftSelector from "./DraftSelector";
 import DraftSidebarContent from "./DraftSidebar";
@@ -41,12 +41,14 @@ const DraftPage = () => {
                 <Box>
                   {rates && rates.length > 0 && <DraftSelector rates={rates} />}
                 </Box>
-                <AsideChampionRadar />
+                {/* <AsideChampionRadar /> */}
               </Flex>
             </Container>
           </Box>
         </Box>
       </S.DraftPageContent>
+
+      <ChampionRadarPopup />
     </MainLayout>
   );
 };
