@@ -46,8 +46,7 @@ const DraftCol2 = (props: {
 
   const { data: playerChampions } = usePlayerChampionsQuery();
 
-  // PE 2/3 - useMemo()
-  const getOpChampions = () => {
+  const getChampionsBySkillLevel = (skillLevel: SkillLevelTypes) => {
     if (!props.selectedPlayerId || !playerChampions?.length) {
       return [];
     }
@@ -56,26 +55,10 @@ const DraftCol2 = (props: {
       .filter(
         (pChampion) =>
           pChampion.playerId === props.selectedPlayerId &&
-          pChampion.skillLevel === "OP" &&
+          pChampion.skillLevel === skillLevel &&
           pChampion.role === props.role
       )
       .sort((a, b) => b.rate?.avgWin - a.rate?.avgWin);
-  };
-
-  // PE 2/3 - useMemo()
-  const getDecentChampions = () => {
-    if (!props.selectedPlayerId || !playerChampions?.length) {
-      return [];
-    }
-
-    return playerChampions
-      .filter(
-        (pChampion) =>
-          pChampion.playerId === props.selectedPlayerId &&
-          pChampion.skillLevel === "Decent/Practice" &&
-          pChampion.role === props.role
-      )
-      .sort((a, b) => a.rate?.avgWin - b.rate?.avgWin);
   };
 
   const { mutate: deletePChampion } = useDeletePlayerChampionMutation();
@@ -133,7 +116,7 @@ const DraftCol2 = (props: {
           <S.ChampionsWrapper>
             <Txt>OP</Txt>
             <S.ChampionImgs>
-              {getOpChampions().map((pChampion) => (
+              {getChampionsBySkillLevel("OP").map((pChampion) => (
                 <PlayerChampionImage
                   role={props.role}
                   key={pChampion.id}
@@ -168,7 +151,7 @@ const DraftCol2 = (props: {
           <S.ChampionsWrapper>
             <Txt>Decent/Practice</Txt>
             <S.ChampionImgs>
-              {getDecentChampions().map((pChampion) => (
+              {getChampionsBySkillLevel("Decent/Practice").map((pChampion) => (
                 <PlayerChampionImage
                   role={props.role}
                   key={pChampion.id}
@@ -191,6 +174,47 @@ const DraftCol2 = (props: {
                       props.selectedPlayerId as number,
                       null,
                       "Decent/Practice",
+                      props.role
+                    )
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </S.ChampionImgs>
+          </S.ChampionsWrapper>
+
+          <S.ChampionsWrapper>
+            <Txt>Training recommendation</Txt>
+            <S.ChampionImgs>
+              {getChampionsBySkillLevel("Training recommendation").map(
+                (pChampion) => (
+                  <PlayerChampionImage
+                    role={props.role}
+                    key={pChampion.id}
+                    onClick={selectChampion}
+                    onClickEditChampion={(championId) =>
+                      handleClickEditChampion(
+                        championId,
+                        "Training recommendation"
+                      )
+                    }
+                    onClickDelete={confirmDeletePChampion}
+                    pChampion={pChampion}
+                  />
+                )
+              )}
+
+              <IconButton
+                size="small"
+                style={{ width: 32, height: 32 }}
+                onClick={() => {
+                  setChampionDialogIsOpen(true);
+                  setInitialValueChampionDialog(
+                    getEmptyPlayerChampionDto(
+                      props.selectedPlayerId as number,
+                      null,
+                      "Training recommendation",
                       props.role
                     )
                   );
