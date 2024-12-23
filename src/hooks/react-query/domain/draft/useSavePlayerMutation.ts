@@ -26,6 +26,7 @@ export default function useSavePlayerMutation() {
         const players = queryClient.getQueryData<PlayerDto[]>(url);
         const newPlayers = pushOrReplace(players, saved, "id");
 
+        queryClient.cancelQueries(url);
         queryClient.setQueryData(url, newPlayers);
         setSuccessMessage("Player saved!");
       },

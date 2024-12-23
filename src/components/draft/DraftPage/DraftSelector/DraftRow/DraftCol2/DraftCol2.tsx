@@ -149,42 +149,6 @@ const DraftCol2 = (props: {
           </S.ChampionsWrapper>
 
           <S.ChampionsWrapper>
-            <Txt>Decent/Practice</Txt>
-            <S.ChampionImgs>
-              {getChampionsBySkillLevel("Decent/Practice").map((pChampion) => (
-                <PlayerChampionImage
-                  role={props.role}
-                  key={pChampion.id}
-                  onClick={selectChampion}
-                  onClickEditChampion={(championId) =>
-                    handleClickEditChampion(championId, "Decent/Practice")
-                  }
-                  onClickDelete={confirmDeletePChampion}
-                  pChampion={pChampion}
-                />
-              ))}
-
-              <IconButton
-                size="small"
-                style={{ width: 32, height: 32 }}
-                onClick={() => {
-                  setChampionDialogIsOpen(true);
-                  setInitialValueChampionDialog(
-                    getEmptyPlayerChampionDto(
-                      props.selectedPlayerId as number,
-                      null,
-                      "Decent/Practice",
-                      props.role
-                    )
-                  );
-                }}
-              >
-                <AddIcon />
-              </IconButton>
-            </S.ChampionImgs>
-          </S.ChampionsWrapper>
-
-          <S.ChampionsWrapper>
             <Txt>Training recommendation</Txt>
             <S.ChampionImgs>
               {getChampionsBySkillLevel("Training recommendation").map(
@@ -215,6 +179,42 @@ const DraftCol2 = (props: {
                       props.selectedPlayerId as number,
                       null,
                       "Training recommendation",
+                      props.role
+                    )
+                  );
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </S.ChampionImgs>
+          </S.ChampionsWrapper>
+
+          <S.ChampionsWrapper>
+            <Txt>Decent/Practice</Txt>
+            <S.ChampionImgs>
+              {getChampionsBySkillLevel("Decent/Practice").map((pChampion) => (
+                <PlayerChampionImage
+                  role={props.role}
+                  key={pChampion.id}
+                  onClick={selectChampion}
+                  onClickEditChampion={(championId) =>
+                    handleClickEditChampion(championId, "Decent/Practice")
+                  }
+                  onClickDelete={confirmDeletePChampion}
+                  pChampion={pChampion}
+                />
+              ))}
+
+              <IconButton
+                size="small"
+                style={{ width: 32, height: 32 }}
+                onClick={() => {
+                  setChampionDialogIsOpen(true);
+                  setInitialValueChampionDialog(
+                    getEmptyPlayerChampionDto(
+                      props.selectedPlayerId as number,
+                      null,
+                      "Decent/Practice",
                       props.role
                     )
                   );
