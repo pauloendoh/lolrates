@@ -1,13 +1,32 @@
 import { TextField } from "@material-ui/core";
 import React from "react";
+import { MdClear } from "react-icons/md";
 
-const MyTextField = (props: Props) => {
-
-  return (
-    <TextField size="small" autoComplete="off" variant="outlined" {...props} />
-  );
+type Props = React.ComponentProps<typeof TextField> & {
+  onClickClearIcon?: () => void;
 };
 
-type Props = React.ComponentProps<typeof TextField>;
+const MyTextField = (props: Props) => {
+  return (
+    <TextField
+      size="small"
+      autoComplete="off"
+      variant="outlined"
+      InputProps={
+        props.onClickClearIcon
+          ? {
+              endAdornment: (
+                <MdClear
+                  style={{ cursor: "pointer" }}
+                  onClick={props.onClickClearIcon}
+                />
+              ),
+            }
+          : undefined
+      }
+      {...props}
+    />
+  );
+};
 
 export default MyTextField;

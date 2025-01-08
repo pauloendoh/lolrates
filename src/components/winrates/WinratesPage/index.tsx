@@ -165,6 +165,10 @@ const LolRatesPageContent = () => {
             </S.SearchLabel>
           }
           className="mt-3"
+          onClickClearIcon={() => {
+            setTextFilter("");
+            router.push(urls.pages.index);
+          }}
         />
       </Box>
       <Box>
