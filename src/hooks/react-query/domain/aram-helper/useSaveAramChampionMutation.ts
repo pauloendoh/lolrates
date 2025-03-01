@@ -1,4 +1,5 @@
 import { queryKeys } from "@/utils/consts/queryKeys";
+import { myLocalStorage } from "@/utils/myLocalStorage";
 import { pushOrReplace } from "@/utils/pushOrReplace";
 import { urls } from "@/utils/urls/urls";
 import { useMutation, useQueryClient } from "react-query";
@@ -21,6 +22,16 @@ export default function useSaveAramChampionMutation() {
         queryClient.setQueryData<UserAramChampionDto[]>(
           queryKeys.myAramChampions,
           (curr) => pushOrReplace(curr, saved, "id")
+        );
+
+        myLocalStorage.set(
+          queryKeys.myAramChampions,
+          queryClient.getQueryData<UserAramChampionDto[]>(
+            queryKeys.myAramChampions
+          ),
+          {
+            ttl: 60 * 60 * 12, // 12 hours
+          }
         );
       },
       onError: (err) => {
