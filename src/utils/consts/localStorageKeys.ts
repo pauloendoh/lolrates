@@ -1,6 +1,6 @@
 export const localStorageKeys = {
-  onlyHighWinRate: "onlyHighWinRate", 
-  
+  onlyHighWinRate: "onlyHighWinRate",
+
   editorContent: "editorContent",
 
   summonerName: "summonerName",
@@ -11,4 +11,7 @@ export const localStorageKeys = {
   startingWeekday: "startingWeekday",
 
   draftRoleState: (role: string) => `draftRoleState-${role}`,
-} as const 
+
+  summonerAramChampions: (summonerName: string) =>
+    `summonerAramChampions-${summonerName}`,
+} as const;

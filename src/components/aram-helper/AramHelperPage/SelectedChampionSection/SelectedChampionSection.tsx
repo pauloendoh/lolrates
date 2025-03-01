@@ -57,7 +57,7 @@ const SelectedChampionPaper = () => {
 
   const { mutate } = useSaveAramChampionMutation();
 
-  const debouncedChampion = useDebounce(localAramChampion, 500);
+  const debouncedChampion = useDebounce(localAramChampion, 5000);
 
   useEffect(() => {
     if (!debouncedChampion?.championId) return;
