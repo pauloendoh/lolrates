@@ -1,4 +1,5 @@
 import Flex from "@/components/_common/flexboxes/Flex";
+import FlexCol from "@/components/_common/flexboxes/FlexCol";
 import FlexVCenter from "@/components/_common/flexboxes/FlexVCenter";
 import MyTextField from "@/components/_common/inputs/MyTextField";
 import {
@@ -129,19 +130,25 @@ const SelectedChampionPaper = () => {
           </FlexVCenter>
 
           <Flex mt={2} style={{ gap: 16 }}>
-            <MyTextField
-              label="Runes & spells"
-              type="text"
-              multiline
-              minRows={3}
-              value={localAramChampion?.runes}
-              onChange={(e) => {
-                setLocalAramChampion({
-                  ...localAramChampion,
-                  runes: e.target.value,
-                });
-              }}
-            />
+            <FlexCol>
+              <MyTextField
+                label="Runes & spells"
+                type="text"
+                multiline
+                minRows={3}
+                value={localAramChampion?.runes}
+                onChange={(e) => {
+                  setLocalAramChampion({
+                    ...localAramChampion,
+                    runes: e.target.value,
+                  });
+                }}
+              />
+              {(debouncedChampion?.runes !== localAramChampion?.runes ||
+                debouncedChampion?.items !== localAramChampion?.items) && (
+                <Typography variant="caption">Saving...</Typography>
+              )}
+            </FlexCol>
 
             <MyTextField
               label="Items"
