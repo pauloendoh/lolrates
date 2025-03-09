@@ -12,7 +12,7 @@ export async function cachePromise<T>(
 
   const result = await promise();
 
-  myLocalStorage.set(key, result, { ttl: ttlInMillis * 1000 });
+  myLocalStorage.set(key, result, { ttl: ttlInMillis / 1000 });
 
   return result;
 }
