@@ -175,7 +175,7 @@ const DraftCol2 = (props: {
                     getEmptyPlayerChampionDto(
                       props.selectedPlayerId as number,
                       null,
-                      "Backlog",
+                      "Encourage",
                       props.role
                     )
                   );
