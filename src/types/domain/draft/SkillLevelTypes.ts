@@ -1,7 +1,3 @@
-export const skillLevels = [
-  "OP",
-  "Decent/Practice",
-  "Training recommendation",
-] as const;
+export const skillLevels = ["OP", "Encourage", "Backlog"] as const;
 
 export type SkillLevelTypes = (typeof skillLevels)[number];

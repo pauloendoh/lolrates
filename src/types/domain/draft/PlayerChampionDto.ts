@@ -14,6 +14,8 @@ export interface PlayerChampionDto {
   role: ChampionRoleType;
   skillLevel: SkillLevelTypes;
 
+  notes: string;
+
   createdAt: string;
   updatedAt: string;
 
@@ -32,6 +34,8 @@ export const getEmptyPlayerChampionDto = (
   championId,
   skillLevel,
 
+  notes: "",
+
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 });
@@ -41,13 +45,16 @@ export const getFilledPlayerChampionDto = (
   playerId: number,
   championId: number,
   skillLevel: SkillLevelTypes,
-  role: ChampionRoleType
+  role: ChampionRoleType,
+  notes: string
 ): PlayerChampionDto => ({
   id,
   playerId,
   role,
   championId,
   skillLevel,
+
+  notes,
 
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),

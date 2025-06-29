@@ -96,6 +96,9 @@ const PlayerChampionDialog = (props: {
         enableReinitialize
         initialValues={props.initialValue}
         onSubmit={(formikValues) => {
+          console.log({
+            formikValues,
+          });
           saveChampion(formikValues, {
             onSettled: () => {
               props.onClose();
@@ -108,7 +111,7 @@ const PlayerChampionDialog = (props: {
           });
         }}
       >
-        {({ values, handleChange, setFieldValue }) => (
+        {({ values, setFieldValue }) => (
           <Form>
             <DialogTitle id="champion-dialog-title">
               Edit player champion
@@ -234,6 +237,17 @@ const PlayerChampionDialog = (props: {
                   </S.RadarInputsWrapper>
                 </S.ChampionRadarWrapper>
               )}
+
+              <MyTextField
+                fullWidth
+                multiline
+                minRows={3}
+                label="Notes"
+                value={values.notes}
+                onChange={(e) => {
+                  setFieldValue("notes", e.target.value);
+                }}
+              />
             </DialogContent>
             <DialogTitle>
               <SaveCancelButtons

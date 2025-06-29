@@ -1,4 +1,4 @@
 
 
-ECHO "[HUSKY] npx tsc"
+echo "[HUSKY] npx tsc"
 npx tsc --noEmit
