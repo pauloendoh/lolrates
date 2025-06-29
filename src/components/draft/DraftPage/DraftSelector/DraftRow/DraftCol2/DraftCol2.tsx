@@ -151,7 +151,7 @@ const DraftCol2 = (props: {
           </S.ChampionsWrapper>
 
           <S.ChampionsWrapper>
-            <Txt>Training recommendation</Txt>
+            <Txt>Encourage</Txt>
             <S.ChampionImgs>
               {getChampionsBySkillLevel("Encourage").map((pChampion) => (
                 <PlayerChampionImage
