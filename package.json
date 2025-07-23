@@ -1,6 +1,9 @@
 {
   "name": "with-typescript",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next -p 8079",
     "build": "next build",
