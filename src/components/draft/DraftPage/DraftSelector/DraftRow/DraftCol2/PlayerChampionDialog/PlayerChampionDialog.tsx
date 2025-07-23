@@ -239,6 +239,9 @@ const PlayerChampionDialog = (props: {
               )}
 
               <MyTextField
+                style={{
+                  marginTop: spacing(1),
+                }}
                 fullWidth
                 multiline
                 minRows={3}
