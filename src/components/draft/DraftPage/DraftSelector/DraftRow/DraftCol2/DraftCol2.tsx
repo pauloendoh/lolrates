@@ -95,7 +95,8 @@ const DraftCol2 = (props: {
     const playerChampion = playerChampions.find(
       (pChampion) =>
         pChampion.playerId === props.selectedPlayerId &&
-        pChampion.championId === championId
+        pChampion.championId === championId &&
+        pChampion.role === props.role
     );
 
     setInitialValueChampionDialog(
