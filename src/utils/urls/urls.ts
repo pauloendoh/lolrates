@@ -62,7 +62,7 @@ export const urls = {
       const clearName = championName
         .replace(/[^a-zA-Z ]/g, "")
         .replace(/\s/g, "");
-      return `https://www.op.gg/aram/${clearName}/statistics`;
+      return `https://www.op.gg/modes/aram/${clearName}/build`;
     },
     patchNotes: (championName: string) => getChampionHistoryUrl(championName),
     lolGraphsAramChampion: (fromUrl: string, championName: string) =>
