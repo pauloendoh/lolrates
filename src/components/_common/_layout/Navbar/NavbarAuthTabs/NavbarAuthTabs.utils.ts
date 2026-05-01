@@ -27,12 +27,12 @@ export const navbarTabOptions: INavbarTabOption[] = [
   //   id: "playground-tab",
   //   label: "Playground",
   // },
-  {
-    href: urls.pages.rationSearch("", "movie"),
-    tabIndex: 3,
-    id: "ration-tab",
-    label: "Ration",
-  },
+  // {
+  //   href: urls.pages.rationSearch("", "movie"),
+  //   tabIndex: 3,
+  //   id: "ration-tab",
+  //   label: "Ration",
+  // },
   {
     href: urls.pages.aramHelper,
     tabIndex: 4,
