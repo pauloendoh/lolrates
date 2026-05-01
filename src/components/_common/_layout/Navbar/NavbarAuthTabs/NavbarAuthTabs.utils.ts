@@ -20,12 +20,13 @@ export const navbarTabOptions: INavbarTabOption[] = [
     id: "draft-tab",
     label: "Draft",
   },
-  {
-    href: urls.pages.playground,
-    tabIndex: 2,
-    id: "playground-tab",
-    label: "Playground",
-  },
+  // PE 1/3 - futuramente, remover tudo de playground pois não carrega mais nem a página;
+  // {
+  //   href: urls.pages.playground,
+  //   tabIndex: 2,
+  //   id: "playground-tab",
+  //   label: "Playground",
+  // },
   {
     href: urls.pages.rationSearch("", "movie"),
     tabIndex: 3,
